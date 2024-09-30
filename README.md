@@ -3,7 +3,7 @@
 </div>
 
 # 딥하조
-![image](https://github.com/user-attachments/assets/e05c3769-17ff-4d36-8cec-55be088530ca)
+![image](https://github.com/user-attachments/assets/1d61152d-0f72-499f-b70f-88ccdf21870d)
 - 2024.10.02 ~ 2024.10.24
 - 재활용 품목 분류를 위한 Object Detection
 - Naver Connect & Upstage 주관 대회

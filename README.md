@@ -52,7 +52,7 @@
 
 
 ## Tools
-- Github
+- Github ( Issue, Projects )
 - Notion
 - Slack
 - Google Sheets, Presentation

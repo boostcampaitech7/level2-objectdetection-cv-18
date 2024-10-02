@@ -7,7 +7,7 @@
 - 2024.10.02 ~ 2024.10.24
 - 재활용 품목 분류를 위한 Object Detection
 - Naver Connect & Upstage 주관 대회
-
+- [CSV](https://docs.google.com/spreadsheets/d/1UjokS8UYo729eNL_m7iWYXZjsI_MPKUfhAe2mp3oBJQ/edit?usp=sharing)
 ## 💡 팀원 소개
 
 | [![](https://avatars.githubusercontent.com/chan-note)](https://github.com/chan-note) | [![](https://avatars.githubusercontent.com/Donghwan127)](https://github.com/Donghwan127) | [![](https://avatars.githubusercontent.com/batwan01)](https://github.com/batwan01) | [![](https://avatars.githubusercontent.com/taehan79-kim)](https://github.com/taehan79-kim) | [![](https://avatars.githubusercontent.com/nOctaveLay)](https://github.com/nOctaveLay)  | [![](https://avatars.githubusercontent.com/Two-Silver)](https://github.com/Two-Silver)  |

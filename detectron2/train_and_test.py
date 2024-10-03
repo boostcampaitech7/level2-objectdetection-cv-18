@@ -21,44 +21,32 @@ from detectron2.data import build_detection_test_loader, build_detection_train_l
 import detectron2.data.transforms as T
 
 
-# seed 고정 : 42
-# Detectron2에서 특정 레이어가 새롭게 추가되거나 클래스 수가 달라질 때 랜덤으로 초기화되는 경우를 막음
-def seed_everything(seed: int = 42):
-    random.seed(seed)
-    np.random.seed(seed)
-    os.environ["PYTHONHASHSEED"] = str(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)  # type: ignore
-    torch.backends.cudnn.deterministic = True  # type: ignore
-    torch.backends.cudnn.benchmark = True  # type: ignore
-
-seed_everything()
-
-# Register Dataset
-# train / test를 구분할 필요는 없다. (method에서 해결)
-try:
-    # name, metadata, jsonfile, image_root
-    register_coco_instances('coco_trash_train', {}, '/data/ephemeral/home/dataset/train.json', '/data/ephemeral/home/dataset/')
-except AssertionError:
-    pass
-
-try:
-    # name, metadata, jsonfile, image_root
-    register_coco_instances('coco_trash_test', {}, '/data/ephemeral/home/dataset/test.json', '/data/ephemeral/home/dataset/')
-except AssertionError:
-    pass
-
-MetadataCatalog.get('coco_trash_train').thing_classes = ["General trash", "Paper", "Paper pack", "Metal", 
-                                                         "Glass", "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing"]
-
 # config 불러오기
 cfg = get_cfg()
 cfg.merge_from_file(model_zoo.get_config_file('COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml'))
 
 # train, test 둘 다 해당하는 내용 수정
-cfg.OUTPUT_DIR = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/detectron2/output/faster_rcnn_R_101_FPN_3x'
+cfg.DATA_DIR = '/data/ephemeral/home/dataset/'
+cfg.OUTPUT_DIR = 'output/seed_test1'
 cfg.DATALOADER.NUM_WOREKRS = 2
-# cfg.OUTPUT_TRAIN_DIR = os.path.join(cfg.OUTPUT_DIR, '')
+
+
+# Register Dataset
+# train / test를 구분할 필요는 없다. (method에서 해결)
+try:
+    # name, metadata, jsonfile, image_root
+    register_coco_instances('coco_trash_train', {}, os.path.join(cfg.DATA_DIR, 'train.json'), cfg.DATA_DIR)
+except AssertionError:
+    pass
+
+try:
+    # name, metadata, jsonfile, image_root
+    register_coco_instances('coco_trash_test', {}, os.path.join(cfg.DATA_DIR, 'test.json'), cfg.DATA_DIR)
+except AssertionError:
+    pass
+
+MetadataCatalog.get('coco_trash_train').thing_classes = ["General trash", "Paper", "Paper pack", "Metal", 
+                                                         "Glass", "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing"]
 
 
 # train config 수정하기
@@ -80,6 +68,21 @@ cfg.MODEL.ROI_HEADS.NUM_CLASSES = 10
 # test config 수정하기
 cfg.DATASETS.TEST = ('coco_trash_test',)
 cfg.TEST.EVAL_PERIOD = 3000
+
+
+
+# seed 고정 : 42
+# Detectron2에서 특정 레이어가 새롭게 추가되거나 클래스 수가 달라질 때 랜덤으로 초기화되는 경우를 막음
+def seed_everything(seed: int = 42):
+    random.seed(seed)
+    np.random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)  # type: ignore
+    torch.backends.cudnn.deterministic = True  # type: ignore
+    torch.backends.cudnn.benchmark = True  # type: ignore
+
+seed_everything()
 
 
 # mapper - input data를 어떤 형식으로 return할지 (따라서 augmnentation 등 데이터 전처리 포함 됨)
@@ -180,7 +183,7 @@ def test():
             + str(box[1]) + ' ' + str(box[2]) + ' ' + str(box[3]) + ' ')
         
         prediction_strings.append(prediction_string)
-        file_names.append(data['file_name'].replace('/data/ephemeral/home/dataset/',''))
+        file_names.append(data['file_name'].replace(cfg.DATA_DIR,''))
 
     return prediction_strings, file_names
 
@@ -191,5 +194,6 @@ def submission(prediction_strings, file_names, save_file_name = 'submission_det2
     submission.to_csv(os.path.join(cfg.OUTPUT_DIR, save_file_name), index=None)
 
 if __name__ == "__main__":
+    train()
     prediction_strings, file_names = test()
     submission(prediction_strings, file_names, save_file_name='test.csv')

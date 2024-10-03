@@ -194,6 +194,7 @@ def submission(prediction_strings, file_names, save_file_name = 'submission_det2
     submission.to_csv(os.path.join(cfg.OUTPUT_DIR, save_file_name), index=None)
 
 if __name__ == "__main__":
-    train()
-    prediction_strings, file_names = test()
-    submission(prediction_strings, file_names, save_file_name='test.csv')
+    # train()
+    # prediction_strings, file_names = test()
+    # submission(prediction_strings, file_names, save_file_name='test.csv')
+    print(cfg.SEED)

@@ -84,6 +84,7 @@ def split_train_and_val():
 
 split_train_and_val()
 
+# 2. 데이터 셋 등록
 try:
     # name, metadata, jsonfile, image_root
     register_coco_instances('coco_trash_train', {}, os.path.join(cfg.DATA_DIR, 'split_train.json'), cfg.DATA_DIR)
@@ -105,7 +106,7 @@ MetadataCatalog.get('coco_trash_train').thing_classes = ["General trash", "Paper
                                                          "Glass", "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing"]
 
 
-# train config 수정하기
+#3. train config 수정하기
 cfg.DATASETS.TRAIN = ('coco_trash_train',)
 cfg.DATASETS.TEST = ('coco_trash_val',)
 cfg.DATALOADER.NUM_WOREKRS = 2
@@ -125,8 +126,6 @@ cfg.MODEL.RETINANET.NUM_CLASSES = 10
 
 # test config 수정하기
 cfg.TEST.EVAL_PERIOD = 3000
-
-
 
 # seed 고정 : 42
 # Detectron2에서 특정 레이어가 새롭게 추가되거나 클래스 수가 달라질 때 랜덤으로 초기화되는 경우를 막음

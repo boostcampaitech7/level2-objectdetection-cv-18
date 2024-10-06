@@ -25,12 +25,12 @@ import detectron2.data.transforms as T
 
 # config 불러오기
 cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file('COCO-Detection/rpn_R_50_FPN_1x.yaml'))
+cfg.merge_from_file(model_zoo.get_config_file('COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml'))
 
 # train, test 둘 다 해당하는 내용 수정
 cfg.DATA_DIR = '/data/ephemeral/home/dataset/'
-cfg.OUTPUT_DIR = 'output/rpn_R_50_FPN_1x'
-cfg.OUTPUT_EVAL_DIR = '/output_eval/rpn_R_50_FPN_1x'
+cfg.OUTPUT_DIR = 'output/faster_rcnn_X_101_32x8d_FPN_3x'
+cfg.OUTPUT_EVAL_DIR = '/output_eval/faster_rcnn_X_101_32x8d_FPN_3x'
 cfg.DATALOADER.NUM_WOREKRS = 2
 
 # Register Dataset
@@ -111,7 +111,7 @@ cfg.DATASETS.TRAIN = ('coco_trash_train',)
 cfg.DATASETS.TEST = ('coco_trash_val',)
 cfg.DATALOADER.NUM_WOREKRS = 2
 
-cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url('COCO-Detection/rpn_R_50_FPN_1x.yaml')
+cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url('COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml')
 
 cfg.SOLVER.IMS_PER_BATCH = 4
 cfg.SOLVER.BASE_LR = 0.001
@@ -217,7 +217,6 @@ def test():
     # test loader
     test_loader = build_detection_test_loader(cfg, 'coco_trash_test', testMapper)
 
-    print(test_loader)
     # output 뽑은 후 sumbmission 양식에 맞게 후처리 
     prediction_strings = []
     file_names = []
@@ -227,7 +226,7 @@ def test():
         prediction_string = ''
         
         data = data[0]
-        
+        print(predictor(data['image']))
         outputs = predictor(data['image'])['instances']
         
         targets = outputs.pred_classes.cpu().tolist()

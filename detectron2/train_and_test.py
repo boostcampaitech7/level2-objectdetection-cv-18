@@ -25,12 +25,12 @@ import detectron2.data.transforms as T
 
 # config 불러오기
 cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file('COCO-Detection/retinanet_R_101_FPN_3x.yaml'))
+cfg.merge_from_file(model_zoo.get_config_file('COCO-Detection/rpn_R_50_FPN_1x.yaml'))
 
 # train, test 둘 다 해당하는 내용 수정
 cfg.DATA_DIR = '/data/ephemeral/home/dataset/'
-cfg.OUTPUT_DIR = 'output/retinanet_R_101_FPN_3x_epoch15000'
-cfg.OUTPUT_EVAL_DIR = '/output_eval/retinanet_R_101_FPN_3x_epoch15000'
+cfg.OUTPUT_DIR = 'output/rpn_R_50_FPN_1x'
+cfg.OUTPUT_EVAL_DIR = '/output_eval/rpn_R_50_FPN_1x'
 cfg.DATALOADER.NUM_WOREKRS = 2
 
 # Register Dataset
@@ -111,7 +111,7 @@ cfg.DATASETS.TRAIN = ('coco_trash_train',)
 cfg.DATASETS.TEST = ('coco_trash_val',)
 cfg.DATALOADER.NUM_WOREKRS = 2
 
-cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url('COCO-Detection/retinanet_R_101_FPN_3x.yaml')
+cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url('COCO-Detection/rpn_R_50_FPN_1x.yaml')
 
 cfg.SOLVER.IMS_PER_BATCH = 4
 cfg.SOLVER.BASE_LR = 0.001
@@ -250,10 +250,9 @@ def submission(prediction_strings, file_names, save_file_name = 'submission_det.
     submission.to_csv(os.path.join(cfg.OUTPUT_DIR, save_file_name), index=None)
 
 if __name__ == "__main__":
-    # print(cfg.MODEL)
     split_train_and_val()
     cfg.DATASETS.TRAIN = ('coco_trash_train',)
     cfg.DATASETS.TEST = ('coco_trash_val',)
     train()
-    # prediction_strings, file_names = test()
-    # submission(prediction_strings, file_names)
+    prediction_strings, file_names = test()
+    submission(prediction_strings, file_names)

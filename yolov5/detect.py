@@ -81,6 +81,6 @@ def detect(weights, img_size=640, conf_thres=0.25, iou_thres=0.45, json_file=Non
 if __name__ == "__main__":
     detect(weights='/data/ephemeral/home/jiwan/level2-objectdetection-cv-18/yolov5/runs/train/exp12/weights/best.pt',
             json_file='/data/ephemeral/home/dataset/test.json',
-            conf_thres=0.05,  # Confidence threshold 설정 (예시: 0.1)
-            iou_thres=0.55)   # IOU threshold 설정 (예시: 0.5))
+            conf_thres=0.05,  # Confidence threshold
+            iou_thres=0.55)   # IOU threshold
 

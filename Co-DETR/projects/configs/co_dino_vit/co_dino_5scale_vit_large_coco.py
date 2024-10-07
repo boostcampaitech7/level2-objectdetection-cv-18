@@ -343,6 +343,7 @@ lr_config = dict(
 runner = dict(type='EpochBasedRunner', max_epochs=16)
 
 # optimizer
+optimizer_config = dict(grad_clip=dict(max_norm=0.1, norm_type=2))
 # We use layer-wise learning rate decay, but it has not been implemented.
 optimizer = dict(
     type='AdamW',

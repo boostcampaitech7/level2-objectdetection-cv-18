@@ -4,7 +4,7 @@ _base_ = [
 ]
 checkpoint_config = dict(interval=1)
 resume_from = None
-load_from = None
+load_from = '/data/ephemeral/home/taehan/test/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_vit_large_coco/pytorch_model.pth'
 pretrained = None
 window_block_indexes = (
     list(range(0, 3)) + list(range(4, 7)) + list(range(8, 11)) + list(range(12, 15)) + list(range(16, 19)) +

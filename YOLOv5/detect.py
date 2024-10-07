@@ -80,4 +80,4 @@ if __name__ == "__main__":
             json_file='/data/ephemeral/home/dataset/test.json',
             conf_thres=0.05,  # Confidence threshold
             iou_thres=0.55)   # IOU threshold
-
+    #conf_thres, iou 변경할 필요가 있음.

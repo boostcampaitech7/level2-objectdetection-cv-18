@@ -41,9 +41,6 @@ def detect(weights, img_size=640, conf_thres=0.25, iou_thres=0.45, json_file=Non
             # Inference
             pred = model(img, augment=False)[0]
 
-            # 예측 결과 차원 확인
-            #print(f"Prediction shape: {pred.shape}")
-
             # 예측 결과가 예상대로 3D 텐서인지 확인
             if pred.ndim == 3:
                 try:

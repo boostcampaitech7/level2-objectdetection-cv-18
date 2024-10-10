@@ -16,7 +16,7 @@ model = dict(
         ape=False,
         drop_path_rate=0.3,
         patch_norm=True,
-        use_checkpoint=False,
+        use_checkpoint=True,
         pretrained=pretrained),
     neck=dict(in_channels=[192, 192*2, 192*4, 192*8]),
     query_head=dict(

@@ -169,7 +169,7 @@ def main():
     )
 
     # 커스텀 Hook 추가 (설정 파일에 등록)
-    cfg.custom_hooks = [dict(type='SaveTopModelsHook', work_dir=cfg.work_dir)]
+    # cfg.custom_hooks = [dict(type='SaveTopModelsHook', work_dir=cfg.work_dir)]
 
     # Dataset 설정
     classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
@@ -180,19 +180,17 @@ def main():
     cfg.data.train.classes = classes
     cfg.data.val.classes = classes
     fold_num = 5
-    cfg.model.query_head.num_classes = 10
-    cfg.model.roi_head[0].bbox_head.num_classes = 10
-    cfg.model.bbox_head[0].num_classes = 10
-    
+    cfg.model.roi_head.bbox_head.num_classes = 10
+
     # K-Fold를 위한 설정
     for fold_idx in range(fold_num):
         cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
         cfg.data.train.img_prefix = root
-        cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'/train_{fold_idx}.json')
+        cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'train_{fold_idx}.json')
         cfg.data.train.pipeline[2]['img_scale'] = (512,512) # Resize
 
         cfg.data.val.img_prefix = root
-        cfg.data.val.ann_file = os.path.join(cfg.data.val.img_prefix,f'/val_{fold_idx}.json')
+        cfg.data.val.ann_file = os.path.join(cfg.data.val.img_prefix,f'val_{fold_idx}.json')
         cfg.data.test.pipeline[1]['img_scale'] = (512,512) # Resize
 
         # Train 데이터셋 빌드

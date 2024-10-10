@@ -5,7 +5,7 @@ import json
 json_file_path = '/data/ephemeral/home/dataset/train.json'
 
 # 출력 디렉토리 설정
-train_labels_dir = '/data/ephemeral/home/dataset/train/labels'
+train_labels_dir = '/data/ephemeral/home/jiwan/dataset/train/labels'
 
 # 이미지 크기 설정
 img_width = 1024
@@ -45,6 +45,3 @@ for image_id, labels in image_labels.items():
     with open(label_file_path, 'w') as label_file:
         for label in labels:
             label_file.write(label + '\n')
-
-    # 이미지 파일 복사 (여기선 이미지 파일 복사 예시가 필요해)
-    # shutil.copy(f"original_images/{image_name}", train_images_dir)

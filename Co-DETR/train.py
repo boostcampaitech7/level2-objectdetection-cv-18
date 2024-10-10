@@ -95,7 +95,7 @@ def main():
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
     # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
-    cfg.data.samples_per_gpu = 2                                                    # 배치 크기 설정
+    cfg.data.samples_per_gpu = 3                                                    # 배치 크기 설정
     # cfg.runner = dict(type='EpochBasedRunner', max_epochs=12)                      # epoch 수 설정
     cfg.seed = 2022                                                                 # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                               # 사용할 GPU 설정
@@ -103,8 +103,8 @@ def main():
 
     # 모델 경량화
     cfg.model.backbone.use_act_checkpoint = False                                   # 백본 체크포인트 사용 안함
-    cfg.model.backbone.img_size = 256                                               # 백본 이미지 사이즈 설정
-    cfg.train_pipeline[3]['policies'][0][0]['img_scale'] = [(256, 256),             # 트레인 이미지 스케일 설정 
+    cfg.model.backbone.img_size = 512                                               # 백본 이미지 사이즈 설정
+    cfg.data.train.pipeline[3]['policies'][0][0]['img_scale'] = [(256, 256),             # 트레인 이미지 스케일 설정 
                                                             (284, 284),
                                                             (312, 312),
                                                             (341, 341),
@@ -114,10 +114,10 @@ def main():
                                                             (455, 455),
                                                             (483, 483),
                                                             (512, 512)]
-    cfg.train_pipeline[3]['policies'][1][0]['img_scale'] = [(400, 400),             # 트레인 이미지 스케일 설정 
+    cfg.data.train.pipeline[3]['policies'][1][0]['img_scale'] = [(400, 400),             # 트레인 이미지 스케일 설정 
                                                             (500, 500),
                                                             (600, 600)]
-    cfg.train_pipeline[3]['policies'][1][2]['img_scale'] = [(256, 256),             # 트레인 이미지 스케일 설정 
+    cfg.data.train.pipeline[3]['policies'][1][2]['img_scale'] = [(256, 256),             # 트레인 이미지 스케일 설정 
                                                             (284, 284),
                                                             (312, 312),
                                                             (341, 341),
@@ -127,7 +127,8 @@ def main():
                                                             (455, 455),
                                                             (483, 483),
                                                             (512, 512)]
-    cfg.test_pipeline[1]['img_scale'] = (1024, 1024)                                # 테스트 이미지 스케일 설정
+    cfg.data.val.pipeline[1]['img_scale'] = (512, 512)                                # 테스트 이미지 스케일 설정
+    cfg.data.test.pipeline[1]['img_scale'] = (512, 512)                                # 테스트 이미지 스케일 설정
 
     # TensorBoard 로그 및 텍스트 로그 설정
     cfg.log_config = dict(

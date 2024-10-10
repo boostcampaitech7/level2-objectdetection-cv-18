@@ -107,13 +107,7 @@ def split_train_and_val():
         train_image_ids = groups[train_idx]
         val_image_ids = groups[val_idx]
 
-        """
-        COCO dataset field 중에서 우리가 변경해야 하는 필드는
-        images, categories, annotations다.
-        images와 annotations는 kf로 split 해주고
-        categories는 나눌 필요가 없으므로 그대로 쓴다.
-        """
-
+        # 변경해야 하는 image 필드와 annotation 필드만 수정한다.
         # Train과 Val에 해당하는 images 필드 data 빌드
         train_images = [img for img in data['images'] if img['id'] in train_image_ids]
         val_images = [img for img in data['images'] if img['id'] in val_image_ids]
@@ -193,13 +187,13 @@ def main():
 
     # K-Fold를 위한 설정
     for fold_idx in range(fold_num):
-        cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                      # 로그/모델 저장 위치
+        cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
         cfg.data.train.img_prefix = root
-        cfg.data.train.ann_file = root + f'/train_{fold_idx}.json'
+        cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'/train_{fold_idx}.json')
         cfg.data.train.pipeline[2]['img_scale'] = (512,512) # Resize
 
         cfg.data.val.img_prefix = root
-        cfg.data.val.ann_file = root + '/val_split_0.json'
+        cfg.data.val.ann_file = os.path.join(cfg.data.val.img_prefix,f'/val_{fold_idx}.json')
         cfg.data.test.pipeline[1]['img_scale'] = (512,512) # Resize
 
         # Train 데이터셋 빌드
@@ -223,5 +217,5 @@ def main():
         )
 
 if __name__ == '__main__':
-    # split_train_and_val()
-    main()
+    split_train_and_val()
+    # main()

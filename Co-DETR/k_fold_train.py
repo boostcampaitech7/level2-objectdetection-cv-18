@@ -135,13 +135,9 @@ def main():
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    config_file_root = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/vfnet/vfnet_swinL_fpn_1x_coco.py'
+    config_file_root = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
-
-    # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
-    # cfg.optimizer.lr = 0.02                                                        # lr 설정
-    # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
 
     cfg.optimizer = dict(
         type='AdamW',
@@ -184,7 +180,10 @@ def main():
     cfg.data.train.classes = classes
     cfg.data.val.classes = classes
     fold_num = 5
-
+    cfg.model.query_head.num_classes = 10
+    cfg.model.roi_head[0].bbox_head.num_classes = 10
+    cfg.model.bbox_head[0].num_classes = 10
+    
     # K-Fold를 위한 설정
     for fold_idx in range(fold_num):
         cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
@@ -217,5 +216,5 @@ def main():
         )
 
 if __name__ == '__main__':
-    split_train_and_val()
-    # main()
+    # split_train_and_val()
+    main()

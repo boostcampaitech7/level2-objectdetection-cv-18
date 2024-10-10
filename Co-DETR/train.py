@@ -54,13 +54,17 @@ class SaveTopModelsHook(Hook):
         mAP50 = runner.log_buffer.output.get('bbox_mAP_50', 0)  # mAP50 값
         epoch = runner.epoch + 1
 
-        # 모델 파일명 생성 (val accuracy, mAP@50, epoch, val loss 기준)
-        acc_filename = os.path.join(self.work_dir, f"checkpoint_acc_{val_acc:.4f}_mAP50_{mAP50:.4f}_epoch_{epoch}_loss_{val_loss:.4f}.pth")
-        loss_filename = os.path.join(self.work_dir, f"checkpoint_loss_{val_loss:.4f}_mAP50_{mAP50:.4f}_epoch_{epoch}_acc_{val_acc:.4f}.pth")
+        # # 모델 파일명 생성 (val accuracy, mAP@50, epoch, val loss 기준)
+        # acc_filename = os.path.join(self.work_dir, f"checkpoint_acc_{val_acc:.4f}_mAP50_{mAP50:.4f}_epoch_{epoch}_loss_{val_loss:.4f}.pth")
+        # loss_filename = os.path.join(self.work_dir, f"checkpoint_loss_{val_loss:.4f}_mAP50_{mAP50:.4f}_epoch_{epoch}_acc_{val_acc:.4f}.pth")
 
-        # 먼저 모델을 저장
-        torch.save(runner.model.state_dict(), acc_filename)
-        torch.save(runner.model.state_dict(), loss_filename)
+        # # 먼저 모델을 저장
+        # torch.save(runner.model.state_dict(), acc_filename)
+        # torch.save(runner.model.state_dict(), loss_filename)
+
+        # best 모델만 저장
+        acc_filename = os.path.join(self.work_dir, f"best_acc_model.pth")
+        loss_filename = os.path.join(self.work_dir, f"best_loss_model.pth")
 
         # 정확도 기준 상위 3개 가중치만 유지
         self.save_top_model(self.top3_val_acc, val_acc, epoch, acc_filename, mode='max')
@@ -86,16 +90,44 @@ def main():
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    cfg = Config.fromfile('/data/ephemeral/home/euna/mmdetection/configs/cascade_rcnn/cascade_rcnn_r50_fpn_1x_coco.py')  # 모델 설정
-    cfg.work_dir = './work_dirs/cascade_rcnn_r50_fpn_1x_trash'                      # 로그/모델 저장 위치
-    cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
-    cfg.optimizer.lr = 0.02                                                        # lr 설정
-    cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
-    cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
-    cfg.runner = dict(type='EpochBasedRunner', max_epochs=15)                      # epoch 수 설정
-    cfg.seed = 2022                                                                # 랜덤 시드 설정
-    cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
-    cfg.device = get_device()                                                      # 디바이스 설정 (GPU 또는 CPU)
+    cfg = Config.fromfile('./projects/configs/co_dino_vit/co_dino_5scale_vit_large_coco.py')  # 모델 설정
+    cfg.work_dir = './work_dirs/co_dino_5scale_vit_large_coco'                      # 로그/모델 저장 위치
+    # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
+    # cfg.optimizer.lr = 0.02                                                        # lr 설정
+    # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
+    cfg.data.samples_per_gpu = 2                                                    # 배치 크기 설정
+    # cfg.runner = dict(type='EpochBasedRunner', max_epochs=12)                      # epoch 수 설정
+    cfg.seed = 2022                                                                 # 랜덤 시드 설정
+    cfg.gpu_ids = [0]                                                               # 사용할 GPU 설정
+    cfg.device = get_device()                                                       # 디바이스 설정 (GPU 또는 CPU)
+
+    # 모델 경량화
+    cfg.model.backbone.use_act_checkpoint = False                                   # 백본 체크포인트 사용 안함
+    cfg.model.backbone.img_size = 256                                               # 백본 이미지 사이즈 설정
+    cfg.train_pipeline[3]['policies'][0][0]['img_scale'] = [(256, 256),             # 트레인 이미지 스케일 설정 
+                                                            (284, 284),
+                                                            (312, 312),
+                                                            (341, 341),
+                                                            (369, 369),
+                                                            (398, 398),
+                                                            (426, 426),
+                                                            (455, 455),
+                                                            (483, 483),
+                                                            (512, 512)]
+    cfg.train_pipeline[3]['policies'][1][0]['img_scale'] = [(400, 400),             # 트레인 이미지 스케일 설정 
+                                                            (500, 500),
+                                                            (600, 600)]
+    cfg.train_pipeline[3]['policies'][1][2]['img_scale'] = [(256, 256),             # 트레인 이미지 스케일 설정 
+                                                            (284, 284),
+                                                            (312, 312),
+                                                            (341, 341),
+                                                            (369, 369),
+                                                            (398, 398),
+                                                            (426, 426),
+                                                            (455, 455),
+                                                            (483, 483),
+                                                            (512, 512)]
+    cfg.test_pipeline[1]['img_scale'] = (1024, 1024)                                # 테스트 이미지 스케일 설정
 
     # TensorBoard 로그 및 텍스트 로그 설정
     cfg.log_config = dict(
@@ -113,7 +145,7 @@ def main():
     classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
-    root = '/data/ephemeral/home/dataset'  # root 경로 설정
+    root = '/data/ephemeral/home/dataset/'  # root 경로 설정
     cfg.data.train.classes = classes
     cfg.data.train.img_prefix = root
     cfg.data.train.ann_file = root + '/train_split_0.json'

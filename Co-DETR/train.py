@@ -100,6 +100,9 @@ def main():
     cfg.seed = 2022                                                                 # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                               # 사용할 GPU 설정
     cfg.device = get_device()                                                       # 디바이스 설정 (GPU 또는 CPU)
+    cfg.model.query_head.num_classes = 10
+    cfg.model.roi_head[0].bbox_head.num_classes = 10
+    cfg.model.bbox_head[0].num_classes = 10
 
     # 모델 경량화
     cfg.model.backbone.use_act_checkpoint = False                                   # 백본 체크포인트 사용 안함

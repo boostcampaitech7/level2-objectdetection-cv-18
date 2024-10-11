@@ -14,13 +14,13 @@ def main():
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
     # Config 파일 경로
-    config_file = './configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
+    config_file = './projects/configs/co_dino_vit/co_dino_5scale_vit_large_coco.py'
     cfg = Config.fromfile(config_file)
 
     # 경로 설정
     root = '/data/ephemeral/home/dataset'
-    cfg.work_dir = './work_dirs/faster_rcnn_r50_fpn_1x_trash'
-    checkpoint_file = '/data/ephemeral/home/euna/mmdetection/work_dirs/cascade_rcnn_r50_fpn_1x_trash/epoch_12.pth'
+    cfg.work_dir = './work_dirs/co_dino_5scale_vit_large_coco'
+    checkpoint_file = './work_dirs/co_dino_5scale_vit_large_coco/epoch_16.pth'
 
     # Dataset 설정
     cfg.data.test.classes = classes
@@ -30,11 +30,13 @@ def main():
     cfg.data.test.test_mode = True
 
     # 하이퍼파라미터 설정
-    cfg.data.samples_per_gpu = 4
+    cfg.data.samples_per_gpu = 3
     cfg.data.workers_per_gpu = 2
     cfg.seed = 2021
     cfg.gpu_ids = [1]  # GPU ID 설정
-    cfg.model.roi_head.bbox_head.num_classes = 10
+    cfg.model.query_head.num_classes = 10
+    cfg.model.roi_head[0].bbox_head.num_classes = 10
+    cfg.model.bbox_head[0].num_classes = 10
     cfg.model.train_cfg = None  # 학습 관련 설정을 제거 (inference 전용)
 
     # Dataset 및 DataLoader 생성
@@ -78,7 +80,7 @@ def main():
     submission = pd.DataFrame()
     submission['PredictionString'] = prediction_strings
     submission['image_id'] = file_names
-    submission_file = os.path.join(cfg.work_dir, 'fold1_cascade_rcnn_r50_fpn_1x_coco_ori.csv')
+    submission_file = os.path.join(cfg.work_dir, 'co_dino_5scale_vit_large_coco.csv')
     submission.to_csv(submission_file, index=False)
     print(f"Submission file saved to {submission_file}")
 

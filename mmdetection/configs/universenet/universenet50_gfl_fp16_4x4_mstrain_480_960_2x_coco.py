@@ -11,4 +11,3 @@ optimizer_config = dict(
     _delete_=True, grad_clip=dict(max_norm=35, norm_type=2))
 lr_config = dict(warmup_iters=1000)
 
-fp16 = dict(loss_scale=512.)

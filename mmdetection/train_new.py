@@ -99,8 +99,8 @@ def main():
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    cfg = Config.fromfile('/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/universenet/universenet101_2008d_fp16_4x4_mstrain_480_960_20e_coco.py')  # 모델 설정
-    cfg.work_dir = './work_dirs/universenet_res2net101_fpn_20e_trash'                      # 로그/모델 저장 위치
+    cfg = Config.fromfile('/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/universenet/universenet101_gfl_fp16_4x4_mstrain_480_960_2x_coco.py')  # 모델 설정
+    cfg.work_dir = './work_dirs/universenet_res2net101_gfl_2x_trash'                      # 로그/모델 저장 위치
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정

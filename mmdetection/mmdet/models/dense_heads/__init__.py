@@ -17,7 +17,7 @@ from .free_anchor_retina_head import FreeAnchorRetinaHead
 from .fsaf_head import FSAFHead
 from .ga_retina_head import GARetinaHead
 from .ga_rpn_head import GARPNHead
-from .gfl_head import GFLHead
+from .gfl_head import GFLHead, GFLSEPCHead
 from .guided_anchor_head import FeatureAdaption, GuidedAnchorHead
 from .lad_head import LADHead
 from .ld_head import LDHead

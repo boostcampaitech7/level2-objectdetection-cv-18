@@ -646,3 +646,7 @@ class GFLHead(AnchorHead):
             int(flags.sum()) for flags in split_inside_flags
         ]
         return num_level_anchors_inside
+    
+@HEADS.register_module()
+class GFLSEPCHead(GFLHead):
+    pass

@@ -74,12 +74,14 @@ def prediction_format_per_image(boxes, scores, labels, image_size = 1024):
         output += f'{label} {score} {x*image_size} {y*image_size} {w*image_size} {h*image_size}'
     return output
 
+
 def main():
 
     iou_thr = 0.5
     skip_box_thr = 0.0001
     sigma = 0.1
     output_dir = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/Co-DETR/work_dirs/test'
+    image_size = 1024
 
     # submission format 만들기
     submission = pd.DataFrame()
@@ -88,12 +90,12 @@ def main():
     submission['PredictionString'] = ''
     
     for image_idx in tqdm(range(len(image_ids))):
-        boxes, scores, labels = make_ensemble_format_per_image(image_idx, output_dir)
+        boxes, scores, labels = make_ensemble_format_per_image(image_idx, output_dir, image_size=image_size)
 
         # 결측값 제거시 weights가 달라질 수 있음
         weights = [1] * len(labels)
         results = weighted_boxes_fusion(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)    
-        predictions = prediction_format_per_image(*results)
+        predictions = prediction_format_per_image(*results, image_size=image_size)
         submission['PredictionString'][image_idx] = predictions
 
     submission_file = os.path.join(output_dir, f'result.csv')

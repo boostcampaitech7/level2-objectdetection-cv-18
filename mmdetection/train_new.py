@@ -10,6 +10,7 @@ from mmdet.utils import get_device
 from mmcv.runner import Hook
 from mmcv.runner import HOOKS
 
+
 @HOOKS.register_module()
 class SaveTopModelsHook(Hook):
     """ 상위 3개 accuracy 및 loss 기준으로 모델을 저장하는 Hook """
@@ -99,12 +100,14 @@ def main():
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    cfg = Config.fromfile('/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/universenet/universenet101_gfl_fp16_4x4_mstrain_480_960_2x_coco.py')  # 모델 설정
-    cfg.work_dir = './work_dirs/universenet_res2net101_gfl_2x_trash'                      # 로그/모델 저장 위치
+    cfg = Config.fromfile('/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/focalnet/cascade_rcnn_focalnet_tiny_patch4_mstrain_480-800_adamw_3x_coco_lrf.py')  # 모델 설정
+    cfg.work_dir = './work_dirs/cascade_rcnn_focalnet_adamw_lrf_trash'                      # 로그/모델 저장 위치
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
-    cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
-    cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
+    # cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
+
+    # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
+    cfg.data.samples_per_gpu = 2                                                   # 배치 크기 설정
     # cfg.runner = dict(type='EpochBasedRunner', max_epochs=18)                      # epoch 수 설정
     cfg.seed = 2022                                                                # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정

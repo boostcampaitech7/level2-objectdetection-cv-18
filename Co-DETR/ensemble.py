@@ -3,7 +3,6 @@ from ensemble_boxes import *
 import os
 import pandas as pd
 from tqdm import tqdm
-from pycocotools.coco import COCO
 
 
 def return_image_ids(output_dir):
@@ -40,7 +39,7 @@ def make_ensemble_format_per_image(image_id, output_dir, image_size = 1024):
         scores = []
         bboxs = []
         
-        # 결측치 제거
+        # 분할
         original = prediction.split(' ')
         
         # label, score, box -> split
@@ -71,8 +70,8 @@ def prediction_format_per_image(boxes, scores, labels, image_size = 1024):
         x,y,w,h = boxes[idx]
 
         # normalize -> original
-        output += f'{label} {score} {x*image_size} {y*image_size} {w*image_size} {h*image_size}'
-    return output
+        output += f'{label} {score} {x*image_size} {y*image_size} {w*image_size} {h*image_size} '
+    return output[:-1]
 
 
 def main():
@@ -86,8 +85,9 @@ def main():
     # submission format 만들기
     submission = pd.DataFrame()
     image_ids = return_image_ids(output_dir)
-    submission['image_id'] = image_ids
+    
     submission['PredictionString'] = ''
+    submission['image_id'] = image_ids
     
     for image_idx in tqdm(range(len(image_ids))):
         boxes, scores, labels = make_ensemble_format_per_image(image_idx, output_dir, image_size=image_size)

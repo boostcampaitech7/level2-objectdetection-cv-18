@@ -16,6 +16,7 @@ from .positional_encoding import (LearnedPositionalEncoding,
                                   SinePositionalEncoding)
 from .res_layer import ResLayer, SimplifiedBasicBlock
 from .se_layer import DyReLU, SELayer
+from .sepc_dconv import ModulatedSEPCConv, SEPCConv
 from .transformer import (DetrTransformerDecoder, DetrTransformerDecoderLayer,
                           DynamicConv, PatchEmbed, Transformer, nchw_to_nlc,
                           nlc_to_nchw)
@@ -32,3 +33,8 @@ __all__ = [
     'preprocess_panoptic_gt', 'DyReLU',
     'get_uncertain_point_coords_with_randomness', 'get_uncertainty'
 ]
+
+__all__ += [
+    'SEPCConv', 'ModulatedSEPCConv'
+]
+

@@ -139,8 +139,6 @@ def main(n_splits):
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
 
-    # cfg.runner = dict(type='EpochBasedRunner', max_epochs=20)                      # epoch 수 설정
-
     # Dataset 설정
     classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
@@ -153,7 +151,7 @@ def main(n_splits):
 
     cfg.data.samples_per_gpu = 4    
 
-    cfg.seed = 2022                                                                  # 랜덤 시드 설정
+    cfg.seed = 42                                                                  # 랜덤 시드 설정
     cfg.gpu_ids = [0]
 
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)

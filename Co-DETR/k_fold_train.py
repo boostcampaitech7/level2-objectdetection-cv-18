@@ -86,7 +86,7 @@ class SaveTopModelsHook(Hook):
         self.logger.info("Training has ended.")
 
 
-def split_train_and_val():
+def split_train_and_val(n_splits):
     
     # load json
     data_root = '/data/ephemeral/home/dataset'
@@ -100,7 +100,7 @@ def split_train_and_val():
     groups = np.array([v[0] for v in var])      # group : image_id 이미지 별로 카테고리가 여러개 있는 것이기 때문
 
     # k-fold 크로스 밸리데이션 초기화, StratifiedGroupKFold:클래스 불균형을 해소하며, 이미지가 train/val set에 혼재하는 것 방지
-    kf = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
+    kf = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=42)
 
     for fold_idx, (train_idx, val_idx) in enumerate(kf.split(X, y, groups)):
         # Train과 Val image ids
@@ -130,7 +130,7 @@ def split_train_and_val():
         with open(os.path.join(data_root, f'val_{fold_idx}.json'), 'w') as f:
             json.dump(val_data, f)
 
-def main():
+def main(n_splits):
     """
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
@@ -139,25 +139,25 @@ def main():
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
 
-    cfg.optimizer = dict(
-        type='AdamW',
-        lr=0.0001,  
-        weight_decay=0.05, 
-        paramwise_cfg=dict(
-            custom_keys={
-                'absolute_pos_embed': dict(decay_mult=0.0),  # position embedding에 weight decay 적용 안 함
-                'relative_position_bias_table': dict(decay_mult=0.0),  # relative position bias에도 적용 안 함
-                'norm': dict(decay_mult=0.0)  # normalization 계층에도 적용 안 함
-            }
-        )
-    )
-    cfg.optimizer_config = dict(grad_clip=dict(max_norm=1.0, norm_type=2))  # Gradient clipping 설정
+    # Dataset 설정
+    classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
+               "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
-    cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
-    cfg.runner = dict(type='EpochBasedRunner', max_epochs=20)                      # epoch 수 설정
+    # 기본 학습 설정
+    root = '/data/ephemeral/home/dataset'  # root 경로 설정
+    cfg.data.train.classes = classes
+    cfg.data.val.classes = classes
+    cfg.model.roi_head.bbox_head.num_classes = 10
+
+    cfg.data.samples_per_gpu = 4    
+
     cfg.seed = 42                                                                  # 랜덤 시드 설정
-    cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
-    cfg.device = get_device()                                                      # 디바이스 설정 (GPU 또는 CPU)
+    cfg.gpu_ids = [0]
+
+    cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)
+    cfg.checkpoint_config = dict(max_keep_ckpts=3, interval=1)
+    cfg.device = get_device()                # 디바이스 설정 (GPU 또는 CPU)
+
 
     # TensorBoard 로그 및 텍스트 로그 설정
     cfg.log_config = dict(
@@ -168,22 +168,8 @@ def main():
         ]
     )
 
-    # 커스텀 Hook 추가 (설정 파일에 등록)
-    # cfg.custom_hooks = [dict(type='SaveTopModelsHook', work_dir=cfg.work_dir)]
-
-    # Dataset 설정
-    classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
-               "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
-
-    # 기본 학습 설정
-    root = '/data/ephemeral/home/dataset'  # root 경로 설정
-    cfg.data.train.classes = classes
-    cfg.data.val.classes = classes
-    fold_num = 5
-    cfg.model.roi_head.bbox_head.num_classes = 10
-
     # K-Fold를 위한 설정
-    for fold_idx in range(fold_num):
+    for fold_idx in range(n_splits):
         cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
         cfg.data.train.img_prefix = root
         cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'train_{fold_idx}.json')
@@ -214,5 +200,6 @@ def main():
         )
 
 if __name__ == '__main__':
-    # split_train_and_val()
-    main()
+    n_splits = 2
+    split_train_and_val(n_splits)
+    main(n_splits)

@@ -229,6 +229,7 @@ def run(
 
         # Process predictions
         for i, det in enumerate(pred):  # per image
+            count_csv = 0
             seen += 1
             if webcam:  # batch_size >= 1
                 p, im0, frame = path[i], im0s[i].copy(), dataset.count
@@ -253,7 +254,10 @@ def run(
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 pred_str = ""
-                print(f"Save CSV flag: {save_csv}")  # save_csv가 True인지 확인
+                count += 1
+                if count == 99:
+                    print(f"Save CSV flag: {save_csv}")  # save_csv가 True인지 확인
+                    count = 0
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):

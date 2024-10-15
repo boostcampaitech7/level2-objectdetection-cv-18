@@ -12,7 +12,7 @@ bbox_dims = []
 for annotation in data['annotations']:
     x, y, width, height = annotation['bbox']  # x, y, width, height
     bbox_dims.append([width, height])
-print(bbox_dims)
+
 # Convert list to numpy array
 bbox_dims = np.array(bbox_dims)
 

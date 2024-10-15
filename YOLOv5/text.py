@@ -1,47 +1,48 @@
 import os
 import json
 
-# JSON 파일 경로
-json_file_path = '/data/ephemeral/home/dataset/train.json'
+def process_labels(json_file_path, img_width, img_height, train_images, val_images, train_labels_dir, val_labels_dir):
+    # Read the JSON file for annotations
+    with open(json_file_path, 'r') as f:
+        data = json.load(f)
 
-# 출력 디렉토리 설정
-train_labels_dir = '/data/ephemeral/home/jiwan/dataset/train/labels'
+    # Dictionary to store image labels
+    image_labels = {}
 
-# 이미지 크기 설정
-img_width = 1024
-img_height = 1024
+    # Collect annotations
+    for annotation in data['annotations']:
+        image_id = annotation['image_id']
+        category_id = annotation['category_id']
+        bbox = annotation['bbox']
+        x_min, y_min, width, height = bbox
 
-# JSON 파일 읽기
-with open(json_file_path, 'r') as f:
-    data = json.load(f)
+        # Convert to YOLO format (normalize by image size)
+        x_center = (x_min + width / 2) / img_width
+        y_center = (y_min + height / 2) / img_height
+        norm_width = width / img_width
+        norm_height = height / img_height
 
-# 이미지와 라벨 처리
-image_labels = {}
+        # Collect labels for each image
+        if image_id not in image_labels:
+            image_labels[image_id] = []
+        image_labels[image_id].append(f"{category_id} {x_center} {y_center} {norm_width} {norm_height}")
 
-# 어노테이션 수집
-for annotation in data['annotations']:  # 'annotations' 키로 접근
-    image_id = annotation['image_id']
-    category_id = annotation['category_id']
-    bbox = annotation['bbox']
-    x_min, y_min, width, height = bbox
+    # Save label files in the appropriate folder
+    for image_id, labels in image_labels.items():
+        # Format the image name
+        image_name = f"{image_id:04d}.jpg"  # Example: 2882 -> 2882.jpg
 
-    # YOLO 형식으로 변환 (비율로 변환)
-    x_center = (x_min + width / 2) / img_width
-    y_center = (y_min + height / 2) / img_height
-    norm_width = width / img_width
-    norm_height = height / img_height
+        # Determine if the image is in train or val set
+        if image_name in train_images:
+            label_file_path = os.path.join(train_labels_dir, f"{os.path.splitext(image_name)[0]}.txt")
+        elif image_name in val_images:
+            label_file_path = os.path.join(val_labels_dir, f"{os.path.splitext(image_name)[0]}.txt")
+        else:
+            continue  # Skip if the image is not found in either set
 
-    # 이미지별 라벨 수집
-    if image_id not in image_labels:
-        image_labels[image_id] = []
-    image_labels[image_id].append(f"{category_id} {x_center} {y_center} {norm_width} {norm_height}")
+        # Write labels to file
+        with open(label_file_path, 'w') as label_file:
+            for label in labels:
+                label_file.write(label + '\n')
 
-# 라벨 파일 저장
-for image_id, labels in image_labels.items():
-    # 4자리 숫자 형식으로 파일 이름 만들기
-    image_name = f"{image_id:04d}.jpg"  # 예시: 2882 -> 2882.jpg
-    label_file_path = os.path.join(train_labels_dir, f"{os.path.splitext(image_name)[0]}.txt")
-
-    with open(label_file_path, 'w') as label_file:
-        for label in labels:
-            label_file.write(label + '\n')
+    print(f"Processed labels and saved to {train_labels_dir} and {val_labels_dir}.")

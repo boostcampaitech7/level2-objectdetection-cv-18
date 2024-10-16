@@ -254,10 +254,10 @@ def run(
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 pred_str = ""
-                count += 1
-                if count == 99:
+                count_csv += 1
+                if count_csv == 99:
                     print(f"Save CSV flag: {save_csv}")  # save_csv가 True인지 확인
-                    count = 0
+                    count_csv = 0
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):

@@ -92,7 +92,7 @@ def set_parser():
     parser.add_argument('-i', '--iou_thr', type=float, default=0.5, help="iou threshold")
     parser.add_argument('-sbt', '--skip_box_thr', type=float, default=0.0001, help="skip box threshold")
     parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
-    parser.add_argument('-o', '--output_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/test'), help="앙상블한 csv가 저장될 장소")
+    parser.add_argument('-o', '--output_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/ensemble'), help="앙상블한 csv가 저장될 장소")
     parser.add_argument('-w', '--width', type=int, default=1024, help="이미지 사이즈 크기")
     parser.add_argument('-l','--height', type=int, default=1024, help="이미지 사이즈 높이")
     return parser

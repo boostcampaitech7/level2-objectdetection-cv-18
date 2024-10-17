@@ -18,9 +18,6 @@ def return_image_ids(output_dir):
 # ensemble_boxes format 
 def make_ensemble_format_per_image(image_id, output_dir, image_width, image_height):
 
-    p = Path.cwd()
-    annotation = p.parent.parent.parent.joinpath('dataset/train.json')
-
     # output_dir에서 csv 파일 목록을 뽑아서 csv data를 csv_datas에 저장
     csv_datas = []
     output_list = os.listdir(output_dir)
@@ -147,8 +144,11 @@ def main():
 
         predictions = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
         submission['PredictionString'][image_idx] = predictions
-
-    submission_file = os.path.join(output, f'{ensemble_name}_result.csv')
+        
+    p = Path(output)
+    ensemble = p.parent.joinpath('ensemble')
+    os.makedirs(ensemble, exist_ok=True)
+    submission_file = os.path.join(ensemble, f'{ensemble_name}_result.csv')
     submission.to_csv(submission_file, index=False)
     print(f"Submission file saved to {submission_file}")
 

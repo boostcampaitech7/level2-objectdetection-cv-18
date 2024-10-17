@@ -1,5 +1,6 @@
 
 from ensemble_boxes import *
+import argparse
 import os
 import pandas as pd
 from tqdm import tqdm
@@ -74,13 +75,35 @@ def prediction_format_per_image(boxes, scores, labels, image_size = 1024):
     return output[:-1]
 
 
-def main():
+def set_parser():
+    """
+    Set basic parser
+    
+    Returns:
+        ArgumentParser
+    """
+    parser = argparse.ArgumentParser(
+                    prog="Ensemble",
+                    description="Ensemble csv files")
+    
+    parser.add_argument('-n', '--name', type=str, default='weighted_boxes_fusion', help="앙상블 할 method")
+    parser.add_argument('-i', '--iou_thr', type=float, default=0.5, help="iou threshold")
+    parser.add_argument('-sbt', '--skip_box_thr', type=float, default=0.0001, help="skip box threshold")
+    parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
+    parser.add_argument('-o', '--output_directory', type=str, default='/data/ephemeral/home/euna/level2-objectdetection-cv-18/Co-DETR/work_dirs/test', help="앙상블한 csv가 저장될 장소")
+    parser.add_argument('-s','--size', type=int, default=1024, help="이미지 사이즈")
+    return parser
 
-    iou_thr = 0.5
-    skip_box_thr = 0.0001
-    sigma = 0.1
-    output_dir = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/Co-DETR/work_dirs/test'
-    image_size = 1024
+def main():
+    parser = set_parser()
+    args = parser.parse_args()
+    
+    ensemble_name = args.name
+    iou_thr = args.iou_thr
+    skip_box_thr = args.skip_box_thr
+    sigma = args.sigma
+    output_dir = args.output_directory
+    image_size = args.size
 
     # submission format 만들기
     submission = pd.DataFrame()
@@ -94,7 +117,15 @@ def main():
 
         # 결측값 제거시 weights가 달라질 수 있음
         weights = [1] * len(labels)
-        results = weighted_boxes_fusion(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)    
+        
+        if ensemble_name == 'nms':
+            results = nms(boxes, scores, labels, weights=weights, iou_thr=iou_thr)
+        elif ensemble_name == 'soft_nms':
+            results = soft_nms(boxes, scores, labels, weights=weights, iou_thr=iou_thr, sigma=sigma, thresh=skip_box_thr)
+        elif ensemble_name == 'non_maximum_weighted':
+            results = non_maximum_weighted(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
+        else:
+            results = weighted_boxes_fusion(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)    
         predictions = prediction_format_per_image(*results, image_size=image_size)
         submission['PredictionString'][image_idx] = predictions
 

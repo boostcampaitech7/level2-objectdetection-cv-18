@@ -2,7 +2,7 @@ _base_ = [
     'co_dino_5scale_r50_1x_coco.py'
 ]
 
-load_from = '/data/ephemeral/home/taehan/Co-DETR/work_dirs/co_dino_5scale_swin_large_16e_o365tococo/co_dino_5scale_swin_large_16e_o365tococo.pth'
+# load_from = '/data/ephemeral/home/taehan/test/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_swin_large_16e_o365tococo/co_dino_5scale_swin_large_16e_o365tococo.pth'
 pretrained = None
 # model settings
 model = dict(
@@ -17,7 +17,7 @@ model = dict(
         ape=False,
         drop_path_rate=0.3,
         patch_norm=True,
-        use_checkpoint=True,
+        use_checkpoint=False, # 체크포인트 사용 안하는 것으로 변경
         pretrained=pretrained),
     neck=dict(in_channels=[192, 192*2, 192*4, 192*8]),
     query_head=dict(

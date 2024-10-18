@@ -15,14 +15,14 @@ def write_to_csv(name, pred_str, csv_path):
         writer.writerow(data)  # Write the prediction data
 
 # Load the custom YOLO model
-model = YOLO("/data/ephemeral/home/jiwan/level2-objectdetection-cv-18/YOLOv11/runs/detect/train/weights/best.pt")
+model = YOLO("/data/ephemeral/home/jiwan/level2-objectdetection-cv-18/YOLOv11/runs/detect/train4/weights/best.pt")
 
 # Predict on the test dataset
 results = model("/data/ephemeral/home/dataset_origin/test", save=True)
 
 # Flag to save results to CSV
 save_csv = True
-csv_path = "predictions.csv"
+csv_path = "predictions_1024.csv"
 
 # Process and save predictions
 for result in results:

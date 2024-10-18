@@ -1,4 +1,5 @@
 import mmcv
+import torch
 from mmcv import Config
 from mmdet.datasets import (build_dataloader, build_dataset)
 from mmdet.models import build_detector
@@ -14,13 +15,13 @@ def main():
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
     # Config 파일 경로
-    config_file = './configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
+    config_file = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
     cfg = Config.fromfile(config_file)
 
     # 경로 설정
     root = '/data/ephemeral/home/dataset'
-    cfg.work_dir = './work_dirs/faster_rcnn_r50_fpn_1x_trash'
-    checkpoint_file = '/data/ephemeral/home/euna/mmdetection/work_dirs/cascade_rcnn_r50_fpn_1x_trash/epoch_12.pth'
+    cfg.work_dir = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/Co-DETR/work_dirs/faster_rcnn_r50_fpn_1x_coco_1'
+    checkpoint_file = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/Co-DETR/work_dirs/faster_rcnn_r50_fpn_1x_coco_1/epoch_12.pth'
 
     # Dataset 설정
     cfg.data.test.classes = classes
@@ -34,7 +35,7 @@ def main():
     cfg.data.workers_per_gpu = 2
     cfg.seed = 2021
     cfg.gpu_ids = [1]  # GPU ID 설정
-    cfg.model.roi_head.bbox_head.num_classes = 10
+    cfg.model.roi_head.bbox_head.num_classes = 10    # 필요하면 설정
     cfg.model.train_cfg = None  # 학습 관련 설정을 제거 (inference 전용)
 
     # Dataset 및 DataLoader 생성
@@ -60,7 +61,6 @@ def main():
     prediction_strings = []
     file_names = []
     coco = COCO(cfg.data.test.ann_file)
-    img_ids = coco.getImgIds()
 
     class_num = 10
     for i, out in enumerate(output):
@@ -78,7 +78,7 @@ def main():
     submission = pd.DataFrame()
     submission['PredictionString'] = prediction_strings
     submission['image_id'] = file_names
-    submission_file = os.path.join(cfg.work_dir, 'fold1_cascade_rcnn_r50_fpn_1x_coco_ori.csv')
+    submission_file = os.path.join(cfg.work_dir, 'result.csv')
     submission.to_csv(submission_file, index=False)
     print(f"Submission file saved to {submission_file}")
 

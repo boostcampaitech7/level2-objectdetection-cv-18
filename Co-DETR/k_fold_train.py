@@ -43,6 +43,7 @@ class SaveTopModelsHook(Hook):
             if len(metric_list) > 3:
                 # 상위 3개만 유지하고, 가장 낮은 값을 제거
                 old_model = heapq.heappop(metric_list)
+                print("remove max",metric_list,old_model)
                 os.remove(old_model[2])  # 파일 삭제
         else:
             # 상위 3개 loss를 추적 (loss는 작을수록 좋음)
@@ -50,6 +51,7 @@ class SaveTopModelsHook(Hook):
             if len(metric_list) > 3:
                 # 상위 3개만 유지하고, 가장 큰 값을 제거
                 old_model = heapq.heappop(metric_list)
+                print("remove min",metric_list,old_model)
                 os.remove(old_model[2])  # 파일 삭제
 
     def after_val_epoch(self, runner):
@@ -86,7 +88,7 @@ class SaveTopModelsHook(Hook):
         self.logger.info("Training has ended.")
 
 
-def split_train_and_val(n_splits):
+def split_train_and_val(n_splits, random_state = 411):
     
     # load json
     data_root = '/data/ephemeral/home/dataset'
@@ -100,7 +102,7 @@ def split_train_and_val(n_splits):
     groups = np.array([v[0] for v in var])      # group : image_id 이미지 별로 카테고리가 여러개 있는 것이기 때문
 
     # k-fold 크로스 밸리데이션 초기화, StratifiedGroupKFold:클래스 불균형을 해소하며, 이미지가 train/val set에 혼재하는 것 방지
-    kf = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=42)
+    kf = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=random_state)
 
     for fold_idx, (train_idx, val_idx) in enumerate(kf.split(X, y, groups)):
         # Train과 Val image ids
@@ -135,7 +137,7 @@ def main(n_splits):
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    config_file_root = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
+    config_file_root = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
 
@@ -153,6 +155,8 @@ def main(n_splits):
 
     cfg.seed = 42                                                                  # 랜덤 시드 설정
     cfg.gpu_ids = [0]
+
+    cfg.model.roi_head.bbox_head.num_classes = 10    # 필요하면 설정
 
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)
     cfg.checkpoint_config = dict(max_keep_ckpts=3, interval=1)

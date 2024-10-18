@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 
 from ensemble_boxes import *
-from pycocotools.coco import COCO
 import numpy as np
 import pandas as pd
 from tqdm import tqdm

@@ -100,7 +100,7 @@ def split_train_and_val(n_splits):
     groups = np.array([v[0] for v in var])      # group : image_id 이미지 별로 카테고리가 여러개 있는 것이기 때문
 
     # k-fold 크로스 밸리데이션 초기화, StratifiedGroupKFold:클래스 불균형을 해소하며, 이미지가 train/val set에 혼재하는 것 방지
-    kf = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=42)
+    kf = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=411)
 
     for fold_idx, (train_idx, val_idx) in enumerate(kf.split(X, y, groups)):
         # Train과 Val image ids
@@ -135,7 +135,7 @@ def main(n_splits):
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    config_file_root = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/Co-DETR/projects/configs/co_dino/co_dino_5scale_lsj_swin_large_3x_coco.py'
+    config_file_root = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/Co-DETR/projects/configs/co_dino/co_dino_5scale_lsj_swin_large_1x_coco.py'
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
 
@@ -147,7 +147,7 @@ def main(n_splits):
     root = '/data/ephemeral/home/dataset'  # root 경로 설정
     cfg.data.train.classes = classes
     cfg.data.val.classes = classes
-    cfg.data.samples_per_gpu = 4    
+    cfg.data.samples_per_gpu = 2    
 
 
     cfg.model.backbone.use_checkpoint = True
@@ -156,7 +156,7 @@ def main(n_splits):
     cfg.model.bbox_head[0].num_classes = 10
 
     
-    cfg.seed = 42                                                                  # 랜덤 시드 설정
+    cfg.seed = 411                                                                  # 랜덤 시드 설정
     cfg.gpu_ids = [0]
 
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)
@@ -178,11 +178,11 @@ def main(n_splits):
         cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
         cfg.data.train.img_prefix = root
         cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'train_{fold_idx}.json')
-        cfg.data.train.pipeline[2]['img_scale'] = (512,512) # Resize
+        # cfg.data.train.pipeline[2]['img_scale'] = (512,512) # Resize
 
         cfg.data.val.img_prefix = root
         cfg.data.val.ann_file = os.path.join(cfg.data.val.img_prefix,f'val_{fold_idx}.json')
-        cfg.data.test.pipeline[1]['img_scale'] = (512,512) # Resize
+        # cfg.data.test.pipeline[1]['img_scale'] = (512,512) # Resize
 
         # Train 데이터셋 빌드
         train_dataset = build_dataset(cfg.data.train)

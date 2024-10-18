@@ -8,14 +8,14 @@ from text import process_labels  # Import the function from text.py
 random.seed(42)
 
 # Define the source dataset folder and target train/val folders
-dataset_folder = '/data/ephemeral/home/jiwan/dataset_origin/train'  # Replace with your actual dataset folder path
+dataset_folder = '/data/ephemeral/home/dataset_origin/train'  # Replace with your actual dataset folder path
 train_folder = '/data/ephemeral/home/jiwan/dataset/train/images'
 val_folder = '/data/ephemeral/home/jiwan/dataset/val/images'
 train_labels_dir = '/data/ephemeral/home/jiwan/dataset/train/labels'
 val_labels_dir = '/data/ephemeral/home/jiwan/dataset/val/labels'
 
 # JSON file path
-json_file_path = '/data/ephemeral/home/jiwan/dataset_origin/train.json'  # Replace with your actual JSON file path
+json_file_path = '/data/ephemeral/home/dataset_origin/train.json'  # Replace with your actual JSON file path
 
 # Image size configuration (adjust if needed)
 img_width = 1024

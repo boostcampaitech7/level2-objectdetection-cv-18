@@ -11,11 +11,10 @@ path: /data/ephemeral/home/jiwan/dataset
 train: train/images
 val: val/images
 
-
 # Classes
 nc: 10  # number of classes
 names: [
         "General trash", "Paper", "Paper pack", "Metal", "Glass", 
            "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing"
         ]  # class names
-        
+      

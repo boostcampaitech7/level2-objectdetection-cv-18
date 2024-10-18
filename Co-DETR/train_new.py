@@ -99,17 +99,28 @@ def main():
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    cfg = Config.fromfile('/data/ephemeral/home/donghwan/mmdetection/configs/dyhead/atss_swin-l-p4-w12_fpn_dyhead_mstrain_2x_coco.py')  # 모델 설정
-    cfg.work_dir = './work_dirs/dyhead_val_1x_trash'                      # 로그/모델 저장 위치
+    cfg = Config.fromfile('./projects/configs/co_dino/co_dino_5scale_lsj_swin_large_1x_coco.py')  # 모델 설정
+    cfg.work_dir = './work_dirs/co_dino_5scale_lsj_swin_tiny_1280'                      # 로그/모델 저장 위치
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
-    cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
-    cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
-    cfg.runner = dict(type='EpochBasedRunner', max_epochs=18)                      # epoch 수 설정
+    # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
+    cfg.data.samples_per_gpu = 5                                                   # 배치 크기 설정
+    cfg.runner = dict(type='EpochBasedRunner', max_epochs=12)                      # epoch 수 설정
     cfg.seed = 2022                                                                # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
-    cfg.device = get_device()                                                      # 디바이스 설정 (GPU 또는 CPU)
-    cfg.checkpoint_config = dict(max_keep_ckpts=1, interval=1)
+    cfg.device = get_device()  
+    cfg.model.query_head.num_classes = 10
+    cfg.model.roi_head[0].bbox_head.num_classes = 10
+    cfg.model.bbox_head[0].num_classes = 10
+    
+
+    img_size = (1280, 1280)
+    cfg.data.train.pipeline[2]['img_scale'] = img_size                                # 트레인 이미지 스케일 설정
+    cfg.data.train.pipeline[3]['crop_size'] = img_size                                # 트레인 이미지 스케일 설정
+    cfg.data.train.pipeline[6]['size'] = img_size                                # 트레인 이미지 스케일 설정
+    cfg.data.val.pipeline[1]['img_scale'] = img_size                                # 테스트 이미지 스케일 설정
+    cfg.data.test.pipeline[1]['img_scale'] = img_size                                # 테스트 이미지 스케일 설정
+    # cfg.model.backbone['window_size'] = 11                                          # 입력이미지 크기에 따른 윈도우 크기 증가
 
 
     # TensorBoard 로그 및 텍스트 로그 설정
@@ -131,10 +142,10 @@ def main():
     root = '/data/ephemeral/home/dataset/'  # root 경로 설정
     cfg.data.train.classes = classes
     cfg.data.train.img_prefix = root
-    cfg.data.train.ann_file = root + 'train_split_0.json'
+    cfg.data.train.ann_file = root + 'train_split_1.json'
     cfg.data.val.classes = classes
     cfg.data.val.img_prefix = root
-    cfg.data.val.ann_file = root + 'val_split_0.json'
+    cfg.data.val.ann_file = root + 'val_split_1.json'
 
     # Train과 Val 데이터셋 각각 빌드
     train_dataset = build_dataset(cfg.data.train)

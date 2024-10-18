@@ -1,8 +1,8 @@
 _base_ = [
     'co_dino_5scale_lsj_r50_1x_coco.py'
 ]
-load_from = '/data/ephemeral/home/taehan/test/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_3x_coco/co_dino_5scale_lsj_swin_large_3x_coco.pth'
-pretrained = None
+# load_from = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_3x_coco/co_dino_5scale_lsj_swin_large_3x_coco.pth'
+pretrained = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/Co-DETR/work_dirs/swin_tiny_patch4_window7_224.pth'
 # model settings
 model = dict(
     backbone=dict(
@@ -25,10 +25,32 @@ model = dict(
                 # number of layers that use checkpoint
                 with_cp=6))))
 
+# model settings Swin_tiny
+# model = dict(
+#     backbone=dict(
+#         _delete_=True,
+#         type='SwinTransformerV1',
+#         embed_dim=96,
+#         depths=[2, 2, 6, 2],
+#         num_heads=[3, 6, 12, 24],
+#         out_indices=(1, 2, 3),
+#         window_size=7,
+#         ape=False,
+#         drop_path_rate=0.2,
+#         patch_norm=True,
+#         use_checkpoint=False,
+#         pretrained=pretrained),
+#     neck=dict(in_channels=[96*2, 96*4, 96*8]),
+#     query_head=dict(
+#         transformer=dict(
+#             encoder=dict(
+#                 # number of layers that use checkpoint
+#                 with_cp=6))))
+
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
-image_size = (512, 512)
+image_size = (1280, 1280)
 # load_pipeline = [
 #     dict(type='LoadImageFromFile'),
 #     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),

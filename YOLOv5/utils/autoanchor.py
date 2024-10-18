@@ -10,9 +10,12 @@ from tqdm import tqdm
 
 from utils import TryExcept
 from utils.general import LOGGER, TQDM_BAR_FORMAT, colorstr
+import logging
+from utils.dataloaders import LoadImagesAndLabels
+
+logging.basicConfig(level=logging.INFO)  # Ensure all info-level logs are printed
 
 PREFIX = colorstr("AutoAnchor: ")
-
 
 def check_anchor_order(m):
     """Checks and corrects anchor order against stride in YOLOv5 Detect() module if necessary."""
@@ -26,6 +29,7 @@ def check_anchor_order(m):
 
 @TryExcept(f"{PREFIX}ERROR")
 def check_anchors(dataset, model, thr=4.0, imgsz=640):
+    print("check")
     """Evaluates anchor fit to dataset and adjusts if necessary, supporting customizable threshold and image size."""
     m = model.module.model[-1] if hasattr(model, "module") else model.model[-1]  # Detect()
     shapes = imgsz * dataset.shapes / dataset.shapes.max(1, keepdims=True)
@@ -112,6 +116,9 @@ def kmean_anchors(dataset="./data/coco128.yaml", n=9, img_size=640, thr=4.0, gen
             s += "%i,%i, " % (round(x[0]), round(x[1]))
         if verbose:
             LOGGER.info(s[:-2])
+
+        print(f"New anchors: {k}")
+
         return k
 
     if isinstance(dataset, str):  # *.yaml file
@@ -120,6 +127,8 @@ def kmean_anchors(dataset="./data/coco128.yaml", n=9, img_size=640, thr=4.0, gen
         from utils.dataloaders import LoadImagesAndLabels
 
         dataset = LoadImagesAndLabels(data_dict["train"], augment=True, rect=True)
+
+    print(f"Processing dataset with {len(dataset.labels)} labels")
 
     # Get label wh
     shapes = img_size * dataset.shapes / dataset.shapes.max(1, keepdims=True)
@@ -173,3 +182,32 @@ def kmean_anchors(dataset="./data/coco128.yaml", n=9, img_size=640, thr=4.0, gen
                 print_results(k, verbose)
 
     return print_results(k).astype(np.float32)
+
+if __name__ == "__main__":
+    import argparse
+    from models.yolo import Model  # 이 부분은 main 함수 안에서만 불러옵니다.
+    from utils.dataloaders import LoadImagesAndLabels  # 필요한 다른 모듈도 여기서 불러옵니다.
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--img-size', type=int, default=640, help='image size')
+    parser.add_argument('--dataset', type=str, required=True, help='path to dataset yaml')
+    opt = parser.parse_args()
+    with open(opt.dataset, 'r') as f:
+        data_dict = yaml.safe_load(f)
+
+    # Use the parsed 'train' and 'val' image directories directly
+    train_images = data_dict['train']
+    val_images = data_dict['val']
+
+    # Load training images directly using the parsed paths
+    dataset = LoadImagesAndLabels(train_images, augment=False, rect=False)
+
+    model = Model('/data/ephemeral/home/jiwan/level2-objectdetection-cv-18/YOLOv5/models/yolov5x6.yaml')  # Assuming you have yolov5x.yaml
+
+    # Load the best-trained weights
+    model_weights = torch.load('/data/ephemeral/home/jiwan/level2-objectdetection-cv-18/YOLOv5/runs/train/yolov5/weights/best.pt')
+    model.load_state_dict(model_weights['model'].state_dict())  # Load best weights
+    model = model.to('cuda' if torch.cuda.is_available() else 'cpu')
+
+    # Run check_anchors
+    check_anchors(dataset, model, imgsz=opt.img_size)

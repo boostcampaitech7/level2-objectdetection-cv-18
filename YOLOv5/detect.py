@@ -260,7 +260,6 @@ def run(
                     label = names[c] if hide_conf else f"{names[c]}"
                     #confidence = float(conf)
                     #confidence_str = f"{confidence:.2f}"
-
                     if save_csv:
                         xyxy = [coord.item() for coord in xyxy]
                         #write_to_csv(c, confidence, xyxy[0], xyxy[1], xyxy[2], xyxy[3])

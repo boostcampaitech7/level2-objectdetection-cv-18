@@ -135,7 +135,7 @@ def main(n_splits):
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    config_file_root = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
+    config_file_root = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/Co-DETR/projects/configs/co_dino/co_dino_5scale_lsj_swin_large_3x_coco.py'
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
 
@@ -147,10 +147,15 @@ def main(n_splits):
     root = '/data/ephemeral/home/dataset'  # root 경로 설정
     cfg.data.train.classes = classes
     cfg.data.val.classes = classes
-    cfg.model.roi_head.bbox_head.num_classes = 10
-
     cfg.data.samples_per_gpu = 4    
 
+
+    cfg.model.backbone.use_checkpoint = True
+    cfg.model.query_head.num_classes = 10
+    cfg.model.roi_head[0].bbox_head.num_classes = 10
+    cfg.model.bbox_head[0].num_classes = 10
+
+    
     cfg.seed = 42                                                                  # 랜덤 시드 설정
     cfg.gpu_ids = [0]
 
@@ -200,6 +205,6 @@ def main(n_splits):
         )
 
 if __name__ == '__main__':
-    n_splits = 2
+    n_splits = 5
     split_train_and_val(n_splits)
     main(n_splits)

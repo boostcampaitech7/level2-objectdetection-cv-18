@@ -1,0 +1,804 @@
+2024-10-19 10:23:04,667 - INFO - load checkpoint from local path: /data/ephemeral/home/donghwan/mmdetection/configs/dyhead/atss_swin-l-p4-w12_fpn_dyhead_mstrain_2x_coco_20220509_100315-bc5b6516.pth
+2024-10-19 10:23:05,531 - WARNING - The model and loaded state dict do not match exactly
+
+size mismatch for bbox_head.atss_cls.weight: copying a param with shape torch.Size([80, 256, 1, 1]) from checkpoint, the shape in current model is torch.Size([10, 256, 1, 1]).
+size mismatch for bbox_head.atss_cls.bias: copying a param with shape torch.Size([80]) from checkpoint, the shape in current model is torch.Size([10]).
+2024-10-19 10:23:05,579 - INFO - Start running, host: root@instance-11986, work_dir: /data/ephemeral/home/donghwan/mmdetection/work_dirs/atss_best_fold1_1x_trash
+2024-10-19 10:23:05,580 - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(NORMAL      ) CheckpointHook                     
+(LOW         ) EvalHook                           
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(LOW         ) IterTimerHook                      
+(LOW         ) EvalHook                           
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(LOW         ) IterTimerHook                      
+(LOW         ) EvalHook                           
+ -------------------- 
+after_train_iter:
+(ABOVE_NORMAL) OptimizerHook                      
+(NORMAL      ) CheckpointHook                     
+(LOW         ) IterTimerHook                      
+(LOW         ) EvalHook                           
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) CheckpointHook                     
+(LOW         ) EvalHook                           
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+(VERY_LOW    ) SaveTopModelsHook                  
+ -------------------- 
+before_val_epoch:
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_val_iter:
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_val_epoch:
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+after_run:
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+(VERY_LOW    ) SaveTopModelsHook                  
+ -------------------- 
+2024-10-19 10:23:05,580 - INFO - workflow: [('train', 1)], max: 20 epochs
+2024-10-19 10:23:05,580 - INFO - Checkpoints will be saved to /data/ephemeral/home/donghwan/mmdetection/work_dirs/atss_best_fold1_1x_trash by HardDiskBackend.
+2024-10-19 10:24:27,708 - INFO - Epoch [1][50/977]	lr: 4.945e-06, eta: 8:53:01, time: 1.641, data_time: 0.056, memory: 23672, loss_cls: 1.1440, loss_bbox: 0.4096, loss_centerness: 0.6120, loss: 2.1657, grad_norm: 7.8414
+2024-10-19 10:25:45,860 - INFO - Epoch [1][100/977]	lr: 9.940e-06, eta: 8:39:02, time: 1.563, data_time: 0.010, memory: 23672, loss_cls: 1.0970, loss_bbox: 0.3288, loss_centerness: 0.6020, loss: 2.0277, grad_norm: 8.4511
+2024-10-19 10:27:04,038 - INFO - Epoch [1][150/977]	lr: 1.494e-05, eta: 8:33:33, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 1.0201, loss_bbox: 0.3396, loss_centerness: 0.6044, loss: 1.9640, grad_norm: 9.8158
+2024-10-19 10:28:22,371 - INFO - Epoch [1][200/977]	lr: 1.993e-05, eta: 8:30:25, time: 1.567, data_time: 0.010, memory: 23672, loss_cls: 0.8923, loss_bbox: 0.3142, loss_centerness: 0.6015, loss: 1.8080, grad_norm: 8.9430
+2024-10-19 10:29:40,553 - INFO - Epoch [1][250/977]	lr: 2.493e-05, eta: 8:27:49, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.6579, loss_bbox: 0.3084, loss_centerness: 0.6013, loss: 1.5677, grad_norm: 11.0205
+2024-10-19 10:30:58,734 - INFO - Epoch [1][300/977]	lr: 2.992e-05, eta: 8:25:39, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.4961, loss_bbox: 0.3267, loss_centerness: 0.6012, loss: 1.4241, grad_norm: 10.9664
+2024-10-19 10:32:16,916 - INFO - Epoch [1][350/977]	lr: 3.492e-05, eta: 8:23:44, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.4606, loss_bbox: 0.3369, loss_centerness: 0.6063, loss: 1.4038, grad_norm: 10.6259
+2024-10-19 10:33:35,080 - INFO - Epoch [1][400/977]	lr: 3.991e-05, eta: 8:21:57, time: 1.563, data_time: 0.010, memory: 23672, loss_cls: 0.4140, loss_bbox: 0.2911, loss_centerness: 0.5983, loss: 1.3034, grad_norm: 10.3428
+2024-10-19 10:34:53,280 - INFO - Epoch [1][450/977]	lr: 4.491e-05, eta: 8:20:18, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.3952, loss_bbox: 0.3125, loss_centerness: 0.6022, loss: 1.3099, grad_norm: 9.3102
+2024-10-19 10:36:11,554 - INFO - Epoch [1][500/977]	lr: 4.990e-05, eta: 8:18:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.4033, loss_bbox: 0.3417, loss_centerness: 0.6045, loss: 1.3495, grad_norm: 9.8000
+2024-10-19 10:37:29,742 - INFO - Epoch [1][550/977]	lr: 5.000e-05, eta: 8:17:14, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3806, loss_bbox: 0.2929, loss_centerness: 0.6020, loss: 1.2754, grad_norm: 11.2181
+2024-10-19 10:38:47,911 - INFO - Epoch [1][600/977]	lr: 5.000e-05, eta: 8:15:43, time: 1.563, data_time: 0.009, memory: 23672, loss_cls: 0.3836, loss_bbox: 0.3227, loss_centerness: 0.6038, loss: 1.3101, grad_norm: 8.4045
+2024-10-19 10:40:06,223 - INFO - Epoch [1][650/977]	lr: 5.000e-05, eta: 8:14:18, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.3947, loss_bbox: 0.3045, loss_centerness: 0.6022, loss: 1.3014, grad_norm: 9.9541
+2024-10-19 10:41:24,385 - INFO - Epoch [1][700/977]	lr: 5.000e-05, eta: 8:12:51, time: 1.563, data_time: 0.009, memory: 23672, loss_cls: 0.3579, loss_bbox: 0.2968, loss_centerness: 0.6012, loss: 1.2559, grad_norm: 8.3931
+2024-10-19 10:42:42,580 - INFO - Epoch [1][750/977]	lr: 5.000e-05, eta: 8:11:25, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.3790, loss_bbox: 0.3026, loss_centerness: 0.6025, loss: 1.2841, grad_norm: 9.0630
+2024-10-19 10:44:00,781 - INFO - Epoch [1][800/977]	lr: 5.000e-05, eta: 8:10:00, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.3709, loss_bbox: 0.3378, loss_centerness: 0.6037, loss: 1.3124, grad_norm: 8.2666
+2024-10-19 10:45:18,994 - INFO - Epoch [1][850/977]	lr: 5.000e-05, eta: 8:08:37, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3454, loss_bbox: 0.3045, loss_centerness: 0.6046, loss: 1.2545, grad_norm: 8.3966
+2024-10-19 10:46:37,244 - INFO - Epoch [1][900/977]	lr: 5.000e-05, eta: 8:07:15, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.3415, loss_bbox: 0.3008, loss_centerness: 0.6006, loss: 1.2429, grad_norm: 9.4470
+2024-10-19 10:47:55,551 - INFO - Epoch [1][950/977]	lr: 5.000e-05, eta: 8:05:54, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.3368, loss_bbox: 0.3054, loss_centerness: 0.6001, loss: 1.2423, grad_norm: 8.4413
+2024-10-19 10:48:37,859 - INFO - Saving checkpoint at 1 epochs
+2024-10-19 10:54:44,880 - INFO - Evaluating bbox...
+2024-10-19 10:54:53,069 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.329
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.403
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.341
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.077
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.393
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.658
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.658
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.658
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.059
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.291
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.746
+
+2024-10-19 10:54:53,187 - INFO - Epoch(val) [1][977]	bbox_mAP: 0.3290, bbox_mAP_50: 0.4030, bbox_mAP_75: 0.3410, bbox_mAP_s: 0.0090, bbox_mAP_m: 0.0770, bbox_mAP_l: 0.3930, bbox_mAP_copypaste: 0.329 0.403 0.341 0.009 0.077 0.393
+2024-10-19 10:54:53,188 - INFO - After val epoch hook called.
+2024-10-19 10:56:17,543 - INFO - Epoch [2][50/977]	lr: 5.000e-05, eta: 7:51:46, time: 1.608, data_time: 0.056, memory: 23672, loss_cls: 0.3283, loss_bbox: 0.2679, loss_centerness: 0.5979, loss: 1.1941, grad_norm: 9.0851
+2024-10-19 10:57:35,744 - INFO - Epoch [2][100/977]	lr: 5.000e-05, eta: 7:51:00, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2994, loss_bbox: 0.2691, loss_centerness: 0.5954, loss: 1.1639, grad_norm: 7.5900
+2024-10-19 10:58:53,946 - INFO - Epoch [2][150/977]	lr: 5.000e-05, eta: 7:50:10, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3058, loss_bbox: 0.3013, loss_centerness: 0.6040, loss: 1.2110, grad_norm: 8.3294
+2024-10-19 11:00:12,127 - INFO - Epoch [2][200/977]	lr: 5.000e-05, eta: 7:49:18, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3099, loss_bbox: 0.2948, loss_centerness: 0.6003, loss: 1.2050, grad_norm: 8.1108
+2024-10-19 11:01:30,306 - INFO - Epoch [2][250/977]	lr: 5.000e-05, eta: 7:48:24, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3261, loss_bbox: 0.2737, loss_centerness: 0.6000, loss: 1.1998, grad_norm: 9.0569
+2024-10-19 11:02:48,471 - INFO - Epoch [2][300/977]	lr: 5.000e-05, eta: 7:47:28, time: 1.563, data_time: 0.009, memory: 23672, loss_cls: 0.3188, loss_bbox: 0.2917, loss_centerness: 0.6009, loss: 1.2114, grad_norm: 8.4030
+2024-10-19 11:04:06,623 - INFO - Epoch [2][350/977]	lr: 5.000e-05, eta: 7:46:30, time: 1.563, data_time: 0.009, memory: 23672, loss_cls: 0.2964, loss_bbox: 0.2518, loss_centerness: 0.5978, loss: 1.1461, grad_norm: 8.9681
+2024-10-19 11:05:25,022 - INFO - Epoch [2][400/977]	lr: 5.000e-05, eta: 7:45:33, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.3128, loss_bbox: 0.2914, loss_centerness: 0.5995, loss: 1.2036, grad_norm: 7.8971
+2024-10-19 11:06:43,217 - INFO - Epoch [2][450/977]	lr: 5.000e-05, eta: 7:44:33, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3033, loss_bbox: 0.2761, loss_centerness: 0.6008, loss: 1.1802, grad_norm: 7.8924
+2024-10-19 11:08:01,484 - INFO - Epoch [2][500/977]	lr: 5.000e-05, eta: 7:43:32, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.3050, loss_bbox: 0.2769, loss_centerness: 0.5988, loss: 1.1808, grad_norm: 8.6714
+2024-10-19 11:09:19,667 - INFO - Epoch [2][550/977]	lr: 5.000e-05, eta: 7:42:29, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3203, loss_bbox: 0.3149, loss_centerness: 0.6015, loss: 1.2366, grad_norm: 8.1356
+2024-10-19 11:10:37,918 - INFO - Epoch [2][600/977]	lr: 5.000e-05, eta: 7:41:26, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.3225, loss_bbox: 0.2869, loss_centerness: 0.6007, loss: 1.2101, grad_norm: 8.2037
+2024-10-19 11:11:56,094 - INFO - Epoch [2][650/977]	lr: 5.000e-05, eta: 7:40:21, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.3061, loss_bbox: 0.3018, loss_centerness: 0.6005, loss: 1.2084, grad_norm: 8.0950
+2024-10-19 11:13:14,274 - INFO - Epoch [2][700/977]	lr: 5.000e-05, eta: 7:39:16, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2993, loss_bbox: 0.2625, loss_centerness: 0.5986, loss: 1.1603, grad_norm: 8.7894
+2024-10-19 11:14:32,515 - INFO - Epoch [2][750/977]	lr: 5.000e-05, eta: 7:38:10, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.3153, loss_bbox: 0.2808, loss_centerness: 0.5975, loss: 1.1936, grad_norm: 7.9676
+2024-10-19 11:15:50,777 - INFO - Epoch [2][800/977]	lr: 5.000e-05, eta: 7:37:04, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.3008, loss_bbox: 0.2723, loss_centerness: 0.5974, loss: 1.1706, grad_norm: 7.2679
+2024-10-19 11:17:09,126 - INFO - Epoch [2][850/977]	lr: 5.000e-05, eta: 7:35:58, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.3076, loss_bbox: 0.2767, loss_centerness: 0.6011, loss: 1.1853, grad_norm: 7.6124
+2024-10-19 11:18:27,366 - INFO - Epoch [2][900/977]	lr: 5.000e-05, eta: 7:34:50, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.3187, loss_bbox: 0.2838, loss_centerness: 0.5991, loss: 1.2016, grad_norm: 8.1824
+2024-10-19 11:19:45,593 - INFO - Epoch [2][950/977]	lr: 5.000e-05, eta: 7:33:42, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.3234, loss_bbox: 0.2885, loss_centerness: 0.5995, loss: 1.2113, grad_norm: 7.6189
+2024-10-19 11:20:27,946 - INFO - Saving checkpoint at 2 epochs
+2024-10-19 11:26:35,862 - INFO - Evaluating bbox...
+2024-10-19 11:26:43,972 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.443
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.539
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.464
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.013
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.094
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.525
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.697
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.697
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.697
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.060
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.344
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.783
+
+2024-10-19 11:26:44,088 - INFO - Epoch(val) [2][977]	bbox_mAP: 0.4430, bbox_mAP_50: 0.5390, bbox_mAP_75: 0.4640, bbox_mAP_s: 0.0130, bbox_mAP_m: 0.0940, bbox_mAP_l: 0.5250, bbox_mAP_copypaste: 0.443 0.539 0.464 0.013 0.094 0.525
+2024-10-19 11:26:44,090 - INFO - After val epoch hook called.
+2024-10-19 11:28:08,445 - INFO - Epoch [3][50/977]	lr: 5.000e-05, eta: 7:26:05, time: 1.609, data_time: 0.055, memory: 23672, loss_cls: 0.2897, loss_bbox: 0.2728, loss_centerness: 0.6005, loss: 1.1630, grad_norm: 7.7291
+2024-10-19 11:29:26,619 - INFO - Epoch [3][100/977]	lr: 5.000e-05, eta: 7:25:05, time: 1.563, data_time: 0.009, memory: 23672, loss_cls: 0.2687, loss_bbox: 0.2656, loss_centerness: 0.5992, loss: 1.1335, grad_norm: 7.5223
+2024-10-19 11:30:44,798 - INFO - Epoch [3][150/977]	lr: 5.000e-05, eta: 7:24:03, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2875, loss_bbox: 0.2942, loss_centerness: 0.6004, loss: 1.1821, grad_norm: 7.3627
+2024-10-19 11:32:03,012 - INFO - Epoch [3][200/977]	lr: 5.000e-05, eta: 7:23:02, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2662, loss_bbox: 0.2658, loss_centerness: 0.6006, loss: 1.1326, grad_norm: 8.2320
+2024-10-19 11:33:21,276 - INFO - Epoch [3][250/977]	lr: 5.000e-05, eta: 7:22:00, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2898, loss_bbox: 0.2898, loss_centerness: 0.5989, loss: 1.1786, grad_norm: 7.5989
+2024-10-19 11:34:39,475 - INFO - Epoch [3][300/977]	lr: 5.000e-05, eta: 7:20:56, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2775, loss_bbox: 0.2876, loss_centerness: 0.6011, loss: 1.1662, grad_norm: 7.4369
+2024-10-19 11:35:57,691 - INFO - Epoch [3][350/977]	lr: 5.000e-05, eta: 7:19:52, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2392, loss_bbox: 0.2332, loss_centerness: 0.5937, loss: 1.0661, grad_norm: 8.2429
+2024-10-19 11:37:15,901 - INFO - Epoch [3][400/977]	lr: 5.000e-05, eta: 7:18:48, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2618, loss_bbox: 0.2676, loss_centerness: 0.5976, loss: 1.1270, grad_norm: 7.1583
+2024-10-19 11:38:34,115 - INFO - Epoch [3][450/977]	lr: 5.000e-05, eta: 7:17:43, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2705, loss_bbox: 0.2620, loss_centerness: 0.5969, loss: 1.1293, grad_norm: 8.6435
+2024-10-19 11:39:52,323 - INFO - Epoch [3][500/977]	lr: 5.000e-05, eta: 7:16:37, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2666, loss_bbox: 0.2749, loss_centerness: 0.5975, loss: 1.1390, grad_norm: 7.8825
+2024-10-19 11:41:10,523 - INFO - Epoch [3][550/977]	lr: 5.000e-05, eta: 7:15:31, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2667, loss_bbox: 0.2589, loss_centerness: 0.6001, loss: 1.1257, grad_norm: 7.9631
+2024-10-19 11:42:28,695 - INFO - Epoch [3][600/977]	lr: 5.000e-05, eta: 7:14:24, time: 1.563, data_time: 0.009, memory: 23672, loss_cls: 0.2437, loss_bbox: 0.2334, loss_centerness: 0.5955, loss: 1.0726, grad_norm: 8.0098
+2024-10-19 11:43:46,944 - INFO - Epoch [3][650/977]	lr: 5.000e-05, eta: 7:13:17, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2805, loss_bbox: 0.2655, loss_centerness: 0.5972, loss: 1.1432, grad_norm: 7.6822
+2024-10-19 11:45:05,291 - INFO - Epoch [3][700/977]	lr: 5.000e-05, eta: 7:12:10, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.2772, loss_bbox: 0.2600, loss_centerness: 0.5969, loss: 1.1341, grad_norm: 7.8089
+2024-10-19 11:46:23,543 - INFO - Epoch [3][750/977]	lr: 5.000e-05, eta: 7:11:03, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2649, loss_bbox: 0.2857, loss_centerness: 0.5958, loss: 1.1463, grad_norm: 8.0335
+2024-10-19 11:47:41,758 - INFO - Epoch [3][800/977]	lr: 5.000e-05, eta: 7:09:55, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2688, loss_bbox: 0.2545, loss_centerness: 0.5932, loss: 1.1165, grad_norm: 7.5459
+2024-10-19 11:48:59,991 - INFO - Epoch [3][850/977]	lr: 5.000e-05, eta: 7:08:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2735, loss_bbox: 0.2584, loss_centerness: 0.5960, loss: 1.1279, grad_norm: 7.3936
+2024-10-19 11:50:18,240 - INFO - Epoch [3][900/977]	lr: 5.000e-05, eta: 7:07:37, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2706, loss_bbox: 0.2575, loss_centerness: 0.5979, loss: 1.1259, grad_norm: 8.7457
+2024-10-19 11:51:36,462 - INFO - Epoch [3][950/977]	lr: 5.000e-05, eta: 7:06:28, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2761, loss_bbox: 0.2715, loss_centerness: 0.5970, loss: 1.1446, grad_norm: 7.2090
+2024-10-19 11:52:18,780 - INFO - Saving checkpoint at 3 epochs
+2024-10-19 11:58:25,027 - INFO - Evaluating bbox...
+2024-10-19 11:58:31,986 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.481
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.590
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.507
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.017
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.130
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.567
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.119
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.374
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.777
+
+2024-10-19 11:58:32,082 - INFO - Epoch(val) [3][977]	bbox_mAP: 0.4810, bbox_mAP_50: 0.5900, bbox_mAP_75: 0.5070, bbox_mAP_s: 0.0170, bbox_mAP_m: 0.1300, bbox_mAP_l: 0.5670, bbox_mAP_copypaste: 0.481 0.590 0.507 0.017 0.130 0.567
+2024-10-19 11:58:32,083 - INFO - After val epoch hook called.
+2024-10-19 11:59:56,862 - INFO - Epoch [4][50/977]	lr: 5.000e-05, eta: 7:00:59, time: 1.610, data_time: 0.056, memory: 23672, loss_cls: 0.2403, loss_bbox: 0.2398, loss_centerness: 0.5951, loss: 1.0752, grad_norm: 7.7728
+2024-10-19 12:01:15,052 - INFO - Epoch [4][100/977]	lr: 5.000e-05, eta: 6:59:53, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2367, loss_bbox: 0.2056, loss_centerness: 0.5926, loss: 1.0350, grad_norm: 7.9353
+2024-10-19 12:02:33,273 - INFO - Epoch [4][150/977]	lr: 5.000e-05, eta: 6:58:47, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2508, loss_bbox: 0.2628, loss_centerness: 0.5963, loss: 1.1099, grad_norm: 7.0977
+2024-10-19 12:03:51,513 - INFO - Epoch [4][200/977]	lr: 5.000e-05, eta: 6:57:41, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2374, loss_bbox: 0.2523, loss_centerness: 0.5975, loss: 1.0873, grad_norm: 7.1645
+2024-10-19 12:05:09,749 - INFO - Epoch [4][250/977]	lr: 5.000e-05, eta: 6:56:34, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2358, loss_bbox: 0.2302, loss_centerness: 0.5942, loss: 1.0602, grad_norm: 7.6291
+2024-10-19 12:06:28,011 - INFO - Epoch [4][300/977]	lr: 5.000e-05, eta: 6:55:27, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2630, loss_bbox: 0.2406, loss_centerness: 0.5975, loss: 1.1011, grad_norm: 7.7163
+2024-10-19 12:07:46,272 - INFO - Epoch [4][350/977]	lr: 5.000e-05, eta: 6:54:20, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2603, loss_bbox: 0.2676, loss_centerness: 0.5954, loss: 1.1233, grad_norm: 7.6070
+2024-10-19 12:09:04,503 - INFO - Epoch [4][400/977]	lr: 5.000e-05, eta: 6:53:12, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2396, loss_bbox: 0.2286, loss_centerness: 0.5960, loss: 1.0642, grad_norm: 8.3339
+2024-10-19 12:10:22,739 - INFO - Epoch [4][450/977]	lr: 5.000e-05, eta: 6:52:04, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2402, loss_bbox: 0.2517, loss_centerness: 0.5979, loss: 1.0898, grad_norm: 6.8421
+2024-10-19 12:11:40,975 - INFO - Epoch [4][500/977]	lr: 5.000e-05, eta: 6:50:56, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2260, loss_bbox: 0.2316, loss_centerness: 0.5965, loss: 1.0541, grad_norm: 7.7348
+2024-10-19 12:12:59,246 - INFO - Epoch [4][550/977]	lr: 5.000e-05, eta: 6:49:47, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2516, loss_bbox: 0.2619, loss_centerness: 0.5958, loss: 1.1093, grad_norm: 6.8622
+2024-10-19 12:14:17,524 - INFO - Epoch [4][600/977]	lr: 5.000e-05, eta: 6:48:38, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.2349, loss_bbox: 0.2501, loss_centerness: 0.5965, loss: 1.0816, grad_norm: 7.0722
+2024-10-19 12:15:35,768 - INFO - Epoch [4][650/977]	lr: 5.000e-05, eta: 6:47:29, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2539, loss_bbox: 0.2486, loss_centerness: 0.5978, loss: 1.1003, grad_norm: 8.0100
+2024-10-19 12:16:54,021 - INFO - Epoch [4][700/977]	lr: 5.000e-05, eta: 6:46:20, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2542, loss_bbox: 0.2372, loss_centerness: 0.5951, loss: 1.0865, grad_norm: 7.6780
+2024-10-19 12:18:12,253 - INFO - Epoch [4][750/977]	lr: 5.000e-05, eta: 6:45:10, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2615, loss_bbox: 0.2700, loss_centerness: 0.5976, loss: 1.1292, grad_norm: 7.5475
+2024-10-19 12:19:30,670 - INFO - Epoch [4][800/977]	lr: 5.000e-05, eta: 6:44:01, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.2523, loss_bbox: 0.2492, loss_centerness: 0.5964, loss: 1.0979, grad_norm: 7.7416
+2024-10-19 12:20:48,934 - INFO - Epoch [4][850/977]	lr: 5.000e-05, eta: 6:42:51, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2408, loss_bbox: 0.2413, loss_centerness: 0.5960, loss: 1.0781, grad_norm: 7.5132
+2024-10-19 12:22:07,186 - INFO - Epoch [4][900/977]	lr: 5.000e-05, eta: 6:41:41, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2532, loss_bbox: 0.2592, loss_centerness: 0.5968, loss: 1.1092, grad_norm: 7.4429
+2024-10-19 12:23:25,421 - INFO - Epoch [4][950/977]	lr: 5.000e-05, eta: 6:40:30, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2619, loss_bbox: 0.2819, loss_centerness: 0.5997, loss: 1.1434, grad_norm: 6.9068
+2024-10-19 12:24:07,761 - INFO - Saving checkpoint at 4 epochs
+2024-10-19 12:30:15,263 - INFO - Evaluating bbox...
+2024-10-19 12:30:23,119 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.513
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.621
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.540
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.013
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.135
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.603
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.139
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.394
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.795
+
+2024-10-19 12:30:23,244 - INFO - Epoch(val) [4][977]	bbox_mAP: 0.5130, bbox_mAP_50: 0.6210, bbox_mAP_75: 0.5400, bbox_mAP_s: 0.0130, bbox_mAP_m: 0.1350, bbox_mAP_l: 0.6030, bbox_mAP_copypaste: 0.513 0.621 0.540 0.013 0.135 0.603
+2024-10-19 12:30:23,246 - INFO - After val epoch hook called.
+2024-10-19 12:31:47,991 - INFO - Epoch [5][50/977]	lr: 5.000e-05, eta: 6:36:03, time: 1.609, data_time: 0.056, memory: 23672, loss_cls: 0.2292, loss_bbox: 0.2546, loss_centerness: 0.5972, loss: 1.0810, grad_norm: 7.8440
+2024-10-19 12:33:06,199 - INFO - Epoch [5][100/977]	lr: 5.000e-05, eta: 6:34:55, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2319, loss_bbox: 0.2340, loss_centerness: 0.5970, loss: 1.0630, grad_norm: 7.6909
+2024-10-19 12:34:24,450 - INFO - Epoch [5][150/977]	lr: 5.000e-05, eta: 6:33:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2123, loss_bbox: 0.2228, loss_centerness: 0.5940, loss: 1.0291, grad_norm: 7.3474
+2024-10-19 12:35:42,721 - INFO - Epoch [5][200/977]	lr: 5.000e-05, eta: 6:32:37, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2246, loss_bbox: 0.2483, loss_centerness: 0.5967, loss: 1.0696, grad_norm: 7.1157
+2024-10-19 12:37:00,961 - INFO - Epoch [5][250/977]	lr: 5.000e-05, eta: 6:31:28, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2286, loss_bbox: 0.2474, loss_centerness: 0.5974, loss: 1.0733, grad_norm: 6.8185
+2024-10-19 12:38:19,276 - INFO - Epoch [5][300/977]	lr: 5.000e-05, eta: 6:30:19, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.2259, loss_bbox: 0.2302, loss_centerness: 0.5948, loss: 1.0509, grad_norm: 6.9849
+2024-10-19 12:39:37,539 - INFO - Epoch [5][350/977]	lr: 5.000e-05, eta: 6:29:09, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2231, loss_bbox: 0.2301, loss_centerness: 0.5969, loss: 1.0501, grad_norm: 7.6827
+2024-10-19 12:40:55,822 - INFO - Epoch [5][400/977]	lr: 5.000e-05, eta: 6:27:59, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.2251, loss_bbox: 0.2377, loss_centerness: 0.5951, loss: 1.0579, grad_norm: 7.3479
+2024-10-19 12:42:14,265 - INFO - Epoch [5][450/977]	lr: 5.000e-05, eta: 6:26:50, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.2082, loss_bbox: 0.2265, loss_centerness: 0.5949, loss: 1.0295, grad_norm: 7.3340
+2024-10-19 12:43:32,552 - INFO - Epoch [5][500/977]	lr: 5.000e-05, eta: 6:25:40, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.2534, loss_bbox: 0.2517, loss_centerness: 0.5966, loss: 1.1017, grad_norm: 6.8078
+2024-10-19 12:44:50,800 - INFO - Epoch [5][550/977]	lr: 5.000e-05, eta: 6:24:29, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2348, loss_bbox: 0.2635, loss_centerness: 0.5960, loss: 1.0943, grad_norm: 7.1426
+2024-10-19 12:46:08,997 - INFO - Epoch [5][600/977]	lr: 5.000e-05, eta: 6:23:19, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2370, loss_bbox: 0.2528, loss_centerness: 0.5981, loss: 1.0879, grad_norm: 7.5124
+2024-10-19 12:47:27,224 - INFO - Epoch [5][650/977]	lr: 5.000e-05, eta: 6:22:08, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2284, loss_bbox: 0.2461, loss_centerness: 0.5974, loss: 1.0720, grad_norm: 7.7951
+2024-10-19 12:48:45,468 - INFO - Epoch [5][700/977]	lr: 5.000e-05, eta: 6:20:57, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2261, loss_bbox: 0.2248, loss_centerness: 0.5956, loss: 1.0466, grad_norm: 7.7388
+2024-10-19 12:50:03,821 - INFO - Epoch [5][750/977]	lr: 5.000e-05, eta: 6:19:46, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.2402, loss_bbox: 0.2488, loss_centerness: 0.5961, loss: 1.0850, grad_norm: 7.5482
+2024-10-19 12:51:22,023 - INFO - Epoch [5][800/977]	lr: 5.000e-05, eta: 6:18:35, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2275, loss_bbox: 0.2473, loss_centerness: 0.5975, loss: 1.0724, grad_norm: 6.8147
+2024-10-19 12:52:40,230 - INFO - Epoch [5][850/977]	lr: 5.000e-05, eta: 6:17:23, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2293, loss_bbox: 0.2374, loss_centerness: 0.5931, loss: 1.0598, grad_norm: 7.5042
+2024-10-19 12:53:58,500 - INFO - Epoch [5][900/977]	lr: 5.000e-05, eta: 6:16:12, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2676, loss_bbox: 0.2783, loss_centerness: 0.5994, loss: 1.1453, grad_norm: 6.7589
+2024-10-19 12:55:16,702 - INFO - Epoch [5][950/977]	lr: 5.000e-05, eta: 6:15:00, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2202, loss_bbox: 0.1972, loss_centerness: 0.5957, loss: 1.0131, grad_norm: 7.4266
+2024-10-19 12:55:59,036 - INFO - Saving checkpoint at 5 epochs
+2024-10-19 13:02:05,587 - INFO - Evaluating bbox...
+2024-10-19 13:02:12,407 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.505
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.621
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.530
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.018
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.129
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.594
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.701
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.701
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.701
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.136
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.363
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.784
+
+2024-10-19 13:02:12,496 - INFO - Epoch(val) [5][977]	bbox_mAP: 0.5050, bbox_mAP_50: 0.6210, bbox_mAP_75: 0.5300, bbox_mAP_s: 0.0180, bbox_mAP_m: 0.1290, bbox_mAP_l: 0.5940, bbox_mAP_copypaste: 0.505 0.621 0.530 0.018 0.129 0.594
+2024-10-19 13:02:12,497 - INFO - After val epoch hook called.
+2024-10-19 13:03:37,140 - INFO - Epoch [6][50/977]	lr: 5.000e-05, eta: 6:11:11, time: 1.608, data_time: 0.055, memory: 23672, loss_cls: 0.2220, loss_bbox: 0.2425, loss_centerness: 0.5969, loss: 1.0614, grad_norm: 7.3194
+2024-10-19 13:04:55,400 - INFO - Epoch [6][100/977]	lr: 5.000e-05, eta: 6:10:00, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2168, loss_bbox: 0.2587, loss_centerness: 0.5966, loss: 1.0721, grad_norm: 6.7771
+2024-10-19 13:06:13,601 - INFO - Epoch [6][150/977]	lr: 5.000e-05, eta: 6:08:50, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2018, loss_bbox: 0.2156, loss_centerness: 0.5950, loss: 1.0124, grad_norm: 7.3882
+2024-10-19 13:07:31,860 - INFO - Epoch [6][200/977]	lr: 5.000e-05, eta: 6:07:39, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2175, loss_bbox: 0.2567, loss_centerness: 0.5962, loss: 1.0704, grad_norm: 6.8763
+2024-10-19 13:08:50,277 - INFO - Epoch [6][250/977]	lr: 5.000e-05, eta: 6:06:29, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.2230, loss_bbox: 0.2366, loss_centerness: 0.5971, loss: 1.0567, grad_norm: 6.6885
+2024-10-19 13:10:08,571 - INFO - Epoch [6][300/977]	lr: 5.000e-05, eta: 6:05:18, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1994, loss_bbox: 0.2332, loss_centerness: 0.5947, loss: 1.0273, grad_norm: 6.9734
+2024-10-19 13:11:26,841 - INFO - Epoch [6][350/977]	lr: 5.000e-05, eta: 6:04:07, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2043, loss_bbox: 0.2201, loss_centerness: 0.5922, loss: 1.0166, grad_norm: 7.7664
+2024-10-19 13:12:45,084 - INFO - Epoch [6][400/977]	lr: 5.000e-05, eta: 6:02:55, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2068, loss_bbox: 0.2312, loss_centerness: 0.5939, loss: 1.0318, grad_norm: 6.8241
+2024-10-19 13:14:03,308 - INFO - Epoch [6][450/977]	lr: 5.000e-05, eta: 6:01:44, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.1984, loss_bbox: 0.2196, loss_centerness: 0.5943, loss: 1.0123, grad_norm: 7.0502
+2024-10-19 13:15:21,563 - INFO - Epoch [6][500/977]	lr: 5.000e-05, eta: 6:00:32, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2086, loss_bbox: 0.2340, loss_centerness: 0.5948, loss: 1.0375, grad_norm: 6.8760
+2024-10-19 13:16:39,919 - INFO - Epoch [6][550/977]	lr: 5.000e-05, eta: 5:59:21, time: 1.567, data_time: 0.010, memory: 23672, loss_cls: 0.2357, loss_bbox: 0.2234, loss_centerness: 0.5935, loss: 1.0526, grad_norm: 7.3037
+2024-10-19 13:17:58,202 - INFO - Epoch [6][600/977]	lr: 5.000e-05, eta: 5:58:09, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.2181, loss_bbox: 0.2503, loss_centerness: 0.5976, loss: 1.0660, grad_norm: 6.8347
+2024-10-19 13:19:16,487 - INFO - Epoch [6][650/977]	lr: 5.000e-05, eta: 5:56:58, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.2084, loss_bbox: 0.2395, loss_centerness: 0.5980, loss: 1.0460, grad_norm: 7.5800
+2024-10-19 13:20:34,725 - INFO - Epoch [6][700/977]	lr: 5.000e-05, eta: 5:55:46, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1961, loss_bbox: 0.2192, loss_centerness: 0.5940, loss: 1.0093, grad_norm: 7.1190
+2024-10-19 13:21:52,959 - INFO - Epoch [6][750/977]	lr: 5.000e-05, eta: 5:54:33, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2145, loss_bbox: 0.2112, loss_centerness: 0.5912, loss: 1.0169, grad_norm: 7.2723
+2024-10-19 13:23:11,239 - INFO - Epoch [6][800/977]	lr: 5.000e-05, eta: 5:53:21, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.2252, loss_bbox: 0.2407, loss_centerness: 0.5953, loss: 1.0612, grad_norm: 6.9016
+2024-10-19 13:24:29,493 - INFO - Epoch [6][850/977]	lr: 5.000e-05, eta: 5:52:09, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2154, loss_bbox: 0.2446, loss_centerness: 0.5953, loss: 1.0554, grad_norm: 6.7492
+2024-10-19 13:25:47,741 - INFO - Epoch [6][900/977]	lr: 5.000e-05, eta: 5:50:56, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2205, loss_bbox: 0.2439, loss_centerness: 0.5924, loss: 1.0568, grad_norm: 6.6223
+2024-10-19 13:27:06,006 - INFO - Epoch [6][950/977]	lr: 5.000e-05, eta: 5:49:44, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2097, loss_bbox: 0.2227, loss_centerness: 0.5947, loss: 1.0272, grad_norm: 6.9670
+2024-10-19 13:27:48,458 - INFO - Saving checkpoint at 6 epochs
+2024-10-19 13:33:55,325 - INFO - Evaluating bbox...
+2024-10-19 13:34:02,490 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.495
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.613
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.533
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.017
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.138
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.582
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.051
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.379
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.766
+
+2024-10-19 13:34:02,591 - INFO - Epoch(val) [6][977]	bbox_mAP: 0.4950, bbox_mAP_50: 0.6130, bbox_mAP_75: 0.5330, bbox_mAP_s: 0.0170, bbox_mAP_m: 0.1380, bbox_mAP_l: 0.5820, bbox_mAP_copypaste: 0.495 0.613 0.533 0.017 0.138 0.582
+2024-10-19 13:34:02,593 - INFO - After val epoch hook called.
+2024-10-19 13:35:27,321 - INFO - Epoch [7][50/977]	lr: 5.000e-05, eta: 5:46:20, time: 1.609, data_time: 0.056, memory: 23672, loss_cls: 0.1835, loss_bbox: 0.2066, loss_centerness: 0.5886, loss: 0.9787, grad_norm: 7.5237
+2024-10-19 13:36:45,546 - INFO - Epoch [7][100/977]	lr: 5.000e-05, eta: 5:45:08, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.1951, loss_bbox: 0.2258, loss_centerness: 0.5949, loss: 1.0157, grad_norm: 7.0128
+2024-10-19 13:38:03,798 - INFO - Epoch [7][150/977]	lr: 5.000e-05, eta: 5:43:56, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2147, loss_bbox: 0.2444, loss_centerness: 0.5943, loss: 1.0534, grad_norm: 6.8782
+2024-10-19 13:39:22,068 - INFO - Epoch [7][200/977]	lr: 5.000e-05, eta: 5:42:44, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1916, loss_bbox: 0.2200, loss_centerness: 0.5969, loss: 1.0085, grad_norm: 6.8071
+2024-10-19 13:40:40,317 - INFO - Epoch [7][250/977]	lr: 5.000e-05, eta: 5:41:32, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2173, loss_bbox: 0.2488, loss_centerness: 0.5993, loss: 1.0653, grad_norm: 6.7700
+2024-10-19 13:41:58,549 - INFO - Epoch [7][300/977]	lr: 5.000e-05, eta: 5:40:20, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1960, loss_bbox: 0.2288, loss_centerness: 0.5952, loss: 1.0200, grad_norm: 6.9615
+2024-10-19 13:43:16,776 - INFO - Epoch [7][350/977]	lr: 5.000e-05, eta: 5:39:08, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1955, loss_bbox: 0.2275, loss_centerness: 0.5933, loss: 1.0164, grad_norm: 6.7030
+2024-10-19 13:44:34,959 - INFO - Epoch [7][400/977]	lr: 5.000e-05, eta: 5:37:56, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2140, loss_bbox: 0.2422, loss_centerness: 0.5992, loss: 1.0554, grad_norm: 7.4898
+2024-10-19 13:45:53,226 - INFO - Epoch [7][450/977]	lr: 5.000e-05, eta: 5:36:43, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2124, loss_bbox: 0.2229, loss_centerness: 0.5930, loss: 1.0283, grad_norm: 7.1679
+2024-10-19 13:47:11,443 - INFO - Epoch [7][500/977]	lr: 5.000e-05, eta: 5:35:31, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.1797, loss_bbox: 0.1862, loss_centerness: 0.5918, loss: 0.9577, grad_norm: 7.8816
+2024-10-19 13:48:29,885 - INFO - Epoch [7][550/977]	lr: 5.000e-05, eta: 5:34:19, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.2103, loss_bbox: 0.2454, loss_centerness: 0.5966, loss: 1.0524, grad_norm: 6.7069
+2024-10-19 13:49:48,108 - INFO - Epoch [7][600/977]	lr: 5.000e-05, eta: 5:33:06, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.2056, loss_bbox: 0.2310, loss_centerness: 0.5962, loss: 1.0328, grad_norm: 7.1168
+2024-10-19 13:51:06,388 - INFO - Epoch [7][650/977]	lr: 5.000e-05, eta: 5:31:53, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.2255, loss_bbox: 0.2255, loss_centerness: 0.5930, loss: 1.0439, grad_norm: 6.9760
+2024-10-19 13:52:24,601 - INFO - Epoch [7][700/977]	lr: 5.000e-05, eta: 5:30:40, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2010, loss_bbox: 0.2123, loss_centerness: 0.5943, loss: 1.0076, grad_norm: 7.2898
+2024-10-19 13:53:42,831 - INFO - Epoch [7][750/977]	lr: 5.000e-05, eta: 5:29:27, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1990, loss_bbox: 0.2295, loss_centerness: 0.5962, loss: 1.0247, grad_norm: 6.4157
+2024-10-19 13:55:01,078 - INFO - Epoch [7][800/977]	lr: 5.000e-05, eta: 5:28:14, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1849, loss_bbox: 0.1899, loss_centerness: 0.5910, loss: 0.9658, grad_norm: 7.0777
+2024-10-19 13:56:19,306 - INFO - Epoch [7][850/977]	lr: 5.000e-05, eta: 5:27:01, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1873, loss_bbox: 0.2195, loss_centerness: 0.5952, loss: 1.0020, grad_norm: 7.1837
+2024-10-19 13:57:37,549 - INFO - Epoch [7][900/977]	lr: 5.000e-05, eta: 5:25:48, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2144, loss_bbox: 0.2175, loss_centerness: 0.5942, loss: 1.0261, grad_norm: 7.6086
+2024-10-19 13:58:55,917 - INFO - Epoch [7][950/977]	lr: 5.000e-05, eta: 5:24:35, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.2038, loss_bbox: 0.2285, loss_centerness: 0.5955, loss: 1.0278, grad_norm: 6.8709
+2024-10-19 13:59:38,284 - INFO - Saving checkpoint at 7 epochs
+2024-10-19 14:05:44,708 - INFO - Evaluating bbox...
+2024-10-19 14:05:51,507 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.512
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.626
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.535
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.026
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.144
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.602
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.081
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.392
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.785
+
+2024-10-19 14:05:51,606 - INFO - Epoch(val) [7][977]	bbox_mAP: 0.5120, bbox_mAP_50: 0.6260, bbox_mAP_75: 0.5350, bbox_mAP_s: 0.0260, bbox_mAP_m: 0.1440, bbox_mAP_l: 0.6020, bbox_mAP_copypaste: 0.512 0.626 0.535 0.026 0.144 0.602
+2024-10-19 14:05:51,607 - INFO - After val epoch hook called.
+2024-10-19 14:07:16,410 - INFO - Epoch [8][50/977]	lr: 5.000e-05, eta: 5:21:29, time: 1.611, data_time: 0.057, memory: 23672, loss_cls: 0.1740, loss_bbox: 0.1925, loss_centerness: 0.5939, loss: 0.9603, grad_norm: 6.5612
+2024-10-19 14:08:34,651 - INFO - Epoch [8][100/977]	lr: 5.000e-05, eta: 5:20:16, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1612, loss_bbox: 0.1900, loss_centerness: 0.5930, loss: 0.9441, grad_norm: 7.4437
+2024-10-19 14:09:52,928 - INFO - Epoch [8][150/977]	lr: 5.000e-05, eta: 5:19:04, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1954, loss_bbox: 0.2162, loss_centerness: 0.5940, loss: 1.0057, grad_norm: 6.6995
+2024-10-19 14:11:11,224 - INFO - Epoch [8][200/977]	lr: 5.000e-05, eta: 5:17:51, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1815, loss_bbox: 0.2288, loss_centerness: 0.5951, loss: 1.0054, grad_norm: 6.6055
+2024-10-19 14:12:29,451 - INFO - Epoch [8][250/977]	lr: 5.000e-05, eta: 5:16:38, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1867, loss_bbox: 0.2160, loss_centerness: 0.5930, loss: 0.9957, grad_norm: 6.6630
+2024-10-19 14:13:47,681 - INFO - Epoch [8][300/977]	lr: 5.000e-05, eta: 5:15:25, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1918, loss_bbox: 0.2190, loss_centerness: 0.5914, loss: 1.0022, grad_norm: 6.8028
+2024-10-19 14:15:05,954 - INFO - Epoch [8][350/977]	lr: 5.000e-05, eta: 5:14:12, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1917, loss_bbox: 0.2243, loss_centerness: 0.5942, loss: 1.0102, grad_norm: 6.8361
+2024-10-19 14:16:24,185 - INFO - Epoch [8][400/977]	lr: 5.000e-05, eta: 5:12:59, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1873, loss_bbox: 0.1869, loss_centerness: 0.5889, loss: 0.9631, grad_norm: 7.5178
+2024-10-19 14:17:42,426 - INFO - Epoch [8][450/977]	lr: 5.000e-05, eta: 5:11:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1801, loss_bbox: 0.2130, loss_centerness: 0.5950, loss: 0.9881, grad_norm: 7.5395
+2024-10-19 14:19:00,862 - INFO - Epoch [8][500/977]	lr: 5.000e-05, eta: 5:10:33, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.1940, loss_bbox: 0.2210, loss_centerness: 0.5940, loss: 1.0090, grad_norm: 7.0508
+2024-10-19 14:20:19,101 - INFO - Epoch [8][550/977]	lr: 5.000e-05, eta: 5:09:20, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.2000, loss_bbox: 0.2166, loss_centerness: 0.5936, loss: 1.0102, grad_norm: 7.1561
+2024-10-19 14:21:37,388 - INFO - Epoch [8][600/977]	lr: 5.000e-05, eta: 5:08:07, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.1883, loss_bbox: 0.2191, loss_centerness: 0.5936, loss: 1.0010, grad_norm: 6.4786
+2024-10-19 14:22:55,610 - INFO - Epoch [8][650/977]	lr: 5.000e-05, eta: 5:06:53, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.2012, loss_bbox: 0.2348, loss_centerness: 0.5965, loss: 1.0325, grad_norm: 6.5169
+2024-10-19 14:24:13,884 - INFO - Epoch [8][700/977]	lr: 5.000e-05, eta: 5:05:40, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1998, loss_bbox: 0.2337, loss_centerness: 0.5958, loss: 1.0293, grad_norm: 7.2914
+2024-10-19 14:25:32,180 - INFO - Epoch [8][750/977]	lr: 5.000e-05, eta: 5:04:26, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1931, loss_bbox: 0.2416, loss_centerness: 0.5966, loss: 1.0313, grad_norm: 6.1630
+2024-10-19 14:26:50,437 - INFO - Epoch [8][800/977]	lr: 5.000e-05, eta: 5:03:13, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2167, loss_bbox: 0.1993, loss_centerness: 0.5893, loss: 1.0054, grad_norm: 7.6045
+2024-10-19 14:28:08,701 - INFO - Epoch [8][850/977]	lr: 5.000e-05, eta: 5:01:59, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1932, loss_bbox: 0.2029, loss_centerness: 0.5934, loss: 0.9895, grad_norm: 7.4268
+2024-10-19 14:29:27,098 - INFO - Epoch [8][900/977]	lr: 5.000e-05, eta: 5:00:46, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.2064, loss_bbox: 0.2110, loss_centerness: 0.5941, loss: 1.0115, grad_norm: 7.1287
+2024-10-19 14:30:45,335 - INFO - Epoch [8][950/977]	lr: 5.000e-05, eta: 4:59:32, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.2103, loss_bbox: 0.2341, loss_centerness: 0.5962, loss: 1.0406, grad_norm: 7.1940
+2024-10-19 14:31:27,695 - INFO - Saving checkpoint at 8 epochs
+2024-10-19 14:37:34,271 - INFO - Evaluating bbox...
+2024-10-19 14:37:41,531 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.506
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.622
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.537
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.023
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.144
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.593
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.135
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.410
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.782
+
+2024-10-19 14:37:41,634 - INFO - Epoch(val) [8][977]	bbox_mAP: 0.5060, bbox_mAP_50: 0.6220, bbox_mAP_75: 0.5370, bbox_mAP_s: 0.0230, bbox_mAP_m: 0.1440, bbox_mAP_l: 0.5930, bbox_mAP_copypaste: 0.506 0.622 0.537 0.023 0.144 0.593
+2024-10-19 14:37:41,635 - INFO - After val epoch hook called.
+2024-10-19 14:39:06,452 - INFO - Epoch [9][50/977]	lr: 5.000e-05, eta: 4:56:39, time: 1.610, data_time: 0.057, memory: 23672, loss_cls: 0.1771, loss_bbox: 0.2107, loss_centerness: 0.5933, loss: 0.9811, grad_norm: 6.4646
+2024-10-19 14:40:24,700 - INFO - Epoch [9][100/977]	lr: 5.000e-05, eta: 4:55:26, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1961, loss_bbox: 0.2142, loss_centerness: 0.5917, loss: 1.0019, grad_norm: 7.5988
+2024-10-19 14:41:43,114 - INFO - Epoch [9][150/977]	lr: 5.000e-05, eta: 4:54:12, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.1932, loss_bbox: 0.2219, loss_centerness: 0.5939, loss: 1.0091, grad_norm: 6.0628
+2024-10-19 14:43:01,387 - INFO - Epoch [9][200/977]	lr: 5.000e-05, eta: 4:52:59, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1735, loss_bbox: 0.2127, loss_centerness: 0.5960, loss: 0.9821, grad_norm: 6.3157
+2024-10-19 14:44:19,643 - INFO - Epoch [9][250/977]	lr: 5.000e-05, eta: 4:51:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1906, loss_bbox: 0.2104, loss_centerness: 0.5925, loss: 0.9935, grad_norm: 7.1488
+2024-10-19 14:45:37,902 - INFO - Epoch [9][300/977]	lr: 5.000e-05, eta: 4:50:32, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1751, loss_bbox: 0.2174, loss_centerness: 0.5971, loss: 0.9895, grad_norm: 7.0641
+2024-10-19 14:46:56,183 - INFO - Epoch [9][350/977]	lr: 5.000e-05, eta: 4:49:19, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1796, loss_bbox: 0.2147, loss_centerness: 0.5938, loss: 0.9881, grad_norm: 6.6724
+2024-10-19 14:48:14,586 - INFO - Epoch [9][400/977]	lr: 5.000e-05, eta: 4:48:05, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1801, loss_bbox: 0.2189, loss_centerness: 0.5939, loss: 0.9928, grad_norm: 6.5400
+2024-10-19 14:49:32,840 - INFO - Epoch [9][450/977]	lr: 5.000e-05, eta: 4:46:51, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1695, loss_bbox: 0.1891, loss_centerness: 0.5917, loss: 0.9503, grad_norm: 7.0340
+2024-10-19 14:50:51,137 - INFO - Epoch [9][500/977]	lr: 5.000e-05, eta: 4:45:38, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1863, loss_bbox: 0.2175, loss_centerness: 0.5924, loss: 0.9961, grad_norm: 6.7151
+2024-10-19 14:52:09,364 - INFO - Epoch [9][550/977]	lr: 5.000e-05, eta: 4:44:24, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1746, loss_bbox: 0.2039, loss_centerness: 0.5953, loss: 0.9739, grad_norm: 6.9361
+2024-10-19 14:53:27,595 - INFO - Epoch [9][600/977]	lr: 5.000e-05, eta: 4:43:10, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1811, loss_bbox: 0.2064, loss_centerness: 0.5947, loss: 0.9822, grad_norm: 6.7546
+2024-10-19 14:54:45,873 - INFO - Epoch [9][650/977]	lr: 5.000e-05, eta: 4:41:56, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1885, loss_bbox: 0.2112, loss_centerness: 0.5932, loss: 0.9928, grad_norm: 6.1574
+2024-10-19 14:56:04,105 - INFO - Epoch [9][700/977]	lr: 5.000e-05, eta: 4:40:42, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1824, loss_bbox: 0.2036, loss_centerness: 0.5965, loss: 0.9825, grad_norm: 6.8380
+2024-10-19 14:57:22,383 - INFO - Epoch [9][750/977]	lr: 5.000e-05, eta: 4:39:28, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1721, loss_bbox: 0.2137, loss_centerness: 0.5925, loss: 0.9783, grad_norm: 6.9257
+2024-10-19 14:58:40,604 - INFO - Epoch [9][800/977]	lr: 5.000e-05, eta: 4:38:14, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.1859, loss_bbox: 0.2106, loss_centerness: 0.5966, loss: 0.9931, grad_norm: 6.9729
+2024-10-19 14:59:59,006 - INFO - Epoch [9][850/977]	lr: 5.000e-05, eta: 4:37:00, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1970, loss_bbox: 0.2414, loss_centerness: 0.5950, loss: 1.0335, grad_norm: 6.4173
+2024-10-19 15:01:17,232 - INFO - Epoch [9][900/977]	lr: 5.000e-05, eta: 4:35:46, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.1985, loss_bbox: 0.2318, loss_centerness: 0.5959, loss: 1.0262, grad_norm: 8.9645
+2024-10-19 15:02:35,509 - INFO - Epoch [9][950/977]	lr: 5.000e-05, eta: 4:34:32, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.2016, loss_bbox: 0.2336, loss_centerness: 0.5959, loss: 1.0311, grad_norm: 6.8290
+2024-10-19 15:03:17,858 - INFO - Saving checkpoint at 9 epochs
+2024-10-19 15:09:23,643 - INFO - Evaluating bbox...
+2024-10-19 15:09:30,295 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.529
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.641
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.556
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.019
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.141
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.619
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.132
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.395
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.785
+
+2024-10-19 15:09:30,382 - INFO - Epoch(val) [9][977]	bbox_mAP: 0.5290, bbox_mAP_50: 0.6410, bbox_mAP_75: 0.5560, bbox_mAP_s: 0.0190, bbox_mAP_m: 0.1410, bbox_mAP_l: 0.6190, bbox_mAP_copypaste: 0.529 0.641 0.556 0.019 0.141 0.619
+2024-10-19 15:09:30,383 - INFO - After val epoch hook called.
+2024-10-19 15:10:55,163 - INFO - Epoch [10][50/977]	lr: 5.000e-05, eta: 4:31:49, time: 1.611, data_time: 0.056, memory: 23672, loss_cls: 0.1646, loss_bbox: 0.2325, loss_centerness: 0.5945, loss: 0.9916, grad_norm: 6.1564
+2024-10-19 15:12:13,391 - INFO - Epoch [10][100/977]	lr: 5.000e-05, eta: 4:30:35, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1757, loss_bbox: 0.1891, loss_centerness: 0.5943, loss: 0.9591, grad_norm: 7.0677
+2024-10-19 15:13:31,642 - INFO - Epoch [10][150/977]	lr: 5.000e-05, eta: 4:29:21, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1625, loss_bbox: 0.1980, loss_centerness: 0.5941, loss: 0.9546, grad_norm: 6.5814
+2024-10-19 15:14:49,907 - INFO - Epoch [10][200/977]	lr: 5.000e-05, eta: 4:28:07, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1707, loss_bbox: 0.2165, loss_centerness: 0.5945, loss: 0.9817, grad_norm: 6.5208
+2024-10-19 15:16:08,216 - INFO - Epoch [10][250/977]	lr: 5.000e-05, eta: 4:26:54, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1897, loss_bbox: 0.2131, loss_centerness: 0.5933, loss: 0.9961, grad_norm: 6.4806
+2024-10-19 15:17:26,528 - INFO - Epoch [10][300/977]	lr: 5.000e-05, eta: 4:25:40, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1867, loss_bbox: 0.2190, loss_centerness: 0.5958, loss: 1.0015, grad_norm: 6.5213
+2024-10-19 15:18:44,798 - INFO - Epoch [10][350/977]	lr: 5.000e-05, eta: 4:24:26, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1667, loss_bbox: 0.2054, loss_centerness: 0.5926, loss: 0.9647, grad_norm: 6.1696
+2024-10-19 15:20:03,253 - INFO - Epoch [10][400/977]	lr: 5.000e-05, eta: 4:23:12, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.1824, loss_bbox: 0.2021, loss_centerness: 0.5942, loss: 0.9787, grad_norm: 7.2720
+2024-10-19 15:21:21,531 - INFO - Epoch [10][450/977]	lr: 5.000e-05, eta: 4:21:58, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1875, loss_bbox: 0.2255, loss_centerness: 0.5944, loss: 1.0074, grad_norm: 6.3512
+2024-10-19 15:22:39,808 - INFO - Epoch [10][500/977]	lr: 5.000e-05, eta: 4:20:43, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1633, loss_bbox: 0.1848, loss_centerness: 0.5895, loss: 0.9375, grad_norm: 7.6172
+2024-10-19 15:23:58,071 - INFO - Epoch [10][550/977]	lr: 5.000e-05, eta: 4:19:29, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1671, loss_bbox: 0.2072, loss_centerness: 0.5918, loss: 0.9662, grad_norm: 7.5538
+2024-10-19 15:25:16,371 - INFO - Epoch [10][600/977]	lr: 5.000e-05, eta: 4:18:15, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1738, loss_bbox: 0.2096, loss_centerness: 0.5938, loss: 0.9773, grad_norm: 6.4813
+2024-10-19 15:26:34,641 - INFO - Epoch [10][650/977]	lr: 5.000e-05, eta: 4:17:01, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1663, loss_bbox: 0.2010, loss_centerness: 0.5909, loss: 0.9582, grad_norm: 6.4847
+2024-10-19 15:27:52,880 - INFO - Epoch [10][700/977]	lr: 5.000e-05, eta: 4:15:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1493, loss_bbox: 0.1742, loss_centerness: 0.5919, loss: 0.9153, grad_norm: 6.0807
+2024-10-19 15:29:11,098 - INFO - Epoch [10][750/977]	lr: 5.000e-05, eta: 4:14:32, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.1684, loss_bbox: 0.2053, loss_centerness: 0.5920, loss: 0.9657, grad_norm: 6.9652
+2024-10-19 15:30:29,488 - INFO - Epoch [10][800/977]	lr: 5.000e-05, eta: 4:13:18, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1804, loss_bbox: 0.2128, loss_centerness: 0.5918, loss: 0.9850, grad_norm: 6.7800
+2024-10-19 15:31:47,782 - INFO - Epoch [10][850/977]	lr: 5.000e-05, eta: 4:12:03, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1868, loss_bbox: 0.2150, loss_centerness: 0.5961, loss: 0.9979, grad_norm: 6.8555
+2024-10-19 15:33:06,049 - INFO - Epoch [10][900/977]	lr: 5.000e-05, eta: 4:10:49, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1715, loss_bbox: 0.2000, loss_centerness: 0.5931, loss: 0.9645, grad_norm: 6.7487
+2024-10-19 15:34:24,319 - INFO - Epoch [10][950/977]	lr: 5.000e-05, eta: 4:09:34, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1746, loss_bbox: 0.2031, loss_centerness: 0.5922, loss: 0.9698, grad_norm: 7.5043
+2024-10-19 15:35:06,681 - INFO - Saving checkpoint at 10 epochs
+2024-10-19 15:41:12,132 - INFO - Evaluating bbox...
+2024-10-19 15:41:18,536 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.512
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.630
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.537
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.021
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.146
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.599
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.118
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.400
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.773
+
+2024-10-19 15:41:18,620 - INFO - Epoch(val) [10][977]	bbox_mAP: 0.5120, bbox_mAP_50: 0.6300, bbox_mAP_75: 0.5370, bbox_mAP_s: 0.0210, bbox_mAP_m: 0.1460, bbox_mAP_l: 0.5990, bbox_mAP_copypaste: 0.512 0.630 0.537 0.021 0.146 0.599
+2024-10-19 15:41:18,621 - INFO - After val epoch hook called.
+2024-10-19 15:42:43,333 - INFO - Epoch [11][50/977]	lr: 2.500e-05, eta: 4:07:00, time: 1.611, data_time: 0.056, memory: 23672, loss_cls: 0.1654, loss_bbox: 0.2149, loss_centerness: 0.5930, loss: 0.9732, grad_norm: 6.1769
+2024-10-19 15:44:01,630 - INFO - Epoch [11][100/977]	lr: 2.500e-05, eta: 4:05:45, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1564, loss_bbox: 0.1959, loss_centerness: 0.5926, loss: 0.9449, grad_norm: 6.3444
+2024-10-19 15:45:19,889 - INFO - Epoch [11][150/977]	lr: 2.500e-05, eta: 4:04:31, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1455, loss_bbox: 0.1913, loss_centerness: 0.5901, loss: 0.9269, grad_norm: 6.5821
+2024-10-19 15:46:38,158 - INFO - Epoch [11][200/977]	lr: 2.500e-05, eta: 4:03:17, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1560, loss_bbox: 0.1828, loss_centerness: 0.5919, loss: 0.9306, grad_norm: 6.6057
+2024-10-19 15:47:56,420 - INFO - Epoch [11][250/977]	lr: 2.500e-05, eta: 4:02:02, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1414, loss_bbox: 0.1683, loss_centerness: 0.5899, loss: 0.8996, grad_norm: 5.7513
+2024-10-19 15:49:14,725 - INFO - Epoch [11][300/977]	lr: 2.500e-05, eta: 4:00:48, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1454, loss_bbox: 0.1894, loss_centerness: 0.5904, loss: 0.9251, grad_norm: 6.0007
+2024-10-19 15:50:32,969 - INFO - Epoch [11][350/977]	lr: 2.500e-05, eta: 3:59:34, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1446, loss_bbox: 0.1904, loss_centerness: 0.5937, loss: 0.9288, grad_norm: 6.0696
+2024-10-19 15:51:51,378 - INFO - Epoch [11][400/977]	lr: 2.500e-05, eta: 3:58:19, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.1355, loss_bbox: 0.1772, loss_centerness: 0.5906, loss: 0.9033, grad_norm: 6.2862
+2024-10-19 15:53:09,586 - INFO - Epoch [11][450/977]	lr: 2.500e-05, eta: 3:57:05, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.1393, loss_bbox: 0.1718, loss_centerness: 0.5914, loss: 0.9025, grad_norm: 6.8011
+2024-10-19 15:54:27,861 - INFO - Epoch [11][500/977]	lr: 2.500e-05, eta: 3:55:50, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1374, loss_bbox: 0.1671, loss_centerness: 0.5900, loss: 0.8945, grad_norm: 6.6782
+2024-10-19 15:55:46,148 - INFO - Epoch [11][550/977]	lr: 2.500e-05, eta: 3:54:35, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.1563, loss_bbox: 0.2088, loss_centerness: 0.5954, loss: 0.9605, grad_norm: 5.9288
+2024-10-19 15:57:04,422 - INFO - Epoch [11][600/977]	lr: 2.500e-05, eta: 3:53:21, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1489, loss_bbox: 0.1947, loss_centerness: 0.5928, loss: 0.9364, grad_norm: 6.0847
+2024-10-19 15:58:22,687 - INFO - Epoch [11][650/977]	lr: 2.500e-05, eta: 3:52:06, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1468, loss_bbox: 0.1969, loss_centerness: 0.5923, loss: 0.9360, grad_norm: 6.0179
+2024-10-19 15:59:40,956 - INFO - Epoch [11][700/977]	lr: 2.500e-05, eta: 3:50:51, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1506, loss_bbox: 0.1920, loss_centerness: 0.5903, loss: 0.9330, grad_norm: 6.3529
+2024-10-19 16:00:59,238 - INFO - Epoch [11][750/977]	lr: 2.500e-05, eta: 3:49:37, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1474, loss_bbox: 0.1957, loss_centerness: 0.5941, loss: 0.9372, grad_norm: 6.4801
+2024-10-19 16:02:17,430 - INFO - Epoch [11][800/977]	lr: 2.500e-05, eta: 3:48:22, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.1396, loss_bbox: 0.1682, loss_centerness: 0.5889, loss: 0.8967, grad_norm: 6.3418
+2024-10-19 16:03:35,816 - INFO - Epoch [11][850/977]	lr: 2.500e-05, eta: 3:47:07, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1286, loss_bbox: 0.1751, loss_centerness: 0.5900, loss: 0.8937, grad_norm: 6.3082
+2024-10-19 16:04:54,057 - INFO - Epoch [11][900/977]	lr: 2.500e-05, eta: 3:45:52, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1373, loss_bbox: 0.1724, loss_centerness: 0.5937, loss: 0.9034, grad_norm: 6.5267
+2024-10-19 16:06:12,304 - INFO - Epoch [11][950/977]	lr: 2.500e-05, eta: 3:44:38, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1352, loss_bbox: 0.1749, loss_centerness: 0.5914, loss: 0.9016, grad_norm: 6.4122
+2024-10-19 16:06:54,666 - INFO - Saving checkpoint at 11 epochs
+2024-10-19 16:13:00,873 - INFO - Evaluating bbox...
+2024-10-19 16:13:07,052 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.548
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.665
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.572
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.032
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.156
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.642
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.714
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.714
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.714
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.194
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.406
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.789
+
+2024-10-19 16:13:07,130 - INFO - Epoch(val) [11][977]	bbox_mAP: 0.5480, bbox_mAP_50: 0.6650, bbox_mAP_75: 0.5720, bbox_mAP_s: 0.0320, bbox_mAP_m: 0.1560, bbox_mAP_l: 0.6420, bbox_mAP_copypaste: 0.548 0.665 0.572 0.032 0.156 0.642
+2024-10-19 16:13:07,131 - INFO - After val epoch hook called.
+2024-10-19 16:14:32,079 - INFO - Epoch [12][50/977]	lr: 2.500e-05, eta: 3:42:10, time: 1.611, data_time: 0.056, memory: 23672, loss_cls: 0.1371, loss_bbox: 0.1787, loss_centerness: 0.5939, loss: 0.9098, grad_norm: 6.0657
+2024-10-19 16:15:50,387 - INFO - Epoch [12][100/977]	lr: 2.500e-05, eta: 3:40:55, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1324, loss_bbox: 0.1699, loss_centerness: 0.5915, loss: 0.8938, grad_norm: 6.3799
+2024-10-19 16:17:08,608 - INFO - Epoch [12][150/977]	lr: 2.500e-05, eta: 3:39:41, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.1405, loss_bbox: 0.1688, loss_centerness: 0.5925, loss: 0.9018, grad_norm: 6.8271
+2024-10-19 16:18:26,854 - INFO - Epoch [12][200/977]	lr: 2.500e-05, eta: 3:38:26, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1226, loss_bbox: 0.1506, loss_centerness: 0.5889, loss: 0.8621, grad_norm: 6.8048
+2024-10-19 16:19:45,140 - INFO - Epoch [12][250/977]	lr: 2.500e-05, eta: 3:37:11, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1258, loss_bbox: 0.1600, loss_centerness: 0.5908, loss: 0.8767, grad_norm: 6.4934
+2024-10-19 16:21:03,402 - INFO - Epoch [12][300/977]	lr: 2.500e-05, eta: 3:35:56, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1467, loss_bbox: 0.1973, loss_centerness: 0.5924, loss: 0.9364, grad_norm: 5.9777
+2024-10-19 16:22:21,680 - INFO - Epoch [12][350/977]	lr: 2.500e-05, eta: 3:34:42, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1244, loss_bbox: 0.1793, loss_centerness: 0.5901, loss: 0.8938, grad_norm: 6.6184
+2024-10-19 16:23:39,936 - INFO - Epoch [12][400/977]	lr: 2.500e-05, eta: 3:33:27, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1371, loss_bbox: 0.1748, loss_centerness: 0.5912, loss: 0.9030, grad_norm: 8.7218
+2024-10-19 16:24:58,247 - INFO - Epoch [12][450/977]	lr: 2.500e-05, eta: 3:32:12, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1456, loss_bbox: 0.1960, loss_centerness: 0.5910, loss: 0.9325, grad_norm: 6.1524
+2024-10-19 16:26:16,525 - INFO - Epoch [12][500/977]	lr: 2.500e-05, eta: 3:30:57, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1291, loss_bbox: 0.1828, loss_centerness: 0.5932, loss: 0.9051, grad_norm: 5.9506
+2024-10-19 16:27:34,797 - INFO - Epoch [12][550/977]	lr: 2.500e-05, eta: 3:29:42, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1467, loss_bbox: 0.2066, loss_centerness: 0.5914, loss: 0.9447, grad_norm: 5.6439
+2024-10-19 16:28:53,045 - INFO - Epoch [12][600/977]	lr: 2.500e-05, eta: 3:28:27, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1329, loss_bbox: 0.1692, loss_centerness: 0.5914, loss: 0.8935, grad_norm: 6.2915
+2024-10-19 16:30:11,299 - INFO - Epoch [12][650/977]	lr: 2.500e-05, eta: 3:27:12, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1341, loss_bbox: 0.1782, loss_centerness: 0.5913, loss: 0.9035, grad_norm: 6.0365
+2024-10-19 16:31:29,769 - INFO - Epoch [12][700/977]	lr: 2.500e-05, eta: 3:25:58, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.1333, loss_bbox: 0.1723, loss_centerness: 0.5918, loss: 0.8974, grad_norm: 6.0148
+2024-10-19 16:32:48,031 - INFO - Epoch [12][750/977]	lr: 2.500e-05, eta: 3:24:43, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1287, loss_bbox: 0.1697, loss_centerness: 0.5913, loss: 0.8896, grad_norm: 5.8689
+2024-10-19 16:34:06,341 - INFO - Epoch [12][800/977]	lr: 2.500e-05, eta: 3:23:28, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.1473, loss_bbox: 0.1824, loss_centerness: 0.5914, loss: 0.9211, grad_norm: 5.8794
+2024-10-19 16:35:24,576 - INFO - Epoch [12][850/977]	lr: 2.500e-05, eta: 3:22:12, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1350, loss_bbox: 0.1889, loss_centerness: 0.5919, loss: 0.9157, grad_norm: 6.0852
+2024-10-19 16:36:42,866 - INFO - Epoch [12][900/977]	lr: 2.500e-05, eta: 3:20:57, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1272, loss_bbox: 0.1748, loss_centerness: 0.5910, loss: 0.8930, grad_norm: 6.6814
+2024-10-19 16:38:01,208 - INFO - Epoch [12][950/977]	lr: 2.500e-05, eta: 3:19:42, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.1317, loss_bbox: 0.1724, loss_centerness: 0.5928, loss: 0.8969, grad_norm: 6.3056
+2024-10-19 16:38:43,553 - INFO - Saving checkpoint at 12 epochs
+2024-10-19 16:44:49,124 - INFO - Evaluating bbox...
+2024-10-19 16:44:55,286 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.556
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.668
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.575
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.023
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.173
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.646
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.728
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.728
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.728
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.150
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.437
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.801
+
+2024-10-19 16:44:55,365 - INFO - Epoch(val) [12][977]	bbox_mAP: 0.5560, bbox_mAP_50: 0.6680, bbox_mAP_75: 0.5750, bbox_mAP_s: 0.0230, bbox_mAP_m: 0.1730, bbox_mAP_l: 0.6460, bbox_mAP_copypaste: 0.556 0.668 0.575 0.023 0.173 0.646
+2024-10-19 16:44:55,366 - INFO - After val epoch hook called.
+2024-10-19 16:46:20,107 - INFO - Epoch [13][50/977]	lr: 2.500e-05, eta: 3:17:20, time: 1.611, data_time: 0.057, memory: 23672, loss_cls: 0.1170, loss_bbox: 0.1622, loss_centerness: 0.5908, loss: 0.8701, grad_norm: 6.7905
+2024-10-19 16:47:38,335 - INFO - Epoch [13][100/977]	lr: 2.500e-05, eta: 3:16:05, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1309, loss_bbox: 0.1800, loss_centerness: 0.5916, loss: 0.9025, grad_norm: 5.9382
+2024-10-19 16:48:56,599 - INFO - Epoch [13][150/977]	lr: 2.500e-05, eta: 3:14:50, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1305, loss_bbox: 0.1802, loss_centerness: 0.5906, loss: 0.9013, grad_norm: 5.9765
+2024-10-19 16:50:14,858 - INFO - Epoch [13][200/977]	lr: 2.500e-05, eta: 3:13:35, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1131, loss_bbox: 0.1699, loss_centerness: 0.5937, loss: 0.8767, grad_norm: 6.0778
+2024-10-19 16:51:33,132 - INFO - Epoch [13][250/977]	lr: 2.500e-05, eta: 3:12:20, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1288, loss_bbox: 0.1791, loss_centerness: 0.5927, loss: 0.9007, grad_norm: 6.1956
+2024-10-19 16:52:51,551 - INFO - Epoch [13][300/977]	lr: 2.500e-05, eta: 3:11:05, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1285, loss_bbox: 0.1737, loss_centerness: 0.5914, loss: 0.8937, grad_norm: 6.0402
+2024-10-19 16:54:09,788 - INFO - Epoch [13][350/977]	lr: 2.500e-05, eta: 3:09:50, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1186, loss_bbox: 0.1631, loss_centerness: 0.5906, loss: 0.8723, grad_norm: 7.2965
+2024-10-19 16:55:27,981 - INFO - Epoch [13][400/977]	lr: 2.500e-05, eta: 3:08:35, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.1260, loss_bbox: 0.1712, loss_centerness: 0.5897, loss: 0.8870, grad_norm: 5.9511
+2024-10-19 16:56:46,270 - INFO - Epoch [13][450/977]	lr: 2.500e-05, eta: 3:07:20, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1215, loss_bbox: 0.1798, loss_centerness: 0.5931, loss: 0.8945, grad_norm: 6.0772
+2024-10-19 16:58:04,521 - INFO - Epoch [13][500/977]	lr: 2.500e-05, eta: 3:06:05, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1286, loss_bbox: 0.1935, loss_centerness: 0.5924, loss: 0.9145, grad_norm: 5.6675
+2024-10-19 16:59:22,765 - INFO - Epoch [13][550/977]	lr: 2.500e-05, eta: 3:04:50, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1281, loss_bbox: 0.1953, loss_centerness: 0.5935, loss: 0.9168, grad_norm: 6.3249
+2024-10-19 17:00:41,142 - INFO - Epoch [13][600/977]	lr: 2.500e-05, eta: 3:03:35, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1427, loss_bbox: 0.1793, loss_centerness: 0.5898, loss: 0.9118, grad_norm: 5.8755
+2024-10-19 17:01:59,391 - INFO - Epoch [13][650/977]	lr: 2.500e-05, eta: 3:02:20, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1223, loss_bbox: 0.1720, loss_centerness: 0.5891, loss: 0.8835, grad_norm: 6.1795
+2024-10-19 17:03:17,689 - INFO - Epoch [13][700/977]	lr: 2.500e-05, eta: 3:01:04, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1200, loss_bbox: 0.1699, loss_centerness: 0.5924, loss: 0.8823, grad_norm: 5.8674
+2024-10-19 17:04:35,956 - INFO - Epoch [13][750/977]	lr: 2.500e-05, eta: 2:59:49, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1234, loss_bbox: 0.1632, loss_centerness: 0.5920, loss: 0.8787, grad_norm: 6.1698
+2024-10-19 17:05:54,225 - INFO - Epoch [13][800/977]	lr: 2.500e-05, eta: 2:58:34, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1267, loss_bbox: 0.1662, loss_centerness: 0.5907, loss: 0.8836, grad_norm: 5.7449
+2024-10-19 17:07:12,480 - INFO - Epoch [13][850/977]	lr: 2.500e-05, eta: 2:57:19, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1403, loss_bbox: 0.1943, loss_centerness: 0.5932, loss: 0.9278, grad_norm: 6.1772
+2024-10-19 17:08:30,724 - INFO - Epoch [13][900/977]	lr: 2.500e-05, eta: 2:56:03, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1072, loss_bbox: 0.1395, loss_centerness: 0.5876, loss: 0.8343, grad_norm: 6.5839
+2024-10-19 17:09:48,981 - INFO - Epoch [13][950/977]	lr: 2.500e-05, eta: 2:54:48, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1229, loss_bbox: 0.1700, loss_centerness: 0.5887, loss: 0.8816, grad_norm: 6.5561
+2024-10-19 17:10:31,336 - INFO - Saving checkpoint at 13 epochs
+2024-10-19 17:16:36,420 - INFO - Evaluating bbox...
+2024-10-19 17:16:42,271 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.549
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.665
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.572
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.034
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.161
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.642
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.717
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.717
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.717
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.113
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.429
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.791
+
+2024-10-19 17:16:42,344 - INFO - Epoch(val) [13][977]	bbox_mAP: 0.5490, bbox_mAP_50: 0.6650, bbox_mAP_75: 0.5720, bbox_mAP_s: 0.0340, bbox_mAP_m: 0.1610, bbox_mAP_l: 0.6420, bbox_mAP_copypaste: 0.549 0.665 0.572 0.034 0.161 0.642
+2024-10-19 17:16:42,345 - INFO - After val epoch hook called.
+2024-10-19 17:18:07,124 - INFO - Epoch [14][50/977]	lr: 2.500e-05, eta: 2:52:30, time: 1.611, data_time: 0.056, memory: 23672, loss_cls: 0.1164, loss_bbox: 0.1511, loss_centerness: 0.5886, loss: 0.8562, grad_norm: 6.3331
+2024-10-19 17:19:25,383 - INFO - Epoch [14][100/977]	lr: 2.500e-05, eta: 2:51:15, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1077, loss_bbox: 0.1599, loss_centerness: 0.5892, loss: 0.8568, grad_norm: 6.1671
+2024-10-19 17:20:43,609 - INFO - Epoch [14][150/977]	lr: 2.500e-05, eta: 2:50:00, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.1173, loss_bbox: 0.1666, loss_centerness: 0.5909, loss: 0.8747, grad_norm: 6.6076
+2024-10-19 17:22:01,854 - INFO - Epoch [14][200/977]	lr: 2.500e-05, eta: 2:48:45, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1177, loss_bbox: 0.1673, loss_centerness: 0.5898, loss: 0.8749, grad_norm: 6.0656
+2024-10-19 17:23:20,090 - INFO - Epoch [14][250/977]	lr: 2.500e-05, eta: 2:47:30, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0983, loss_bbox: 0.1548, loss_centerness: 0.5887, loss: 0.8418, grad_norm: 6.5943
+2024-10-19 17:24:38,362 - INFO - Epoch [14][300/977]	lr: 2.500e-05, eta: 2:46:14, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1183, loss_bbox: 0.1672, loss_centerness: 0.5885, loss: 0.8741, grad_norm: 5.7946
+2024-10-19 17:25:56,605 - INFO - Epoch [14][350/977]	lr: 2.500e-05, eta: 2:44:59, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1325, loss_bbox: 0.1793, loss_centerness: 0.5908, loss: 0.9026, grad_norm: 5.9580
+2024-10-19 17:27:14,866 - INFO - Epoch [14][400/977]	lr: 2.500e-05, eta: 2:43:44, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1156, loss_bbox: 0.1680, loss_centerness: 0.5925, loss: 0.8761, grad_norm: 6.2414
+2024-10-19 17:28:33,113 - INFO - Epoch [14][450/977]	lr: 2.500e-05, eta: 2:42:28, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1210, loss_bbox: 0.1792, loss_centerness: 0.5922, loss: 0.8925, grad_norm: 6.3142
+2024-10-19 17:29:51,350 - INFO - Epoch [14][500/977]	lr: 2.500e-05, eta: 2:41:13, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1274, loss_bbox: 0.1750, loss_centerness: 0.5907, loss: 0.8930, grad_norm: 5.7799
+2024-10-19 17:31:09,760 - INFO - Epoch [14][550/977]	lr: 2.500e-05, eta: 2:39:58, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1167, loss_bbox: 0.1719, loss_centerness: 0.5919, loss: 0.8805, grad_norm: 6.1845
+2024-10-19 17:32:28,031 - INFO - Epoch [14][600/977]	lr: 2.500e-05, eta: 2:38:42, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1313, loss_bbox: 0.1720, loss_centerness: 0.5921, loss: 0.8954, grad_norm: 6.5946
+2024-10-19 17:33:46,282 - INFO - Epoch [14][650/977]	lr: 2.500e-05, eta: 2:37:27, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1122, loss_bbox: 0.1702, loss_centerness: 0.5913, loss: 0.8738, grad_norm: 6.0766
+2024-10-19 17:35:04,608 - INFO - Epoch [14][700/977]	lr: 2.500e-05, eta: 2:36:12, time: 1.567, data_time: 0.010, memory: 23672, loss_cls: 0.1168, loss_bbox: 0.1653, loss_centerness: 0.5912, loss: 0.8733, grad_norm: 6.2164
+2024-10-19 17:36:22,914 - INFO - Epoch [14][750/977]	lr: 2.500e-05, eta: 2:34:56, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1294, loss_bbox: 0.1784, loss_centerness: 0.5917, loss: 0.8996, grad_norm: 5.4891
+2024-10-19 17:37:41,154 - INFO - Epoch [14][800/977]	lr: 2.500e-05, eta: 2:33:41, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1184, loss_bbox: 0.1651, loss_centerness: 0.5885, loss: 0.8719, grad_norm: 6.7139
+2024-10-19 17:38:59,524 - INFO - Epoch [14][850/977]	lr: 2.500e-05, eta: 2:32:25, time: 1.567, data_time: 0.010, memory: 23672, loss_cls: 0.1164, loss_bbox: 0.1659, loss_centerness: 0.5918, loss: 0.8741, grad_norm: 5.8129
+2024-10-19 17:40:17,772 - INFO - Epoch [14][900/977]	lr: 2.500e-05, eta: 2:31:10, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1223, loss_bbox: 0.1750, loss_centerness: 0.5902, loss: 0.8875, grad_norm: 5.8685
+2024-10-19 17:41:35,982 - INFO - Epoch [14][950/977]	lr: 2.500e-05, eta: 2:29:54, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.1082, loss_bbox: 0.1622, loss_centerness: 0.5885, loss: 0.8589, grad_norm: 6.0931
+2024-10-19 17:42:18,344 - INFO - Saving checkpoint at 14 epochs
+2024-10-19 17:48:24,287 - INFO - Evaluating bbox...
+2024-10-19 17:48:29,870 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.547
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.662
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.572
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.038
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.166
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.638
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.163
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.448
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.789
+
+2024-10-19 17:48:29,940 - INFO - Epoch(val) [14][977]	bbox_mAP: 0.5470, bbox_mAP_50: 0.6620, bbox_mAP_75: 0.5720, bbox_mAP_s: 0.0380, bbox_mAP_m: 0.1660, bbox_mAP_l: 0.6380, bbox_mAP_copypaste: 0.547 0.662 0.572 0.038 0.166 0.638
+2024-10-19 17:48:29,941 - INFO - After val epoch hook called.
+2024-10-19 17:49:54,746 - INFO - Epoch [15][50/977]	lr: 1.250e-05, eta: 2:27:41, time: 1.610, data_time: 0.056, memory: 23672, loss_cls: 0.1132, loss_bbox: 0.1683, loss_centerness: 0.5907, loss: 0.8722, grad_norm: 6.1165
+2024-10-19 17:51:12,981 - INFO - Epoch [15][100/977]	lr: 1.250e-05, eta: 2:26:25, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1143, loss_bbox: 0.1656, loss_centerness: 0.5917, loss: 0.8716, grad_norm: 6.0289
+2024-10-19 17:52:31,287 - INFO - Epoch [15][150/977]	lr: 1.250e-05, eta: 2:25:10, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.1202, loss_bbox: 0.1816, loss_centerness: 0.5881, loss: 0.8899, grad_norm: 5.5409
+2024-10-19 17:53:49,494 - INFO - Epoch [15][200/977]	lr: 1.250e-05, eta: 2:23:55, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.0903, loss_bbox: 0.1351, loss_centerness: 0.5888, loss: 0.8142, grad_norm: 6.0088
+2024-10-19 17:55:07,779 - INFO - Epoch [15][250/977]	lr: 1.250e-05, eta: 2:22:39, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1108, loss_bbox: 0.1572, loss_centerness: 0.5902, loss: 0.8582, grad_norm: 5.8904
+2024-10-19 17:56:26,022 - INFO - Epoch [15][300/977]	lr: 1.250e-05, eta: 2:21:24, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1165, loss_bbox: 0.1668, loss_centerness: 0.5900, loss: 0.8733, grad_norm: 5.4093
+2024-10-19 17:57:44,253 - INFO - Epoch [15][350/977]	lr: 1.250e-05, eta: 2:20:08, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1135, loss_bbox: 0.1736, loss_centerness: 0.5904, loss: 0.8775, grad_norm: 5.4552
+2024-10-19 17:59:02,654 - INFO - Epoch [15][400/977]	lr: 1.250e-05, eta: 2:18:53, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.0998, loss_bbox: 0.1524, loss_centerness: 0.5899, loss: 0.8421, grad_norm: 5.6975
+2024-10-19 18:00:20,895 - INFO - Epoch [15][450/977]	lr: 1.250e-05, eta: 2:17:37, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1189, loss_bbox: 0.1786, loss_centerness: 0.5923, loss: 0.8898, grad_norm: 5.4837
+2024-10-19 18:01:39,132 - INFO - Epoch [15][500/977]	lr: 1.250e-05, eta: 2:16:22, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1012, loss_bbox: 0.1522, loss_centerness: 0.5901, loss: 0.8435, grad_norm: 5.5713
+2024-10-19 18:02:57,349 - INFO - Epoch [15][550/977]	lr: 1.250e-05, eta: 2:15:06, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.0887, loss_bbox: 0.1394, loss_centerness: 0.5892, loss: 0.8173, grad_norm: 6.0452
+2024-10-19 18:04:15,650 - INFO - Epoch [15][600/977]	lr: 1.250e-05, eta: 2:13:50, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1141, loss_bbox: 0.1682, loss_centerness: 0.5914, loss: 0.8736, grad_norm: 6.2310
+2024-10-19 18:05:33,855 - INFO - Epoch [15][650/977]	lr: 1.250e-05, eta: 2:12:35, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.0963, loss_bbox: 0.1452, loss_centerness: 0.5862, loss: 0.8276, grad_norm: 6.3073
+2024-10-19 18:06:52,237 - INFO - Epoch [15][700/977]	lr: 1.250e-05, eta: 2:11:19, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.1090, loss_bbox: 0.1675, loss_centerness: 0.5905, loss: 0.8670, grad_norm: 6.5861
+2024-10-19 18:08:10,488 - INFO - Epoch [15][750/977]	lr: 1.250e-05, eta: 2:10:04, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1141, loss_bbox: 0.1774, loss_centerness: 0.5943, loss: 0.8858, grad_norm: 5.7971
+2024-10-19 18:09:28,744 - INFO - Epoch [15][800/977]	lr: 1.250e-05, eta: 2:08:48, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1068, loss_bbox: 0.1609, loss_centerness: 0.5906, loss: 0.8583, grad_norm: 5.3675
+2024-10-19 18:10:46,938 - INFO - Epoch [15][850/977]	lr: 1.250e-05, eta: 2:07:32, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.0978, loss_bbox: 0.1428, loss_centerness: 0.5894, loss: 0.8300, grad_norm: 5.9079
+2024-10-19 18:12:05,215 - INFO - Epoch [15][900/977]	lr: 1.250e-05, eta: 2:06:17, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.0962, loss_bbox: 0.1435, loss_centerness: 0.5885, loss: 0.8283, grad_norm: 5.9678
+2024-10-19 18:13:23,471 - INFO - Epoch [15][950/977]	lr: 1.250e-05, eta: 2:05:01, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1023, loss_bbox: 0.1554, loss_centerness: 0.5910, loss: 0.8486, grad_norm: 5.5879
+2024-10-19 18:14:05,786 - INFO - Saving checkpoint at 15 epochs
+2024-10-19 18:20:11,371 - INFO - Evaluating bbox...
+2024-10-19 18:20:17,020 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.564
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.674
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.585
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.023
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.176
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.655
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.723
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.723
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.723
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.098
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.419
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.797
+
+2024-10-19 18:20:17,095 - INFO - Epoch(val) [15][977]	bbox_mAP: 0.5640, bbox_mAP_50: 0.6740, bbox_mAP_75: 0.5850, bbox_mAP_s: 0.0230, bbox_mAP_m: 0.1760, bbox_mAP_l: 0.6550, bbox_mAP_copypaste: 0.564 0.674 0.585 0.023 0.176 0.655
+2024-10-19 18:20:17,096 - INFO - After val epoch hook called.
+2024-10-19 18:21:41,967 - INFO - Epoch [16][50/977]	lr: 1.250e-05, eta: 2:02:51, time: 1.610, data_time: 0.056, memory: 23672, loss_cls: 0.1058, loss_bbox: 0.1574, loss_centerness: 0.5895, loss: 0.8527, grad_norm: 5.8788
+2024-10-19 18:23:00,224 - INFO - Epoch [16][100/977]	lr: 1.250e-05, eta: 2:01:35, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1065, loss_bbox: 0.1700, loss_centerness: 0.5909, loss: 0.8674, grad_norm: 5.9856
+2024-10-19 18:24:18,459 - INFO - Epoch [16][150/977]	lr: 1.250e-05, eta: 2:00:20, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0995, loss_bbox: 0.1543, loss_centerness: 0.5926, loss: 0.8464, grad_norm: 6.0520
+2024-10-19 18:25:36,688 - INFO - Epoch [16][200/977]	lr: 1.250e-05, eta: 1:59:04, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0944, loss_bbox: 0.1369, loss_centerness: 0.5870, loss: 0.8183, grad_norm: 6.2798
+2024-10-19 18:26:54,977 - INFO - Epoch [16][250/977]	lr: 1.250e-05, eta: 1:57:49, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1134, loss_bbox: 0.1725, loss_centerness: 0.5914, loss: 0.8773, grad_norm: 5.7479
+2024-10-19 18:28:13,242 - INFO - Epoch [16][300/977]	lr: 1.250e-05, eta: 1:56:33, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1028, loss_bbox: 0.1623, loss_centerness: 0.5907, loss: 0.8559, grad_norm: 5.6126
+2024-10-19 18:29:31,482 - INFO - Epoch [16][350/977]	lr: 1.250e-05, eta: 1:55:17, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0924, loss_bbox: 0.1395, loss_centerness: 0.5877, loss: 0.8197, grad_norm: 6.2923
+2024-10-19 18:30:49,761 - INFO - Epoch [16][400/977]	lr: 1.250e-05, eta: 1:54:02, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1023, loss_bbox: 0.1553, loss_centerness: 0.5892, loss: 0.8468, grad_norm: 5.7236
+2024-10-19 18:32:08,002 - INFO - Epoch [16][450/977]	lr: 1.250e-05, eta: 1:52:46, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0909, loss_bbox: 0.1426, loss_centerness: 0.5904, loss: 0.8239, grad_norm: 6.2426
+2024-10-19 18:33:26,457 - INFO - Epoch [16][500/977]	lr: 1.250e-05, eta: 1:51:30, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.1007, loss_bbox: 0.1438, loss_centerness: 0.5884, loss: 0.8330, grad_norm: 5.9324
+2024-10-19 18:34:44,757 - INFO - Epoch [16][550/977]	lr: 1.250e-05, eta: 1:50:15, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0957, loss_bbox: 0.1477, loss_centerness: 0.5907, loss: 0.8340, grad_norm: 5.9115
+2024-10-19 18:36:03,056 - INFO - Epoch [16][600/977]	lr: 1.250e-05, eta: 1:48:59, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1054, loss_bbox: 0.1576, loss_centerness: 0.5928, loss: 0.8557, grad_norm: 6.1030
+2024-10-19 18:37:21,369 - INFO - Epoch [16][650/977]	lr: 1.250e-05, eta: 1:47:43, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1103, loss_bbox: 0.1588, loss_centerness: 0.5890, loss: 0.8581, grad_norm: 5.7143
+2024-10-19 18:38:39,622 - INFO - Epoch [16][700/977]	lr: 1.250e-05, eta: 1:46:27, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1037, loss_bbox: 0.1640, loss_centerness: 0.5901, loss: 0.8577, grad_norm: 5.6405
+2024-10-19 18:39:58,028 - INFO - Epoch [16][750/977]	lr: 1.250e-05, eta: 1:45:12, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.1066, loss_bbox: 0.1567, loss_centerness: 0.5904, loss: 0.8537, grad_norm: 6.0888
+2024-10-19 18:41:16,293 - INFO - Epoch [16][800/977]	lr: 1.250e-05, eta: 1:43:56, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1028, loss_bbox: 0.1603, loss_centerness: 0.5901, loss: 0.8532, grad_norm: 5.7157
+2024-10-19 18:42:34,575 - INFO - Epoch [16][850/977]	lr: 1.250e-05, eta: 1:42:40, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0974, loss_bbox: 0.1479, loss_centerness: 0.5903, loss: 0.8356, grad_norm: 5.8963
+2024-10-19 18:43:52,820 - INFO - Epoch [16][900/977]	lr: 1.250e-05, eta: 1:41:24, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.1022, loss_bbox: 0.1506, loss_centerness: 0.5893, loss: 0.8422, grad_norm: 6.3746
+2024-10-19 18:45:11,114 - INFO - Epoch [16][950/977]	lr: 1.250e-05, eta: 1:40:08, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1176, loss_bbox: 0.1529, loss_centerness: 0.5900, loss: 0.8605, grad_norm: 5.7937
+2024-10-19 18:45:53,477 - INFO - Saving checkpoint at 16 epochs
+2024-10-19 18:51:59,553 - INFO - Evaluating bbox...
+2024-10-19 18:52:05,237 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.562
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.673
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.581
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.030
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.174
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.652
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.724
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.724
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.724
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.198
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.423
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.798
+
+2024-10-19 18:52:05,307 - INFO - Epoch(val) [16][977]	bbox_mAP: 0.5620, bbox_mAP_50: 0.6730, bbox_mAP_75: 0.5810, bbox_mAP_s: 0.0300, bbox_mAP_m: 0.1740, bbox_mAP_l: 0.6520, bbox_mAP_copypaste: 0.562 0.673 0.581 0.030 0.174 0.652
+2024-10-19 18:52:05,308 - INFO - After val epoch hook called.
+2024-10-19 18:53:30,142 - INFO - Epoch [17][50/977]	lr: 1.250e-05, eta: 1:38:02, time: 1.612, data_time: 0.057, memory: 23672, loss_cls: 0.0992, loss_bbox: 0.1527, loss_centerness: 0.5907, loss: 0.8426, grad_norm: 5.8304
+2024-10-19 18:54:48,499 - INFO - Epoch [17][100/977]	lr: 1.250e-05, eta: 1:36:46, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.0950, loss_bbox: 0.1568, loss_centerness: 0.5910, loss: 0.8428, grad_norm: 6.2919
+2024-10-19 18:56:06,738 - INFO - Epoch [17][150/977]	lr: 1.250e-05, eta: 1:35:30, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0997, loss_bbox: 0.1487, loss_centerness: 0.5912, loss: 0.8396, grad_norm: 6.0459
+2024-10-19 18:57:25,016 - INFO - Epoch [17][200/977]	lr: 1.250e-05, eta: 1:34:14, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0976, loss_bbox: 0.1589, loss_centerness: 0.5901, loss: 0.8466, grad_norm: 5.6970
+2024-10-19 18:58:43,304 - INFO - Epoch [17][250/977]	lr: 1.250e-05, eta: 1:32:59, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0976, loss_bbox: 0.1450, loss_centerness: 0.5909, loss: 0.8335, grad_norm: 5.7780
+2024-10-19 19:00:01,620 - INFO - Epoch [17][300/977]	lr: 1.250e-05, eta: 1:31:43, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.1036, loss_bbox: 0.1598, loss_centerness: 0.5910, loss: 0.8544, grad_norm: 6.5156
+2024-10-19 19:01:19,868 - INFO - Epoch [17][350/977]	lr: 1.250e-05, eta: 1:30:27, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0948, loss_bbox: 0.1473, loss_centerness: 0.5894, loss: 0.8315, grad_norm: 6.8677
+2024-10-19 19:02:38,124 - INFO - Epoch [17][400/977]	lr: 1.250e-05, eta: 1:29:11, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1023, loss_bbox: 0.1515, loss_centerness: 0.5875, loss: 0.8412, grad_norm: 5.5221
+2024-10-19 19:03:56,362 - INFO - Epoch [17][450/977]	lr: 1.250e-05, eta: 1:27:55, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0945, loss_bbox: 0.1439, loss_centerness: 0.5913, loss: 0.8297, grad_norm: 6.2900
+2024-10-19 19:05:14,630 - INFO - Epoch [17][500/977]	lr: 1.250e-05, eta: 1:26:39, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1045, loss_bbox: 0.1739, loss_centerness: 0.5909, loss: 0.8693, grad_norm: 5.9543
+2024-10-19 19:06:32,990 - INFO - Epoch [17][550/977]	lr: 1.250e-05, eta: 1:25:23, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.1001, loss_bbox: 0.1465, loss_centerness: 0.5879, loss: 0.8345, grad_norm: 6.1067
+2024-10-19 19:07:51,244 - INFO - Epoch [17][600/977]	lr: 1.250e-05, eta: 1:24:08, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0913, loss_bbox: 0.1478, loss_centerness: 0.5907, loss: 0.8298, grad_norm: 5.5626
+2024-10-19 19:09:09,495 - INFO - Epoch [17][650/977]	lr: 1.250e-05, eta: 1:22:52, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0919, loss_bbox: 0.1476, loss_centerness: 0.5870, loss: 0.8265, grad_norm: 5.8770
+2024-10-19 19:10:27,768 - INFO - Epoch [17][700/977]	lr: 1.250e-05, eta: 1:21:36, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0839, loss_bbox: 0.1309, loss_centerness: 0.5871, loss: 0.8019, grad_norm: 6.2934
+2024-10-19 19:11:46,081 - INFO - Epoch [17][750/977]	lr: 1.250e-05, eta: 1:20:20, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1009, loss_bbox: 0.1532, loss_centerness: 0.5909, loss: 0.8450, grad_norm: 6.0293
+2024-10-19 19:13:04,527 - INFO - Epoch [17][800/977]	lr: 1.250e-05, eta: 1:19:04, time: 1.569, data_time: 0.010, memory: 23672, loss_cls: 0.1166, loss_bbox: 0.1788, loss_centerness: 0.5910, loss: 0.8864, grad_norm: 5.3406
+2024-10-19 19:14:22,772 - INFO - Epoch [17][850/977]	lr: 1.250e-05, eta: 1:17:48, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0939, loss_bbox: 0.1391, loss_centerness: 0.5921, loss: 0.8251, grad_norm: 6.1741
+2024-10-19 19:15:41,058 - INFO - Epoch [17][900/977]	lr: 1.250e-05, eta: 1:16:32, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0983, loss_bbox: 0.1491, loss_centerness: 0.5906, loss: 0.8381, grad_norm: 5.7891
+2024-10-19 19:16:59,360 - INFO - Epoch [17][950/977]	lr: 1.250e-05, eta: 1:15:16, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1088, loss_bbox: 0.1631, loss_centerness: 0.5868, loss: 0.8587, grad_norm: 5.7208
+2024-10-19 19:17:41,726 - INFO - Saving checkpoint at 17 epochs
+2024-10-19 19:23:47,793 - INFO - Evaluating bbox...
+2024-10-19 19:23:53,267 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.559
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.671
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.576
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.031
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.165
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.652
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.235
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.427
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.790
+
+2024-10-19 19:23:53,337 - INFO - Epoch(val) [17][977]	bbox_mAP: 0.5590, bbox_mAP_50: 0.6710, bbox_mAP_75: 0.5760, bbox_mAP_s: 0.0310, bbox_mAP_m: 0.1650, bbox_mAP_l: 0.6520, bbox_mAP_copypaste: 0.559 0.671 0.576 0.031 0.165 0.652
+2024-10-19 19:23:53,339 - INFO - After val epoch hook called.
+2024-10-19 19:25:18,146 - INFO - Epoch [18][50/977]	lr: 6.250e-06, eta: 1:13:12, time: 1.610, data_time: 0.056, memory: 23672, loss_cls: 0.0820, loss_bbox: 0.1328, loss_centerness: 0.5887, loss: 0.8035, grad_norm: 5.8417
+2024-10-19 19:26:36,414 - INFO - Epoch [18][100/977]	lr: 6.250e-06, eta: 1:11:56, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.1077, loss_bbox: 0.1608, loss_centerness: 0.5897, loss: 0.8583, grad_norm: 6.2384
+2024-10-19 19:27:54,651 - INFO - Epoch [18][150/977]	lr: 6.250e-06, eta: 1:10:40, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0941, loss_bbox: 0.1396, loss_centerness: 0.5868, loss: 0.8204, grad_norm: 5.9848
+2024-10-19 19:29:12,905 - INFO - Epoch [18][200/977]	lr: 6.250e-06, eta: 1:09:24, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0934, loss_bbox: 0.1473, loss_centerness: 0.5908, loss: 0.8314, grad_norm: 5.7864
+2024-10-19 19:30:31,130 - INFO - Epoch [18][250/977]	lr: 6.250e-06, eta: 1:08:08, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.0800, loss_bbox: 0.1267, loss_centerness: 0.5875, loss: 0.7942, grad_norm: 5.7544
+2024-10-19 19:31:49,429 - INFO - Epoch [18][300/977]	lr: 6.250e-06, eta: 1:06:52, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.0937, loss_bbox: 0.1420, loss_centerness: 0.5892, loss: 0.8250, grad_norm: 5.7300
+2024-10-19 19:33:07,849 - INFO - Epoch [18][350/977]	lr: 6.250e-06, eta: 1:05:36, time: 1.568, data_time: 0.010, memory: 23672, loss_cls: 0.0973, loss_bbox: 0.1463, loss_centerness: 0.5869, loss: 0.8304, grad_norm: 5.7267
+2024-10-19 19:34:26,036 - INFO - Epoch [18][400/977]	lr: 6.250e-06, eta: 1:04:21, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.0861, loss_bbox: 0.1308, loss_centerness: 0.5871, loss: 0.8039, grad_norm: 5.6078
+2024-10-19 19:35:44,256 - INFO - Epoch [18][450/977]	lr: 6.250e-06, eta: 1:03:05, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.0947, loss_bbox: 0.1450, loss_centerness: 0.5905, loss: 0.8302, grad_norm: 5.6866
+2024-10-19 19:37:02,520 - INFO - Epoch [18][500/977]	lr: 6.250e-06, eta: 1:01:49, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0992, loss_bbox: 0.1528, loss_centerness: 0.5900, loss: 0.8421, grad_norm: 5.9661
+2024-10-19 19:38:20,768 - INFO - Epoch [18][550/977]	lr: 6.250e-06, eta: 1:00:32, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0863, loss_bbox: 0.1437, loss_centerness: 0.5907, loss: 0.8207, grad_norm: 5.2536
+2024-10-19 19:39:39,029 - INFO - Epoch [18][600/977]	lr: 6.250e-06, eta: 0:59:16, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0782, loss_bbox: 0.1291, loss_centerness: 0.5865, loss: 0.7938, grad_norm: 6.1283
+2024-10-19 19:40:57,370 - INFO - Epoch [18][650/977]	lr: 6.250e-06, eta: 0:58:00, time: 1.567, data_time: 0.009, memory: 23672, loss_cls: 0.0971, loss_bbox: 0.1477, loss_centerness: 0.5882, loss: 0.8330, grad_norm: 5.8173
+2024-10-19 19:42:15,624 - INFO - Epoch [18][700/977]	lr: 6.250e-06, eta: 0:56:44, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0920, loss_bbox: 0.1500, loss_centerness: 0.5904, loss: 0.8324, grad_norm: 5.0944
+2024-10-19 19:43:33,882 - INFO - Epoch [18][750/977]	lr: 6.250e-06, eta: 0:55:28, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0899, loss_bbox: 0.1424, loss_centerness: 0.5877, loss: 0.8199, grad_norm: 5.8184
+2024-10-19 19:44:52,159 - INFO - Epoch [18][800/977]	lr: 6.250e-06, eta: 0:54:12, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0932, loss_bbox: 0.1447, loss_centerness: 0.5895, loss: 0.8274, grad_norm: 5.6529
+2024-10-19 19:46:10,431 - INFO - Epoch [18][850/977]	lr: 6.250e-06, eta: 0:52:56, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0922, loss_bbox: 0.1490, loss_centerness: 0.5904, loss: 0.8316, grad_norm: 5.5793
+2024-10-19 19:47:28,709 - INFO - Epoch [18][900/977]	lr: 6.250e-06, eta: 0:51:40, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1009, loss_bbox: 0.1446, loss_centerness: 0.5883, loss: 0.8338, grad_norm: 6.1944
+2024-10-19 19:48:46,994 - INFO - Epoch [18][950/977]	lr: 6.250e-06, eta: 0:50:24, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1069, loss_bbox: 0.1655, loss_centerness: 0.5908, loss: 0.8633, grad_norm: 5.6337
+2024-10-19 19:49:29,356 - INFO - Saving checkpoint at 18 epochs
+2024-10-19 19:55:34,635 - INFO - Evaluating bbox...
+2024-10-19 19:55:40,356 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.568
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.677
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.586
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.032
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.170
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.661
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.724
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.724
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.724
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.219
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.420
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.800
+
+2024-10-19 19:55:40,421 - INFO - Epoch(val) [18][977]	bbox_mAP: 0.5680, bbox_mAP_50: 0.6770, bbox_mAP_75: 0.5860, bbox_mAP_s: 0.0320, bbox_mAP_m: 0.1700, bbox_mAP_l: 0.6610, bbox_mAP_copypaste: 0.568 0.677 0.586 0.032 0.170 0.661
+2024-10-19 19:55:40,423 - INFO - After val epoch hook called.
+2024-10-19 19:57:05,196 - INFO - Epoch [19][50/977]	lr: 6.250e-06, eta: 0:48:22, time: 1.610, data_time: 0.056, memory: 23672, loss_cls: 0.0837, loss_bbox: 0.1398, loss_centerness: 0.5870, loss: 0.8105, grad_norm: 5.8914
+2024-10-19 19:58:23,489 - INFO - Epoch [19][100/977]	lr: 6.250e-06, eta: 0:47:06, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1054, loss_bbox: 0.1706, loss_centerness: 0.5917, loss: 0.8677, grad_norm: 5.2700
+2024-10-19 19:59:41,765 - INFO - Epoch [19][150/977]	lr: 6.250e-06, eta: 0:45:50, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0885, loss_bbox: 0.1389, loss_centerness: 0.5900, loss: 0.8174, grad_norm: 5.7963
+2024-10-19 20:01:00,020 - INFO - Epoch [19][200/977]	lr: 6.250e-06, eta: 0:44:34, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0935, loss_bbox: 0.1452, loss_centerness: 0.5876, loss: 0.8263, grad_norm: 5.7153
+2024-10-19 20:02:18,240 - INFO - Epoch [19][250/977]	lr: 6.250e-06, eta: 0:43:18, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.0709, loss_bbox: 0.1148, loss_centerness: 0.5865, loss: 0.7722, grad_norm: 6.1081
+2024-10-19 20:03:36,537 - INFO - Epoch [19][300/977]	lr: 6.250e-06, eta: 0:42:02, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0918, loss_bbox: 0.1468, loss_centerness: 0.5897, loss: 0.8282, grad_norm: 5.8094
+2024-10-19 20:04:54,819 - INFO - Epoch [19][350/977]	lr: 6.250e-06, eta: 0:40:46, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0978, loss_bbox: 0.1564, loss_centerness: 0.5897, loss: 0.8438, grad_norm: 5.2950
+2024-10-19 20:06:13,067 - INFO - Epoch [19][400/977]	lr: 6.250e-06, eta: 0:39:30, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0843, loss_bbox: 0.1354, loss_centerness: 0.5879, loss: 0.8076, grad_norm: 6.1600
+2024-10-19 20:07:31,546 - INFO - Epoch [19][450/977]	lr: 6.250e-06, eta: 0:38:14, time: 1.570, data_time: 0.009, memory: 23672, loss_cls: 0.0822, loss_bbox: 0.1382, loss_centerness: 0.5881, loss: 0.8086, grad_norm: 5.8184
+2024-10-19 20:08:49,824 - INFO - Epoch [19][500/977]	lr: 6.250e-06, eta: 0:36:58, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1003, loss_bbox: 0.1546, loss_centerness: 0.5919, loss: 0.8468, grad_norm: 5.5399
+2024-10-19 20:10:08,101 - INFO - Epoch [19][550/977]	lr: 6.250e-06, eta: 0:35:42, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.1053, loss_bbox: 0.1545, loss_centerness: 0.5921, loss: 0.8519, grad_norm: 5.6638
+2024-10-19 20:11:26,355 - INFO - Epoch [19][600/977]	lr: 6.250e-06, eta: 0:34:26, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0893, loss_bbox: 0.1546, loss_centerness: 0.5898, loss: 0.8338, grad_norm: 6.2262
+2024-10-19 20:12:44,587 - INFO - Epoch [19][650/977]	lr: 6.250e-06, eta: 0:33:09, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0909, loss_bbox: 0.1375, loss_centerness: 0.5869, loss: 0.8153, grad_norm: 5.5210
+2024-10-19 20:14:02,799 - INFO - Epoch [19][700/977]	lr: 6.250e-06, eta: 0:31:53, time: 1.564, data_time: 0.010, memory: 23672, loss_cls: 0.0823, loss_bbox: 0.1221, loss_centerness: 0.5882, loss: 0.7925, grad_norm: 6.1134
+2024-10-19 20:15:21,081 - INFO - Epoch [19][750/977]	lr: 6.250e-06, eta: 0:30:37, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.0877, loss_bbox: 0.1463, loss_centerness: 0.5903, loss: 0.8243, grad_norm: 5.7960
+2024-10-19 20:16:39,355 - INFO - Epoch [19][800/977]	lr: 6.250e-06, eta: 0:29:21, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0846, loss_bbox: 0.1395, loss_centerness: 0.5878, loss: 0.8119, grad_norm: 5.7969
+2024-10-19 20:17:57,627 - INFO - Epoch [19][850/977]	lr: 6.250e-06, eta: 0:28:05, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0923, loss_bbox: 0.1448, loss_centerness: 0.5898, loss: 0.8269, grad_norm: 5.4576
+2024-10-19 20:19:16,022 - INFO - Epoch [19][900/977]	lr: 6.250e-06, eta: 0:26:48, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.0893, loss_bbox: 0.1366, loss_centerness: 0.5889, loss: 0.8148, grad_norm: 5.6747
+2024-10-19 20:20:34,298 - INFO - Epoch [19][950/977]	lr: 6.250e-06, eta: 0:25:32, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0915, loss_bbox: 0.1511, loss_centerness: 0.5920, loss: 0.8346, grad_norm: 5.3953
+2024-10-19 20:21:16,649 - INFO - Saving checkpoint at 19 epochs
+2024-10-19 20:27:21,340 - INFO - Evaluating bbox...
+2024-10-19 20:27:26,514 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.569
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.679
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.587
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.033
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.173
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.662
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.222
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.410
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.798
+
+2024-10-19 20:27:26,580 - INFO - Epoch(val) [19][977]	bbox_mAP: 0.5690, bbox_mAP_50: 0.6790, bbox_mAP_75: 0.5870, bbox_mAP_s: 0.0330, bbox_mAP_m: 0.1730, bbox_mAP_l: 0.6620, bbox_mAP_copypaste: 0.569 0.679 0.587 0.033 0.173 0.662
+2024-10-19 20:27:26,581 - INFO - After val epoch hook called.
+2024-10-19 20:28:51,316 - INFO - Epoch [20][50/977]	lr: 6.250e-06, eta: 0:23:33, time: 1.610, data_time: 0.056, memory: 23672, loss_cls: 0.0866, loss_bbox: 0.1364, loss_centerness: 0.5874, loss: 0.8104, grad_norm: 5.7887
+2024-10-19 20:30:09,548 - INFO - Epoch [20][100/977]	lr: 6.250e-06, eta: 0:22:17, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0768, loss_bbox: 0.1321, loss_centerness: 0.5876, loss: 0.7965, grad_norm: 5.5392
+2024-10-19 20:31:27,774 - INFO - Epoch [20][150/977]	lr: 6.250e-06, eta: 0:21:01, time: 1.564, data_time: 0.009, memory: 23672, loss_cls: 0.0898, loss_bbox: 0.1475, loss_centerness: 0.5873, loss: 0.8246, grad_norm: 5.5874
+2024-10-19 20:32:46,028 - INFO - Epoch [20][200/977]	lr: 6.250e-06, eta: 0:19:44, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0803, loss_bbox: 0.1307, loss_centerness: 0.5881, loss: 0.7991, grad_norm: 5.6512
+2024-10-19 20:34:04,318 - INFO - Epoch [20][250/977]	lr: 6.250e-06, eta: 0:18:28, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0867, loss_bbox: 0.1309, loss_centerness: 0.5884, loss: 0.8060, grad_norm: 5.9244
+2024-10-19 20:35:22,612 - INFO - Epoch [20][300/977]	lr: 6.250e-06, eta: 0:17:12, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.0918, loss_bbox: 0.1382, loss_centerness: 0.5885, loss: 0.8186, grad_norm: 5.4376
+2024-10-19 20:36:40,872 - INFO - Epoch [20][350/977]	lr: 6.250e-06, eta: 0:15:56, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0876, loss_bbox: 0.1351, loss_centerness: 0.5869, loss: 0.8096, grad_norm: 5.8274
+2024-10-19 20:37:59,132 - INFO - Epoch [20][400/977]	lr: 6.250e-06, eta: 0:14:40, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0883, loss_bbox: 0.1421, loss_centerness: 0.5882, loss: 0.8187, grad_norm: 5.5683
+2024-10-19 20:39:17,381 - INFO - Epoch [20][450/977]	lr: 6.250e-06, eta: 0:13:23, time: 1.565, data_time: 0.010, memory: 23672, loss_cls: 0.0865, loss_bbox: 0.1475, loss_centerness: 0.5909, loss: 0.8248, grad_norm: 5.9934
+2024-10-19 20:40:35,790 - INFO - Epoch [20][500/977]	lr: 6.250e-06, eta: 0:12:07, time: 1.568, data_time: 0.009, memory: 23672, loss_cls: 0.0971, loss_bbox: 0.1500, loss_centerness: 0.5907, loss: 0.8378, grad_norm: 5.5559
+2024-10-19 20:41:54,076 - INFO - Epoch [20][550/977]	lr: 6.250e-06, eta: 0:10:51, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0908, loss_bbox: 0.1500, loss_centerness: 0.5906, loss: 0.8313, grad_norm: 5.2792
+2024-10-19 20:43:12,312 - INFO - Epoch [20][600/977]	lr: 6.250e-06, eta: 0:09:35, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0785, loss_bbox: 0.1134, loss_centerness: 0.5841, loss: 0.7760, grad_norm: 6.6833
+2024-10-19 20:44:30,572 - INFO - Epoch [20][650/977]	lr: 6.250e-06, eta: 0:08:18, time: 1.565, data_time: 0.009, memory: 23672, loss_cls: 0.0924, loss_bbox: 0.1433, loss_centerness: 0.5892, loss: 0.8250, grad_norm: 5.6732
+2024-10-19 20:45:48,882 - INFO - Epoch [20][700/977]	lr: 6.250e-06, eta: 0:07:02, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0859, loss_bbox: 0.1343, loss_centerness: 0.5879, loss: 0.8081, grad_norm: 6.1901
+2024-10-19 20:47:07,166 - INFO - Epoch [20][750/977]	lr: 6.250e-06, eta: 0:05:46, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0909, loss_bbox: 0.1513, loss_centerness: 0.5931, loss: 0.8353, grad_norm: 5.9029
+2024-10-19 20:48:25,519 - INFO - Epoch [20][800/977]	lr: 6.250e-06, eta: 0:04:30, time: 1.567, data_time: 0.010, memory: 23672, loss_cls: 0.0796, loss_bbox: 0.1317, loss_centerness: 0.5895, loss: 0.8008, grad_norm: 6.0832
+2024-10-19 20:49:43,832 - INFO - Epoch [20][850/977]	lr: 6.250e-06, eta: 0:03:13, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.0872, loss_bbox: 0.1495, loss_centerness: 0.5903, loss: 0.8270, grad_norm: 5.6168
+2024-10-19 20:51:02,112 - INFO - Epoch [20][900/977]	lr: 6.250e-06, eta: 0:01:57, time: 1.566, data_time: 0.009, memory: 23672, loss_cls: 0.0909, loss_bbox: 0.1475, loss_centerness: 0.5895, loss: 0.8279, grad_norm: 5.3145
+2024-10-19 20:52:20,411 - INFO - Epoch [20][950/977]	lr: 6.250e-06, eta: 0:00:41, time: 1.566, data_time: 0.010, memory: 23672, loss_cls: 0.0941, loss_bbox: 0.1517, loss_centerness: 0.5908, loss: 0.8366, grad_norm: 5.6115
+2024-10-19 20:53:02,757 - INFO - Saving checkpoint at 20 epochs
+2024-10-19 20:59:07,393 - INFO - Evaluating bbox...
+2024-10-19 20:59:12,524 - INFO - 
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.560
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.672
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.579
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.035
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.165
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.654
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.716
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.716
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.716
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.202
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.406
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.793
+
+2024-10-19 20:59:12,584 - INFO - Epoch(val) [20][977]	bbox_mAP: 0.5600, bbox_mAP_50: 0.6720, bbox_mAP_75: 0.5790, bbox_mAP_s: 0.0350, bbox_mAP_m: 0.1650, bbox_mAP_l: 0.6540, bbox_mAP_copypaste: 0.560 0.672 0.579 0.035 0.165 0.654
+2024-10-19 20:59:12,585 - INFO - After val epoch hook called.
+2024-10-19 20:59:17,850 - INFO - Training has ended.

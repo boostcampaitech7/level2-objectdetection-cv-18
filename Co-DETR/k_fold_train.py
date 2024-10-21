@@ -135,7 +135,7 @@ def main(n_splits):
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    config_file_root = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/Co-DETR/projects/configs/co_dino/co_dino_5scale_lsj_swin_large_3x_coco.py'
+    config_file_root = '/hdd1/lim_data/level2_dataset/co_dino_5scale_lsj_swin_large_3x_coco.pth'
     model_name = config_file_root.split('/')[-1][:-3]
     cfg = Config.fromfile(config_file_root)  # 모델 설정
 
@@ -144,7 +144,7 @@ def main(n_splits):
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
     # 기본 학습 설정
-    root = '/data/ephemeral/home/dataset'  # root 경로 설정
+    root = '/hdd1/lim_data/level2_dataset'  # root 경로 설정
     cfg.data.train.classes = classes
     cfg.data.val.classes = classes
     cfg.data.samples_per_gpu = 4    
@@ -156,7 +156,7 @@ def main(n_splits):
     cfg.model.bbox_head[0].num_classes = 10
 
     
-    cfg.seed = 42                                                                  # 랜덤 시드 설정
+    cfg.seed = 411                                                                  # 랜덤 시드 설정
     cfg.gpu_ids = [0]
 
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)
@@ -175,14 +175,17 @@ def main(n_splits):
 
     # K-Fold를 위한 설정
     for fold_idx in range(n_splits):
-        cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
+        if fold_idx+1 != 3:
+            continue
+
+        cfg.work_dir = f'/hdd1/lim_data/level2_dataset/log/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
         cfg.data.train.img_prefix = root
         cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'train_{fold_idx}.json')
-        cfg.data.train.pipeline[2]['img_scale'] = (512,512) # Resize
+        # cfg.data.train.pipeline[2]['img_scale'] = (512,512) # Resize
 
         cfg.data.val.img_prefix = root
         cfg.data.val.ann_file = os.path.join(cfg.data.val.img_prefix,f'val_{fold_idx}.json')
-        cfg.data.test.pipeline[1]['img_scale'] = (512,512) # Resize
+        # cfg.data.test.pipeline[1]['img_scale'] = (512,512) # Resize
 
         # Train 데이터셋 빌드
         train_dataset = build_dataset(cfg.data.train)

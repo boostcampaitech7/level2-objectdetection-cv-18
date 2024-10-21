@@ -98,26 +98,19 @@ def main():
     train_detector를 사용하여 모델을 훈련하는 메인 함수.
     """
     # Config 파일 로드 및 수정
-    cfg = Config.fromfile('/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/cascade_rcnn/cascade_rcnn_swinL_fpn_mosaic_coco.py')  # 모델 설정
-    cfg.work_dir = './work_dirs/cascade_rcnn_mosaic_two_trash'                      # 로그/모델 저장 위치
+    cfg = Config.fromfile('/data/ephemeral/home/euna/level2-objectdetection-cv-18/mmdetection/configs/universenet/universenet101_swinL_gfl_4x4_mstrain_480_960_coco.py')  # 모델 설정
+    cfg.work_dir = './work_dirs/universenet_swinL_add_trash'                      # 로그/모델 저장 위치
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
-    cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
+    # cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
 
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
-    cfg.data.samples_per_gpu = 2                                                   # 배치 크기 설정
-    cfg.runner = dict(type='EpochBasedRunner', max_epochs=10)                      # epoch 수 설정
+    cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
+    cfg.runner = dict(type='EpochBasedRunner', max_epochs=18)                      # epoch 수 설정
     cfg.seed = 2022                                                                # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
     cfg.device = get_device()                                                      # 디바이스 설정 (GPU 또는 CPU)
     cfg.checkpoint_config = dict(max_keep_ckpts=1, interval=1)
-    cfg.lr_config = dict(
-        policy='step',
-        warmup='linear',
-        warmup_iters=500,
-        warmup_ratio=0.001,
-        step=[8,12,16,18],
-        gamma = 0.5)
 
 
     # TensorBoard 로그 및 텍스트 로그 설정
@@ -136,37 +129,13 @@ def main():
     classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
-    # root = '/data/ephemeral/home/dataset/'  # root 경로 설정
-    # cfg.data.train.classes = classes
-    # cfg.data.train.img_prefix = root
-    # cfg.data.train.ann_file = root + 'train_split_0.json'
-    # cfg.data.val.classes = classes
-    # cfg.data.val.img_prefix = root
-    # cfg.data.val.ann_file = root + 'val_split_0.json'
-
     root = '/data/ephemeral/home/dataset/'  # root 경로 설정
-    cfg.data.train = dict(
-        type='MultiImageMixDataset',  # Mosaic 증강을 위한 MultiImageMixDataset 사용
-        dataset=dict(
-            type='CocoDataset',  # 실제 데이터셋을 정의
-            ann_file=root + 'train_split_0.json',  # 어노테이션 파일 경로
-            img_prefix=root,  # 이미지 경로
-            classes=classes,  # 클래스 정의
-            pipeline=[
-                dict(type='LoadImageFromFile'),
-                dict(type='LoadAnnotations', with_bbox=True),
-            ]
-        ),
-        pipeline=cfg.train_pipeline  # Mosaic이 포함된 전체 파이프라인
-    )
-
-    cfg.data.val = dict(
-        type='CocoDataset',
-        ann_file=root + 'val_split_0.json',
-        img_prefix=root,
-        classes=classes,
-        pipeline=cfg.test_pipeline
-    )
+    cfg.data.train.classes = classes
+    cfg.data.train.img_prefix = root
+    cfg.data.train.ann_file = root + 'train_split_0.json'
+    cfg.data.val.classes = classes
+    cfg.data.val.img_prefix = root
+    cfg.data.val.ann_file = root + 'val_split_0.json'
 
     # Train과 Val 데이터셋 각각 빌드
     train_dataset = build_dataset(cfg.data.train)

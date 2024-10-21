@@ -92,7 +92,8 @@ def set_parser():
     parser.add_argument('-i', '--iou_thr', type=float, default=0.5, help="iou threshold")
     parser.add_argument('-sbt', '--skip_box_thr', type=float, default=0.0001, help="skip box threshold")
     parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
-    parser.add_argument('-o', '--output_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/ensemble'), help="앙상블한 csv가 저장될 장소")
+    parser.add_argument('-t', '--target_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/test'), help="앙상블을 진행할 csv가 있는 directory")
+    parser.add_argument('-o', '--output_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/ensemble'), help="앙상블한 csv가 저장될 directory")
     parser.add_argument('-w', '--width', type=int, default=1024, help="이미지 사이즈 크기")
     parser.add_argument('-l','--height', type=int, default=1024, help="이미지 사이즈 높이")
     return parser
@@ -109,20 +110,21 @@ def main():
     iou_thr = args.iou_thr
     skip_box_thr = args.skip_box_thr
     sigma = args.sigma
+    target = args.target_directory
     output = args.output_directory
     image_width = args.width
     image_height = args.height
 
     # submission format 만들기
     submission = pd.DataFrame()
-    image_ids = return_image_ids(output)
+    image_ids = return_image_ids(target)
     
     submission['PredictionString'] = ''
     submission['image_id'] = image_ids
 
     for image_idx, image_id in enumerate(tqdm(image_ids)):
         
-        boxes, scores, labels = make_ensemble_format_per_image(image_id, output, image_width = image_width, image_height = image_height)
+        boxes, scores, labels = make_ensemble_format_per_image(image_id, target, image_width = image_width, image_height = image_height)
 
         # 결측치 제거에 따라 예측 개수가 달라질 수 있다.
         # 모델에 따른 함수는 나중에 만들도록 한다.
@@ -139,16 +141,15 @@ def main():
             results = soft_nms(boxes, scores, labels, weights=weights, iou_thr=iou_thr, sigma=sigma, thresh=skip_box_thr)
         elif ensemble_name == 'non_maximum_weighted':
             results = non_maximum_weighted(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
-        else:
+        elif ensemble_name == 'weighted_boxes_fusion':
             results = weighted_boxes_fusion(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
-
+        else: raise "no such ensemble name"
+            
         predictions = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
         submission['PredictionString'][image_idx] = predictions
         
-    p = Path(output)
-    ensemble = p.parent.joinpath('ensemble')
-    os.makedirs(ensemble, exist_ok=True)
-    submission_file = os.path.join(ensemble, f'{ensemble_name}_result.csv')
+    os.makedirs(output, exist_ok=True)
+    submission_file = os.path.join(output, f'{ensemble_name}_result.csv')
     submission.to_csv(submission_file, index=False)
     print(f"Submission file saved to {submission_file}")
 

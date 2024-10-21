@@ -18,8 +18,6 @@ class SaveTopModelsHook(Hook):
         self.top3_val_loss = []  # loss 기준 상위 3개
         self.work_dir = work_dir
 
-        
-
         # Logger 설정
         log_path = os.path.join(work_dir, 'train.log')
         logging.basicConfig(

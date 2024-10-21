@@ -1,8 +1,9 @@
 _base_ = [
     'co_dino_5scale_lsj_r50_1x_coco.py'
 ]
-# load_from = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_3x_coco/co_dino_5scale_lsj_swin_large_3x_coco.pth'
-pretrained = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/Co-DETR/work_dirs/swin_tiny_patch4_window7_224.pth'
+load_from = '/data/ephemeral/home/jeonga/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_swin_large_3x_coco.pth'
+pretrained = None
+
 # model settings
 model = dict(
     backbone=dict(

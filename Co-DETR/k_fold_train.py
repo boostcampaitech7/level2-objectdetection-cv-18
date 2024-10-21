@@ -35,6 +35,27 @@ class SaveTopModelsHook(Hook):
         )
         self.logger = logging.getLogger()
 
+    def extract_last_bbox_map_50(self, log_file):
+        last_bbox_map_50 = None
+
+        with open(log_file, 'r') as file:
+            lines = file.readlines()  # 모든 줄을 읽어옵니다.
+        
+        # 마지막 줄에서 값을 추출하기 위해 역순으로 반복
+        for line in reversed(lines):
+            if 'bbox_mAP_50' in line:
+                # 줄에서 bbox_mAP_50 값을 정규 표현식을 사용하여 추출
+                parts = line.split(',')
+                for part in parts:
+                    if 'bbox_mAP_50' in part:
+                        # '=' 이후의 값을 가져오기
+                        last_bbox_map_50 = float(part.split(':')[1].strip())
+                        break
+                # 값을 찾으면 반복 종료
+                break
+
+        return last_bbox_map_50
+    
     def save_top_model(self, metric_list, value, epoch, filename, mode='max'):
         """ 상위 3개 모델을 저장하고 관리하는 함수 """
         if mode == 'max':
@@ -52,34 +73,24 @@ class SaveTopModelsHook(Hook):
                 old_model = heapq.heappop(metric_list)
                 os.remove(old_model[2])  # 파일 삭제
 
-    def after_val_epoch(self, runner):
+    def after_train_epoch(self, runner):
         # validation accuracy, loss, mAP50을 얻음
-        val_acc = runner.log_buffer.output.get('accuracy', 0)
-        val_loss = runner.log_buffer.output.get('loss', 0)
-        mAP50 = runner.log_buffer.output.get('bbox_mAP_50', 0)  # mAP50 값
+        self.logger.info("After val epoch hook called.")
+        path = os.path.join(self.work_dir, 'train.log')
+        mAP50 = self.extract_last_bbox_map_50(path)  # mAP50 값
         epoch = runner.epoch + 1
 
-        # 모델 파일명 생성 (val accuracy, mAP@50, epoch, val loss 기준)
-        acc_filename = os.path.join(self.work_dir, f"checkpoint_acc_{val_acc:.4f}_mAP50_{mAP50:.4f}_epoch_{epoch}_loss_{val_loss:.4f}.pth")
-        loss_filename = os.path.join(self.work_dir, f"checkpoint_loss_{val_loss:.4f}_mAP50_{mAP50:.4f}_epoch_{epoch}_acc_{val_acc:.4f}.pth")
+        checkpoint_filename = os.path.join(self.work_dir, f"_mAP50_{mAP50:.4f}_epoch_{epoch}_.pth")
 
-        # 먼저 모델을 저장
-        torch.save(runner.model.state_dict(), acc_filename)
-        torch.save(runner.model.state_dict(), loss_filename)
+        # 전체 모델과 optimizer 상태를 포함한 체크포인트 저장
+        torch.save({
+        'state_dict': runner.model.state_dict(),  # 모델 가중치
+        'optimizer': runner.optimizer.state_dict()  # 옵티마이저 상태
+        }, checkpoint_filename)
 
         # 정확도 기준 상위 3개 가중치만 유지
-        self.save_top_model(self.top3_val_acc, val_acc, epoch, acc_filename, mode='max')
+        self.save_top_model(self.top3_val_acc, mAP50, epoch, checkpoint_filename, mode='max')
 
-        # 손실 기준 상위 3개 가중치만 유지
-        self.save_top_model(self.top3_val_loss, val_loss, epoch, loss_filename, mode='min')
-
-        # 훈련 및 검증 결과 로그 남기기
-        train_loss = runner.log_buffer.output.get('loss', 0)  # 학습 중 loss는 runner.log_buffer에 저장됨
-        train_acc = runner.log_buffer.output.get('accuracy', 0)  # accuracy도 log_buffer에서 가져올 수 있음
-        self.logger.info(f"Epoch {epoch}/{runner.max_epochs}, "
-                         f"Train Loss: {train_loss:.4f}, Train Accuracy: {train_acc:.2f}, "
-                         f"Validation Loss: {val_loss:.4f}, Validation Accuracy: {val_acc:.2f}, "
-                         f"Validation mAP@50: {mAP50:.4f}")
 
     def after_run(self, runner):
         # 학습 종료 후 필요한 정리 작업 수행
@@ -147,7 +158,7 @@ def main(n_splits):
     root = '/data/ephemeral/home/dataset'  # root 경로 설정
     cfg.data.train.classes = classes
     cfg.data.val.classes = classes
-    cfg.data.samples_per_gpu = 4    
+    cfg.data.samples_per_gpu = 2  
 
 
     cfg.model.backbone.use_checkpoint = True
@@ -172,6 +183,7 @@ def main(n_splits):
             dict(type='TensorboardLoggerHook')  # TensorBoard 로그 기록
         ]
     )
+
 
     # K-Fold를 위한 설정
     for fold_idx in range(n_splits):

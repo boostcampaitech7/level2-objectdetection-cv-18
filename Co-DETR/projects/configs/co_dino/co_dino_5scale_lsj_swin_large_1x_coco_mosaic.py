@@ -1,7 +1,7 @@
 _base_ = [
     'co_dino_5scale_lsj_r50_1x_coco.py'
 ]
-load_from = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_3x_coco/co_dino_5scale_lsj_swin_large_3x_coco.pth'
+load_from = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_1x_coco_0_epoch_12.pth'
 pretrained = None
 
 # model settings
@@ -123,7 +123,7 @@ train_pipeline = [
         center_ratio_range=(0.5, 1.5),  # 각 이미지 중심의 비율 범위 설정
         bbox_clip_border=True, # 이미지 경계 밖 bbox 잘라내기
         pad_val=114,  # 패딩 값 설정 (일반적으로 중성 회색 값)
-        prob=0.7  # 70% 확률로 Mosaic 적용 
+        prob=0.8  # 70% 확률로 Mosaic 적용 
     ),
 
     dict(
@@ -132,12 +132,12 @@ train_pipeline = [
         ratio_range=(0.1, 2.0),
         multiscale_mode='range',
         keep_ratio=True),
-    # dict(
-    #     type='RandomCrop',
-    #     crop_type='absolute_range',
-    #     crop_size=image_size,
-    #     recompute_bbox=True,
-    #     allow_negative_crop=True),
+    dict(
+        type='RandomCrop',
+        crop_type='absolute_range',
+        crop_size=image_size,
+        recompute_bbox=True,
+        allow_negative_crop=True),
 
     dict(type='FilterAnnotations', min_gt_bbox_wh=(1e-2, 1e-2)),
     dict(type='RandomFlip', flip_ratio=0.5),

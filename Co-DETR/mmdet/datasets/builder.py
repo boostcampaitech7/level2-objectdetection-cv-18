@@ -75,10 +75,10 @@ def build_dataset(cfg, default_args=None):
         cp_cfg = copy.deepcopy(cfg)
         cp_cfg['dataset'] = build_dataset(cp_cfg['dataset'])
         cp_cfg.pop('type')
-        cp_cfg.pop('ann_file')
-        cp_cfg.pop('img_prefix')
-        if 'filter_empty_gt' in cp_cfg.keys():
-            cp_cfg.pop('filter_empty_gt')
+        # cp_cfg.pop('ann_file')
+        # cp_cfg.pop('img_prefix')
+        # if 'filter_empty_gt' in cp_cfg.keys():
+        #     cp_cfg.pop('filter_empty_gt')
         dataset = MultiImageMixDataset(**cp_cfg)
     elif isinstance(cfg.get('ann_file'), (list, tuple)):
         dataset = _concat_dataset(cfg, default_args)

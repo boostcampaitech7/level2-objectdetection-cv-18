@@ -102,7 +102,7 @@ def main():
     cfg.work_dir = './work_dirs/universenet_swinL_add_trash'                      # 로그/모델 저장 위치
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
-    # cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
+    cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
 
     cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
     cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
@@ -111,7 +111,6 @@ def main():
     cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
     cfg.device = get_device()                                                      # 디바이스 설정 (GPU 또는 CPU)
     cfg.checkpoint_config = dict(max_keep_ckpts=1, interval=1)
-
 
     # TensorBoard 로그 및 텍스트 로그 설정
     cfg.log_config = dict(

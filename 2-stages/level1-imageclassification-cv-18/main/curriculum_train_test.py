@@ -11,9 +11,9 @@ import numpy as np
 
 from tqdm import tqdm
 from torch.utils.data import DataLoader
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import StratifiedKFold
-from sklearn.ensemble import VotingClassifier
+# from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import StratifiedKFold
+# from sklearn.ensemble import VotingClassifier
 from torch.utils.tensorboard import SummaryWriter
 
 from loss import CrossEntropyLoss
@@ -83,9 +83,16 @@ def train_test():
     # 데이터 준비
     traindata_dir = args.train_dir
     traindata_info_file = args.train_csv
+    valdata_info_file = args.val_csv
 
     train_info = pd.read_csv(traindata_info_file)
-    y = train_info.iloc[:,2].tolist()
+    val_info = pd.read_csv(valdata_info_file)
+
+    train_info.columns = ['class_name', 'image_path', 'target'] 
+    val_info.columns = ['class_name', 'image_path', 'target'] 
+
+    # train_info = pd.read_csv(traindata_info_file)
+    # y = train_info.iloc[:,2].tolist()
    
     num_classes = len(train_info['target'].unique()) 
 
@@ -96,92 +103,93 @@ def train_test():
         train_transform = AlbumentationsTransform(is_train=True)
         val_transform = AlbumentationsTransform(is_train=False)
 
-    # 폴드 수 설정
-    k_folds = args.num_k_fold
-    kf = StratifiedKFold(n_splits=k_folds, shuffle=True, random_state=42)
+    # # 폴드 수 설정
+    # k_folds = args.num_k_fold
+    # kf = StratifiedKFold(n_splits=k_folds, shuffle=True, random_state=42)
 
-    # 각 폴드마다 루프
-    for fold, (train_idx, test_idx) in enumerate(kf.split(train_info, y)):
+    # # 각 폴드마다 루프
+    # for fold, (train_idx, test_idx) in enumerate(kf.split(train_info, y)):
 
-        train_fold_file = f"train_fold_{fold+1}.csv"
-        val_fold_file = f"val_fold_{fold+1}.csv"
-        
-        # Train과 validation 데이터를 나눔
-        train_fold_data = train_info.iloc[train_idx]
-        val_fold_data = train_info.iloc[test_idx]
-        
-        # CSV로 저장
-        train_fold_data.to_csv(train_fold_file, index=False)
-        val_fold_data.to_csv(val_fold_file, index=False)    
+    # train_fold_file = f"train_fold_{fold+1}.csv"
+    # val_fold_file = f"val_fold_{fold+1}.csv"
+    
+    # # Train과 validation 데이터를 나눔
+    # train_fold_data = train_info.iloc[train_idx]
+    # val_fold_data = train_info.iloc[test_idx]
+    
+    # # CSV로 저장
+    # train_fold_data.to_csv(train_fold_file, index=False)
+    # val_fold_data.to_csv(val_fold_file, index=False)    
 
-        print(f"Fold {fold + 1}")
-        print("-------")
+    # print(f"Fold {fold + 1}")
+    # print("-------")
 
-        val_dataset = CustomDataset(
-        root_dir=traindata_dir,
-        info_df=val_fold_data,
-        transform=val_transform
-        )
+    val_dataset = CustomDataset(
+    root_dir=traindata_dir,
+    info_df=val_info,
+    transform=val_transform
+    )
 
-        val_loader = DataLoader(
-            val_dataset,
-            batch_size=args.batch_size,
-            shuffle=False
-        )
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=args.batch_size,
+        shuffle=False
+    )
 
-        # 모델 설정
-        model_selector = ModelSelector(
-            model_type= args.model_type,
-            num_classes = num_classes,
-            model_name= args.model_name,
-            pretrained= args.pretrained
-        )
+    # 모델 설정
+    model_selector = ModelSelector(
+        model_type= args.model_type,
+        num_classes = num_classes,
+        model_name= args.model_name,
+        pretrained= args.pretrained
+    )
 
-        model = model_selector.get_model()
+    model = model_selector.get_model()
 
-        if args.pretrained == True:
-            for param in model.parameters():
-                param.requires_grad = False
-        
-            model = customize_layer(model, num_classes)
+    if args.pretrained == True:
+        for param in model.parameters():
+            param.requires_grad = False
+    
+        model = customize_layer(model, num_classes)
 
-        model = model.to(device)
-        
-        # optimizer
-        optimizer = optim.Adam(model.parameters(), lr=args.lr)
-        
-        scheduler = optim.lr_scheduler.StepLR(
-        optimizer,
-        step_size=args.step_size,
-        gamma=args.gamma
-        )
+    model = model.to(device)
+    
+    # optimizer
+    optimizer = optim.Adam(model.parameters(), lr=args.lr)
+    
+    scheduler = optim.lr_scheduler.StepLR(
+    optimizer,
+    step_size=args.step_size,
+    gamma=args.gamma
+    )
 
-        # loss
-        loss_fn = CrossEntropyLoss() 
-        
-        # Trainer 인스턴스 생성 및 학습
-        trainer = Trainer(
-            model=model,
-            device=device,
-            train_dir = args.train_dir,
-            train_data=train_fold_data,  # train_loader 대신 train_data 전달
-            val_loader=val_loader,
-            optimizer=optimizer,
-            scheduler=scheduler,
-            loss_fn=loss_fn,
-            epochs=args.epochs,
-            weight_path= weight_dir,
-            log_path= logfile,
-            tensorboard_path= tensorboard_dir,
-            model_name=args.model_name,
-            pretrained=args.pretrained,
-            batch_size=args.batch_size
-        )
-
-        # 학습 시작
-        trainer.train(fold)
+    # loss
+    loss_fn = CrossEntropyLoss() 
+    
+    # Trainer 인스턴스 생성 및 학습
+    trainer = Trainer(
+        model=model,
+        device=device,
+        train_dir = args.train_dir,
+        train_data=train_info,  # train_loader 대신 train_data 전달
+        val_loader=val_loader,
+        optimizer=optimizer,
+        scheduler=scheduler,
+        loss_fn=loss_fn,
+        epochs=args.epochs,
+        weight_path= weight_dir,
+        log_path= logfile,
+        tensorboard_path= tensorboard_dir,
+        model_name=args.model_name,
+        pretrained=args.pretrained,
+        batch_size=args.batch_size
+    )
+    fold = 4
+    # 학습 시작
+    trainer.train(fold)
     #-------------------------------------------------------
 
+    '''
     # test
     test_info = pd.read_csv(args.test_csv)
 
@@ -246,7 +254,7 @@ def train_test():
 
     save_path = os.path.join(test_csv_dir, csv_name)
     result_info.to_csv(save_path, index=False)
-
+    '''
 
 if __name__ == "__main__":
     torch.cuda.empty_cache()
@@ -259,20 +267,21 @@ if __name__ == "__main__":
 
     # method
     parser.add_argument('--model_type', type=str, default='timm', help='사용할 모델 이름 : model_selector.py 중 선택')
-    parser.add_argument('--model_name', type=str, default='eva02_large_patch14_448.mim_m38m_ft_in22k_in1k', help='model/timm_model_name.txt 에서 확인, 아키텍처 확인은 "https://github.com/huggingface/pytorch-image-models/tree/main/timm/models"')
-    parser.add_argument('--pretrained', type=bool, default='True', help='전이학습 or 학습된 가중치 가져오기 : True / 전체학습 : False')
+    parser.add_argument('--model_name', type=str, default='eva02_large_patch14_448.mim_in22k_ft_in22k_in1k', help='model/timm_model_name.txt 에서 확인, 아키텍처 확인은 "https://github.com/huggingface/pytorch-image-models/tree/main/timm/models"')
+    parser.add_argument('--pretrained', type=bool, default=True, help='전이학습 or 학습된 가중치 가져오기 : True / 전체학습 : False')
     # 전이학습할 거면 꼭! (True) customize_layer.py 가서 레이어 수정, 레이어 수정 안할 거면 가서 레이어 구조 변경 부분만 주석해서 사용 (어떤 레이어 열지는 알아야함)
     # 모델 구조랑 레이어 이름 모르겠으면 위에 모델 정의 부분가서 print(model) , assert False 주석 풀어서 확인하기
 
     parser.add_argument('--transform', type=str, default='AlbumentationsTransform', help='transform class 선택 torchvision or albumentation / dataloader.py code 참고')
     
     # 데이터 경로
-    parser.add_argument('--train_dir', type=str, default="/data/ephemeral/home/data/train", help='훈련 데이터셋 루트 디렉토리 경로') # "/data/ephemeral/home/data/train"
+    parser.add_argument('--train_dir', type=str, default="/hdd1/lim_data/level2_dataset", help='훈련 데이터셋 루트 디렉토리 경로') # "/data/ephemeral/home/data/train"
     parser.add_argument('--test_dir', type=str, default="/data/ephemeral/home/data/test", help='테스트 데이터셋 루트 디렉토리 경로') # "/data/ephemeral/home/data/test"
-    parser.add_argument('--train_csv', type=str, default="/data/ephemeral/home/data/train.csv", help='훈련 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/train.csv"
+    parser.add_argument('--train_csv', type=str, default="/hdd1/lim_data/level2_dataset/csv/train_4.csv", help='훈련 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/train.csv"
+    parser.add_argument('--val_csv', type=str, default="/hdd1/lim_data/level2_dataset/csv/val_4.csv", help='훈련 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/train.csv"
     parser.add_argument('--test_csv', type=str, default="/data/ephemeral/home/data/test.csv", help='테스트 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/test.csv"
 
-    parser.add_argument('--save_rootpath', type=str, default="Experiments/eva_large_curriculum_mlp_gelu", help='가중치, log, tensorboard 그래프 저장을 위한 path 실험명으로 디렉토리 구성')
+    parser.add_argument('--save_rootpath', type=str, default="Experiments/curriculum_20", help='가중치, log, tensorboard 그래프 저장을 위한 path 실험명으로 디렉토리 구성')
     parser.add_argument('--csv_name', type=str, default="curriculum_fold1.csv", help='')
     
     # 하이퍼파라미터

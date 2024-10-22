@@ -93,7 +93,7 @@ class AlbumentationsTransform:
                     [
                         A.HorizontalFlip(p=0.5),  # 수평 뒤집기
                         A.VerticalFlip(p=0.5),  # 수직 뒤집기
-                        A.Rotate(limit=10, p=0.5),  # 10도 회전
+                        A.Rotate(limit=15, p=0.5),  # 10도 회전
                     ] + common_transforms
                 )
             else:  # 후반 10-15 에포크에서는 복잡한 변환 적용
@@ -101,9 +101,9 @@ class AlbumentationsTransform:
                     [
                         A.HorizontalFlip(p=0.5),
                         A.VerticalFlip(p=0.5),
-                        A.Rotate(limit=15, p=0.5),
-                        A.ElasticTransform(alpha=30, sigma=4, p=0.5),  # Elastic 변형
-                        A.GridDistortion(num_steps=4, distort_limit=0.2, p=0.5)  # Grid 왜곡
+                        A.Rotate(limit=90, p=0.5),
+                        # A.ElasticTransform(alpha=30, sigma=4, p=0.5),  # Elastic 변형
+                        # A.GridDistortion(num_steps=4, distort_limit=0.2, p=0.5)  # Grid 왜곡
                     ] + common_transforms
                 )
         else:

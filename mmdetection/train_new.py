@@ -102,15 +102,37 @@ def main():
     cfg.work_dir = './work_dirs/universenet_swinL_add_trash'                      # 로그/모델 저장 위치
     # cfg.optimizer.type = 'SGD'                                                     # optimizer 설정
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
-    cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
+    # cfg.optimizer = dict(type='AdamW', lr=0.0001, weight_decay=0.01)
 
-    cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
+    # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
     cfg.data.samples_per_gpu = 4                                                   # 배치 크기 설정
-    cfg.runner = dict(type='EpochBasedRunner', max_epochs=18)                      # epoch 수 설정
+    # cfg.runner = dict(type='EpochBasedRunner', max_epochs=18)                      # epoch 수 설정
     cfg.seed = 2022                                                                # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
     cfg.device = get_device()                                                      # 디바이스 설정 (GPU 또는 CPU)
     cfg.checkpoint_config = dict(max_keep_ckpts=1, interval=1)
+
+    cfg.optimizer = dict(
+        type='AdamW',
+        lr=0.0001,
+        betas=(0.9, 0.999),
+        weight_decay=0.05,
+        paramwise_cfg=dict(
+            custom_keys={
+                'absolute_pos_embed': dict(decay_mult=0.),
+                'relative_position_bias_table': dict(decay_mult=0.),
+                'norm': dict(decay_mult=0.)
+            }))
+
+    # learning policy
+    cfg.lr_config = dict(
+        policy='step',
+        warmup='linear',
+        warmup_iters=500,
+        warmup_ratio=0.001,
+        step=[8,15,20,22],
+        gamma = 0.5)
+    cfg.runner = dict(type='EpochBasedRunner', max_epochs=25)
 
     # TensorBoard 로그 및 텍스트 로그 설정
     cfg.log_config = dict(

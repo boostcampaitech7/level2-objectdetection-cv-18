@@ -29,7 +29,7 @@ model = dict(
     neck=[
         dict(
             type='FPN',
-            in_channels=[384, 768, 1536],
+            in_channels=[192, 384, 768, 1536],
             out_channels=256,
             start_level=1,
             add_extra_convs='on_output',
@@ -56,21 +56,29 @@ train_pipeline = [
     dict(type='LoadAnnotations', with_bbox=True),
     dict(
         type='Resize',
-        img_scale=[(2000, 480), (2000, 1200)],
-        multiscale_mode='range',
+        img_scale=[(1024, 720), (1024, 1024)],
+        multiscale_mode='value',
         keep_ratio=True,
         backend='pillow'),
+    dict(
+        type='RandomCrop',
+        crop_size=(720, 720),  # 크롭할 영역의 크기 설정
+        crop_type='absolute',  # 절대 픽셀 크기로 크롭
+        allow_negative_crop=False,  # bbox가 없는 크롭 허용 안 함
+        bbox_clip_border=True  # 이미지 경계 밖 bbox 잘라내기
+    ),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=128),
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
+
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(2000, 1200),
+        img_scale=[(1024, 720), (1024, 1024)],
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True, backend='pillow'),
@@ -84,24 +92,21 @@ test_pipeline = [
 
 # Use RepeatDataset to speed up training
 data = dict(
-    samples_per_gpu=2,
+    samples_per_gpu=4,
     workers_per_gpu=2,
     train=dict(
-        type='RepeatDataset',
-        times=2,
-        dataset=dict(
-            type=dataset_type,
-            ann_file=data_root + 'train_split_0.json',
-            img_prefix=data_root,
-            pipeline=train_pipeline)),
+        type= dataset_type,
+        ann_file=data_root + 'train.json',
+        img_prefix=data_root,
+        pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'val_split_0.json',
-        img_prefix=data_root,
+        ann_file=data_root + 'annotations/instances_val2017.json',
+        img_prefix=data_root + 'val2017/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'val_split_0.json',
+        ann_file=data_root + 'test.json',
         img_prefix=data_root,
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
@@ -119,16 +124,5 @@ evaluation = dict(interval=1, metric='bbox')
 #             'relative_position_bias_table': dict(decay_mult=0.),
 #             'norm': dict(decay_mult=0.)
 #         }))
-
-
-# learning policy
-lr_config = dict(
-    policy='step',
-    warmup='linear',
-    warmup_iters=500,
-    warmup_ratio=0.001,
-    step=[8, 11])
-runner = dict(type='EpochBasedRunner', max_epochs=12)
-
 
 # fp16 = dict(loss_scale=512.)

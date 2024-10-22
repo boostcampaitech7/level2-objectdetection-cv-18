@@ -66,5 +66,5 @@ target/
 .vscode
 
 # Datasets
-data/
+# data/
 test/

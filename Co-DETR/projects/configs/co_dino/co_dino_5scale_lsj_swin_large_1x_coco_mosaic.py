@@ -1,7 +1,7 @@
 _base_ = [
     'co_dino_5scale_lsj_r50_1x_coco.py'
 ]
-load_from = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_1x_coco_0_epoch_12.pth'
+resume_from = '/data/ephemeral/home/euna/level2-objectdetection-cv-18/Co-DETR/work_dirs/co_dino_5scale_lsj_swin_large_1x_coco_0_epoch_12.pth'
 pretrained = None
 
 # model settings

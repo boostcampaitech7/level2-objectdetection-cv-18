@@ -19,14 +19,14 @@ def main():
 
     # 경로 설정
     root = '/data/ephemeral/home/dataset'
-    cfg.work_dir = './work_dirs/co_dino_5scale_lsj_swin_large_3x_coco'
-    checkpoint_file = './work_dirs/co_dino_5scale_lsj_swin_large_3x_coco/epoch_12.pth'
+    cfg.work_dir = './work_dirs/co_dino_5scale_lsj_swin_large_1x_coco_1'
+    checkpoint_file = './work_dirs/co_dino_5scale_lsj_swin_large_1x_coco_1/epoch_12.pth'
 
     # Dataset 설정
     cfg.data.test.classes = classes
     cfg.data.test.img_prefix = root
     cfg.data.test.ann_file = os.path.join(root, 'test.json')
-    cfg.data.test.pipeline[1]['img_scale'] = (1024, 1024)  # 이미지 Resize 설정
+    # cfg.data.test.pipeline[1]['img_scale'] = (1024, 1024)  # 이미지 Resize 설정
     cfg.data.test.test_mode = True
 
     # 하이퍼파라미터 설정
@@ -80,7 +80,7 @@ def main():
     submission = pd.DataFrame()
     submission['PredictionString'] = prediction_strings
     submission['image_id'] = file_names
-    submission_file = os.path.join(cfg.work_dir, 'co_dino_5scale_lsj_swin_large_3x_coco.csv')
+    submission_file = os.path.join(cfg.work_dir, 'co_dino_5scale_lsj_swin_large_3x_coco_1.csv')
     submission.to_csv(submission_file, index=False)
     print(f"Submission file saved to {submission_file}")
 

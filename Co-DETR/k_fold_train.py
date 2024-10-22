@@ -175,6 +175,9 @@ def main(n_splits):
 
     # K-Fold를 위한 설정
     for fold_idx in range(n_splits):
+        print(f"fold_idx : {fold_idx}")
+        if fold_idx < 1:
+            continue
         cfg.work_dir = f'./work_dirs/{model_name}_{fold_idx}'                                       # 로그/모델 저장 위치
         cfg.data.train.img_prefix = root
         cfg.data.train.ann_file = os.path.join(cfg.data.train.img_prefix,f'train_{fold_idx}.json')

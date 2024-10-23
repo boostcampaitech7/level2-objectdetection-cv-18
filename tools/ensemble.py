@@ -15,6 +15,23 @@ def return_image_ids(output_dir):
     csv_data = pd.read_csv(os.path.join(output_dir, output_list[0]))
     return list(csv_data['image_id'])
 
+# def group_csv_with_normalization(predict_list, image_width, image_height):
+
+#     predict_list = np.reshape(predict_list, (-1, 6))
+#     box_list = []
+
+#     for box_idx, box in enumerate(predict_list[:, 2:6].tolist()):
+#         # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
+
+#         box[0] = float(box[0]) / image_width
+#         box[1] = float(box[1]) / image_height
+#         box[2] = float(box[2]) / image_width
+#         box[3] = float(box[3]) / image_height
+#         box_list.append(box)
+#     score_list = list(map(float, predict_list[:, 1].tolist()))
+#     label_list = list(map(int, predict_list[:, 0].tolist()))
+#     return box_list, score_list, label_list
+
 # ensemble_boxes format 
 def make_ensemble_format_per_image(image_id, output_dir, image_width, image_height):
 
@@ -24,7 +41,6 @@ def make_ensemble_format_per_image(image_id, output_dir, image_width, image_heig
     for output in output_list:
         csv_data = pd.read_csv(os.path.join(output_dir, output))
         csv_datas.append(csv_data)
-
     # csv_data에서 label, score, bbox들을 뽑고
     # 이를 labels, scores, bboxs에 저장한다.
     
@@ -34,8 +50,10 @@ def make_ensemble_format_per_image(image_id, output_dir, image_width, image_heig
     labels_list = []
 
     # 각 submission file 별로 prediction box좌표 불러오기
-    for csv_data in csv_datas:
-        predict_string = csv_data[csv_data['image_id'] == image_id]['PredictionString'].tolist()[0]
+    for idx, csv_data in enumerate(csv_datas):
+        predict_to_list = csv_data[csv_data['image_id'] == image_id]['PredictionString'].tolist()
+        if len(predict_to_list) == 0: continue # 예측 못했을 경우 예외처리
+        else: predict_string = predict_to_list[0]
         predict_list = str(predict_string).split()
 
         # 결측값 및 하나만 있는 predict는 아예 이용하지 않는다.
@@ -46,18 +64,27 @@ def make_ensemble_format_per_image(image_id, output_dir, image_width, image_heig
         box_list = []
 
         for box in predict_list[:, 2:6].tolist():
-            # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
-
+            # assert 코드가 발생하면 강제로라도 변환 불가 -> 시간 자원 아까움
+            # # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
+            # if float(box[0]) > image_width or float(box[2]) > image_width:
+            #     print('out of image_width',idx,box[0],box[2])
+            #     assert False
+            # elif float(box[1]) > image_height or float(box[3]) > image_height:
+            #     print('out of image height',idx,box[1], box[3])
+            #     assert False
             box[0] = float(box[0]) / image_width
             box[1] = float(box[1]) / image_height
             box[2] = float(box[2]) / image_width
             box[3] = float(box[3]) / image_height
             box_list.append(box)
 
+
         boxes_list.append(box_list)
         scores_list.append(list(map(float, predict_list[:, 1].tolist())))
         labels_list.append(list(map(int, predict_list[:, 0].tolist())))
     return boxes_list, scores_list, labels_list
+
+# csv 파일 별로 image_width, image_height를 주입하고 그걸 하나로 묶는 코드를 완성해야 한다.
 
 def prediction_format_per_image(boxes, scores, labels, image_width, image_height):
     output = ''
@@ -92,20 +119,19 @@ def set_parser():
     parser.add_argument('-i', '--iou_thr', type=float, default=0.5, help="iou threshold")
     parser.add_argument('-sbt', '--skip_box_thr', type=float, default=0.0001, help="skip box threshold")
     parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
-    parser.add_argument('-t', '--target_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/test'), help="앙상블을 진행할 csv가 있는 directory")
-    parser.add_argument('-o', '--output_directory', type=str, default=p.parent.joinpath('Co-DETR/work_dirs/ensemble'), help="앙상블한 csv가 저장될 directory")
+    parser.add_argument('-t', '--target_directory', type=str, default=p.joinpath('target'), help="앙상블을 진행할 csv가 있는 directory")
+    parser.add_argument('-o', '--output_directory', type=str, default=p.joinpath('ensemble'), help="앙상블한 csv가 저장될 directory")
     parser.add_argument('-w', '--width', type=int, default=1024, help="이미지 사이즈 크기")
     parser.add_argument('-l','--height', type=int, default=1024, help="이미지 사이즈 높이")
     return parser
 
-def check_prediction(boxes):
+def check_prediction_over(boxes):
     if len(boxes) == 0: return 0
     return np.array([boxes[0]>1, boxes[1]>1, boxes[2]>1, boxes[3]>1]).any()
 
 def main():
     parser = set_parser()
     args = parser.parse_args()
-    
     ensemble_name = args.name
     iou_thr = args.iou_thr
     skip_box_thr = args.skip_box_thr
@@ -146,7 +172,7 @@ def main():
         else: raise "no such ensemble name"
             
         predictions = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
-        submission['PredictionString'][image_idx] = predictions
+        submission.loc[image_idx, 'PredictionString'] = predictions
         
     os.makedirs(output, exist_ok=True)
     submission_file = os.path.join(output, f'{ensemble_name}_result.csv')

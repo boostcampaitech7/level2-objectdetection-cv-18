@@ -105,7 +105,7 @@ def main():
     # cfg.optimizer.lr = 0.02                                                        # lr 설정
     # cfg.optimizer_config.grad_clip = dict(max_norm=35, norm_type=2)                # gradient clipping 설정
     cfg.data.samples_per_gpu = 1                                                   # 배치 크기 설정
-    cfg.runner = dict(type='EpochBasedRunner', max_epochs=12)                      # epoch 수 설정
+    cfg.runner = dict(type='EpochBasedRunner', max_epochs=5)                      # epoch 수 설정
     cfg.seed = 2022                                                                # 랜덤 시드 설정
     cfg.gpu_ids = [0]                                                              # 사용할 GPU 설정
     cfg.device = get_device()  
@@ -139,11 +139,11 @@ def main():
     classes = ("General trash", "Paper", "Paper pack", "Metal", "Glass", 
                "Plastic", "Styrofoam", "Plastic bag", "Battery", "Clothing")
 
-    train_root = '/data/ephemeral/home/taehan/level2-objectdetection-cv-18/EDSR-PyTorch/experiment/test/'  # root 경로 설정
+    train_root = '/data/ephemeral/home/dataset/'  # root 경로 설정
     test_root = '/data/ephemeral/home/dataset/'  # root 경로 설정
     cfg.data.train.classes = classes
-    cfg.data.train.img_prefix = train_root + 'results-Demo/'
-    cfg.data.train.ann_file = train_root + 'train_sr_x2.json'
+    cfg.data.train.img_prefix = train_root
+    cfg.data.train.ann_file = train_root + 'merged_train_0_x2_SR_center.json'
     cfg.data.val.classes = classes
     cfg.data.val.img_prefix = test_root
     cfg.data.val.ann_file = test_root + 'val_0.json'

@@ -52,9 +52,16 @@ new_annotation_id = max([anno['id'] for anno in data['annotations']]) + 1
 
 # Load images
 coco = COCO(annotation_path)
-for idx in os.listdir(os.path.join(dataDir,'train')):
+coco_img_ids = coco.getImgIds()  # COCO 데이터셋에 있는 유효한 이미지 ID들
+for idx in os.listdir(dataDir):
+    img_id = int(idx.split('_')[0])  # 파일 이름에서 ID 추출
+    
+    if img_id not in coco_img_ids:
+        print(f"Image ID {img_id} not found in COCO dataset.")
+        continue  # 유효하지 않은 ID일 경우 건너뜁니다
     img = coco.loadImgs(int(idx.split('_')[0]))[0]
-    I = Image.open('{}/{}_x2_SR.png'.format(dataDir, img['file_name'].split('.')[0]))
+    img_file_name = img['file_name'].split('.')[0]
+    I = Image.open('{}/{}_x2_SR.png'.format(dataDir, img_file_name[:4]))
     img_width, img_height = I.size
 
     # annotation ID

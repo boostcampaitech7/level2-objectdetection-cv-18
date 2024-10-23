@@ -146,7 +146,7 @@ def main():
     
     submission['PredictionString'] = ''
     submission['image_id'] = image_ids
-    
+
     try: 
         for image_idx, image_id in enumerate(tqdm(image_ids)):
             
@@ -173,16 +173,17 @@ def main():
                 
             predictions = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
             submission.loc[image_idx, 'PredictionString'] = predictions
-            
-        os.makedirs(output, exist_ok=True)
-        submission_file = os.path.join(output, f'{ensemble_name}_result.csv')
-        submission.to_csv(submission_file, index=False)
-        print(f"Submission file saved to {submission_file}")
-
+        
+        file_name = f'{ensemble_name}_result_0.csv'
+    
     except:
         print(image_idx, "has a problem")
+        file_name = f'{ensemble_name}_error_{image_idx}_0.csv'
+
+    # 예외와 관계없이 실행
+    finally:
         os.makedirs(output, exist_ok=True)
-        submission_file = os.path.join(output, f'{ensemble_name}_error_{image_idx}.csv')
+        submission_file = os.path.join(output, file_name)
         submission.to_csv(submission_file, index=False)
         print(f"Submission file saved to {submission_file}")
 

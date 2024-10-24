@@ -89,8 +89,8 @@ class AlbumentationsTransform:
             self.transform = A.Compose(
                 [
                     A.HorizontalFlip(p=0.5),  # 50% 확률로 이미지를 수평 뒤집기
-                    A.Rotate(limit=90),  # 최대 15도 회전
-                    # A.RandomBrightnessContrast(p=0.2),  # 밝기 및 대비 무작위 조정
+                    A.Rotate(limit=90, p=0.5),  # 최대 15도 회전
+                    AA.RandomBrightnessContrast(brightness_limit=0.1, contrast_limit=0.1, p=0.5), # 밝기 및 대비 무작위 조정
                     A.VerticalFlip(p=0.5),    # 50% 확률로 이미지를 상하 반전
                 ] + common_transforms
             )

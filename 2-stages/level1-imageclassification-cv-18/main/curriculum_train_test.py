@@ -260,7 +260,7 @@ if __name__ == "__main__":
     torch.cuda.empty_cache()
     torch.multiprocessing.set_start_method('spawn')
     parser = argparse.ArgumentParser()
-    parser.add_argument('--gpu', type=int, default=0, help='cuda:(gpu)')
+    parser.add_argument('--gpu', type=int, default=1, help='cuda:(gpu)')
     
     # default 부분 수정해서 사용!
     # k_fold로 돌리기 위한 코드, 기존 코드와 달라진 부분이 있어 확인 후 사용 바람
@@ -281,8 +281,8 @@ if __name__ == "__main__":
     parser.add_argument('--val_csv', type=str, default="/hdd1/lim_data/level2_dataset/csv/val_4.csv", help='훈련 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/train.csv"
     parser.add_argument('--test_csv', type=str, default="/data/ephemeral/home/data/test.csv", help='테스트 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/test.csv"
 
-    parser.add_argument('--save_rootpath', type=str, default="Experiments/curriculum_20", help='가중치, log, tensorboard 그래프 저장을 위한 path 실험명으로 디렉토리 구성')
-    parser.add_argument('--csv_name', type=str, default="curriculum_fold1.csv", help='')
+    parser.add_argument('--save_rootpath', type=str, default="Experiments/curriculum_garbage_2", help='가중치, log, tensorboard 그래프 저장을 위한 path 실험명으로 디렉토리 구성')
+    parser.add_argument('--csv_name', type=str, default="curriculum_garbage_fold4.csv", help='')
     
     # 하이퍼파라미터
     parser.add_argument('--epochs', type=int, default=20, help='에포크 설정')

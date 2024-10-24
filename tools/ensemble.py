@@ -221,7 +221,7 @@ def main():
             submission.loc[image_idx, 'PredictionString'] = predictions
         
         file_name = f'{ensemble_name}_result.csv'
-        
+
     # 통상적인 Exception
     except Exception as e:
         print(image_idx, "has a problem")
@@ -234,7 +234,7 @@ def main():
         print("Force!!!")
         print(f"Image {image_idx} has a problem")
         file_name = f'{ensemble_name}_error_{image_idx}.csv'
-        error_msg = e
+        error_msg = 'force exit'
 
     # 예외와 관계없이 실행
     finally:

@@ -121,6 +121,7 @@ def test():
         device=device,
         test_loader=test_loader
     )
+    np.save('yolo_scores.npy', predictions)  # .npy 파일로 저장
     cs = np.max(predictions, axis=1)
     label_id = np.argmax(predictions, axis=1)
 
@@ -169,10 +170,10 @@ if __name__ == "__main__":
     
     # 데이터 경로
     parser.add_argument('--test_dir', type=str, default="/hdd1/lim_data/level2_dataset", help='테스트 데이터셋 루트 디렉토리 경로') # "/data/ephemeral/home/data/test"
-    parser.add_argument('--test_csv', type=str, default="/home/hwang/leem/level2-objectdetection-cv-18/2-stages/classification/csv/WBF_ATSS_test.csv", help='테스트 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/test.csv"
+    parser.add_argument('--test_csv', type=str, default="/home/hwang/leem/level2-objectdetection-cv-18/2-stages/classification/csv/yolo_test.csv", help='테스트 데이터셋 csv 파일 경로') # "/data/ephemeral/home/data/test.csv"
     parser.add_argument('--weight', type=str, default="/home/hwang/leem/level2-objectdetection-cv-18/2-stages/level1-imageclassification-cv-18/main/Experiments/curriculum_garbage_2/weights/4_bestmodel_accu.pt")
 
-    parser.add_argument('--save_path', type=str, default="/home/hwang/leem/level2-objectdetection-cv-18/2-stages/classification/csv/100_classification_WBF_ATSS.csv")
+    parser.add_argument('--save_path', type=str, default="/home/hwang/leem/level2-objectdetection-cv-18/2-stages/classification/csv/100_classification_yolo.csv")
    
     # 하이퍼파라미터
     args = parser.parse_args()

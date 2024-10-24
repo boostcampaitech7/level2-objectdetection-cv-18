@@ -119,14 +119,13 @@ def make_ensemble_format_per_image(image_id, output_dir, image_width, image_heig
         box_list = []
 
         for box in predict_list[:, 2:6].tolist():
+            
             # assert 코드가 발생하면 강제로라도 변환 불가 -> 시간 자원 아까움
-            # # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
-            # if float(box[0]) > image_width or float(box[2]) > image_width:
-            #     print('out of image_width',idx,box[0],box[2])
-            #     assert False
-            # elif float(box[1]) > image_height or float(box[3]) > image_height:
-            #     print('out of image height',idx,box[1], box[3])
-            #     assert False
+            # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
+            if float(box[0]) > image_width or float(box[2]) > image_width:
+                print('out of image_width',idx,box[0],box[2])
+            elif float(box[1]) > image_height or float(box[3]) > image_height:
+                print('out of image height',idx,box[1], box[3])
             box[0] = float(box[0]) / image_width
             box[1] = float(box[1]) / image_height
             box[2] = float(box[2]) / image_width

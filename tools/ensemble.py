@@ -32,8 +32,9 @@ def set_parser():
     parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
     parser.add_argument('-t', '--target_directory', type=str, default=p.joinpath('target'), help="앙상블을 진행할 csv가 있는 directory")
     parser.add_argument('-o', '--output_directory', type=str, default=p.joinpath('ensemble'), help="앙상블한 csv가 저장될 directory")
+    parser.add_argument('-l', '--log_file', type=str, default=p.joinpath('ensemble/meta_data.md'), help="로그 파일을 저장하는 장소")
     parser.add_argument('-w', '--width', type=int, default=1024, help="이미지 사이즈 크기")
-    parser.add_argument('-l','--height', type=int, default=1024, help="이미지 사이즈 높이")
+    parser.add_argument('-hi','--height', type=int, default=1024, help="이미지 사이즈 높이")
     return parser
 
 def return_image_ids(output_dir):
@@ -41,9 +42,15 @@ def return_image_ids(output_dir):
     csv_data = pd.read_csv(os.path.join(output_dir, output_list[0]))
     return list(csv_data['image_id'])
 
-def save_target_data(target_dir, output_dir, meta_file_name = 'meta_file.md'):
-    p = Path(output_dir)
-    with open(p.joinpath(meta_file_name), 'a') as f:
+def save_target_data(target_dir, log_file_name = 'meta_file.md'):
+    """
+    앙상블을 할 csv 파일들의 이름을 'meta_file.md' 에 저장하는 함수입니다.
+
+    Args:
+        target_dir (str): 앙상블을 할 csv 파일의 이름
+        log_file_name (str, optional): 로그 파일 이름을 설정합니다. Defaults to 'meta_file.md'.
+    """
+    with open(log_file_name, 'a') as f:
         f.write("Ensemble target: \n")
         target_list = os.listdir(target_dir)
         for target_file in target_list:
@@ -51,18 +58,18 @@ def save_target_data(target_dir, output_dir, meta_file_name = 'meta_file.md'):
     print("Sucess: save to target name")
 
 
-def save_output_data(submission, output_dir, file_name, error_msg = None, meta_file_name = 'meta_file.md'):
-    p = Path(output_dir)
+def save_output_data(submission, submission_file, log_file = 'meta_file.md', error_msg = None):
+    
+    p = Path(submission_file)
     try:
-        os.makedirs(output_dir, exist_ok=True)
-        submission_file = os.path.join(output_dir, file_name)
+        os.makedirs(p.parent, exist_ok=True)
         submission.to_csv(submission_file, index=False) # csv file로 변환 & 저장
 
         condition = 'Success'
         if error_msg:
             condition = 'Error'        
-        with open(p.joinpath(meta_file_name), 'a') as f:
-            f.write(f"{condition}: Submission file saved to {file_name}\n")
+        with open(p.joinpath(log_file), 'a') as f:
+            f.write(f"{condition}: Submission file saved to {submission_file}\n")
             if error_msg: f.write(f'{error_msg}\n')
         print("Sucess: save to status and Ensemble file")
     except Exception as e:
@@ -119,7 +126,7 @@ def make_ensemble_format_per_image(image_id, output_dir, image_width, image_heig
         box_list = []
 
         for box in predict_list[:, 2:6].tolist():
-            
+
             # assert 코드가 발생하면 강제로라도 변환 불가 -> 시간 자원 아까움
             # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
             if float(box[0]) > image_width or float(box[2]) > image_width:
@@ -162,6 +169,7 @@ def check_prediction_over(boxes):
     return np.array([boxes[0]>1, boxes[1]>1, boxes[2]>1, boxes[3]>1]).any()
 
 def main():
+    # 
     parser = set_parser()
     args = parser.parse_args()
     ensemble_name = args.name
@@ -170,6 +178,7 @@ def main():
     sigma = args.sigma
     target = args.target_directory
     output = args.output_directory
+    log_file = args.log_file
     image_width = args.width
     image_height = args.height
 
@@ -188,7 +197,7 @@ def main():
 
     # ensemble한 target data 이름 저장
     try:
-        save_target_data(target_dir=target, output_dir=output)
+        save_target_data(target_dir=target, log_file_name=log_file)
     except:
         print("Error to save target name")
 
@@ -200,7 +209,8 @@ def main():
             # 결측치 제거에 따라 예측 개수가 달라질 수 있다.
             # 모델에 따른 함수는 나중에 만들도록 한다.
 
-            weights = [1] * len(labels)
+            # 모델에 따른 가중치
+            weights = [1] * len(labels) 
             
             # 아예 box들이 예측되지 않는 경우 스킵한다.
             if len(boxes) == 0: continue
@@ -237,8 +247,10 @@ def main():
 
     # 예외와 관계없이 실행
     finally:
+        p = Path(output)
+        file_name = p.joinpath(file_name)
         print(error_msg, file_name)
-        submission_file = save_output_data(submission, output, file_name, error_msg = error_msg) # make submission file and save meta data
+        submission_file = save_output_data(submission, file_name, log_file=log_file, error_msg = error_msg) # make submission file and save meta data
         print(f"Submission file saved to {submission_file}")
 
 if __name__ == '__main__': 

@@ -181,6 +181,9 @@ def main():
     submission['PredictionString'] = ''
     submission['image_id'] = image_ids
     
+    # 파일 이름 글로벌하게 만들기
+    file_name = f'{ensemble_name}_error.csv'
+
     # 에러 메세지 저장
     error_msg = None
 
@@ -218,14 +221,24 @@ def main():
             submission.loc[image_idx, 'PredictionString'] = predictions
         
         file_name = f'{ensemble_name}_result.csv'
-    
+        
+    # 통상적인 Exception
     except Exception as e:
         print(image_idx, "has a problem")
         file_name = f'{ensemble_name}_error_{image_idx}.csv'
         error_msg = e
 
+    # 강제로 Exception을 발생시킨 경우
+    # else로 검출이 안되는 점을 주의
+    except BaseException as e:
+        print("Force!!!")
+        print(f"Image {image_idx} has a problem")
+        file_name = f'{ensemble_name}_error_{image_idx}.csv'
+        error_msg = e
+
     # 예외와 관계없이 실행
     finally:
+        print(error_msg, file_name)
         submission_file = save_output_data(submission, output, file_name, error_msg = error_msg) # make submission file and save meta data
         print(f"Submission file saved to {submission_file}")
 

@@ -9,10 +9,73 @@ import pandas as pd
 from tqdm import tqdm
 
 
+def set_parser():
+    """
+    Set basic parser
+    백그라운드로 동시에 여러 ensemble을 진행할 수 있게 option을 만들었습니다
+
+    기본값은 ensemble.py가 있는 폴더 안에 target/ensemble 폴더가 있고
+        target : ensemble할 csv를 저장해 놓는 장소
+        ensemble : ensemble한 결과값이 나오는 장소
+    로 설정되어 있습니다. 밑의 -t 와 -o의 default 값을 바꾸거나, 파일이 실행될 때 옵션을 줌으로서 변경할 수 있습니다.
+
+    Returns:
+        ArgumentParser
+    """
+    parser = argparse.ArgumentParser(
+                    prog="Ensemble",
+                    description="Ensemble csv files")
+    p = Path.cwd()
+    parser.add_argument('-n', '--name', type=str, default='weighted_boxes_fusion', help="앙상블 할 method")
+    parser.add_argument('-i', '--iou_thr', type=float, default=0.5, help="iou threshold")
+    parser.add_argument('-sbt', '--skip_box_thr', type=float, default=0.0001, help="skip box threshold")
+    parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
+    parser.add_argument('-t', '--target_directory', type=str, default=p.joinpath('target'), help="앙상블을 진행할 csv가 있는 directory")
+    parser.add_argument('-o', '--output_directory', type=str, default=p.joinpath('ensemble'), help="앙상블한 csv가 저장될 directory")
+    parser.add_argument('-l', '--log_file', type=str, default=p.joinpath('ensemble/meta_data.md'), help="로그 파일을 저장하는 장소")
+    parser.add_argument('-w', '--width', type=int, default=1024, help="이미지 사이즈 크기")
+    parser.add_argument('-hi','--height', type=int, default=1024, help="이미지 사이즈 높이")
+    return parser
+
 def return_image_ids(output_dir):
     output_list = os.listdir(output_dir)
     csv_data = pd.read_csv(os.path.join(output_dir, output_list[0]))
     return list(csv_data['image_id'])
+
+def save_target_data(target_dir, log_file_name = 'meta_file.md'):
+    """
+    앙상블을 할 csv 파일들의 이름을 'meta_file.md' 에 저장하는 함수입니다.
+
+    Args:
+        target_dir (str): 앙상블을 할 csv 파일의 이름
+        log_file_name (str, optional): 로그 파일 이름을 설정합니다. Defaults to 'meta_file.md'.
+    """
+    with open(log_file_name, 'a') as f:
+        f.write("Ensemble target: \n")
+        target_list = os.listdir(target_dir)
+        for target_file in target_list:
+            f.write(f'- {target_file}\n')
+    print("Sucess: save to target name")
+
+
+def save_output_data(submission, submission_file, log_file = 'meta_file.md', error_msg = None):
+    
+    p = Path(submission_file)
+    try:
+        os.makedirs(p.parent, exist_ok=True)
+        submission.to_csv(submission_file, index=False) # csv file로 변환 & 저장
+
+        condition = 'Success'
+        if error_msg:
+            condition = 'Error'        
+        with open(p.joinpath(log_file), 'a') as f:
+            f.write(f"{condition}: Submission file saved to {submission_file}\n")
+            if error_msg: f.write(f'{error_msg}\n')
+        print("Sucess: save to status and Ensemble file")
+    except Exception as e:
+        print(f"Error: ")
+        print(e)
+    return submission_file
 
 # def group_csv_with_normalization(predict_list, image_width, image_height):
 
@@ -63,14 +126,13 @@ def make_ensemble_format_per_image(image_id, output_dir, image_width, image_heig
         box_list = []
 
         for box in predict_list[:, 2:6].tolist():
+
             # assert 코드가 발생하면 강제로라도 변환 불가 -> 시간 자원 아까움
-            # # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
-            # if float(box[0]) > image_width or float(box[2]) > image_width:
-            #     print('out of image_width',idx,box[0],box[2])
-            #     assert False
-            # elif float(box[1]) > image_height or float(box[3]) > image_height:
-            #     print('out of image height',idx,box[1], box[3])
-            #     assert False
+            # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
+            if float(box[0]) > image_width or float(box[2]) > image_width:
+                print('out of image_width',idx,box[0],box[2])
+            elif float(box[1]) > image_height or float(box[3]) > image_height:
+                print('out of image height',idx,box[1], box[3])
             box[0] = float(box[0]) / image_width
             box[1] = float(box[1]) / image_height
             box[2] = float(box[2]) / image_width
@@ -102,33 +164,12 @@ def prediction_format_per_image(boxes, scores, labels, image_width, image_height
         output += f'{label} {score} {box[0]*image_width} {box[1]*image_height} {box[2]*image_width} {box[3]*image_height} '
     return output[:-1]
 
-
-def set_parser():
-    """
-    Set basic parser
-    
-    Returns:
-        ArgumentParser
-    """
-    parser = argparse.ArgumentParser(
-                    prog="Ensemble",
-                    description="Ensemble csv files")
-    p = Path.cwd()
-    parser.add_argument('-n', '--name', type=str, default='weighted_boxes_fusion', help="앙상블 할 method")
-    parser.add_argument('-i', '--iou_thr', type=float, default=0.5, help="iou threshold")
-    parser.add_argument('-sbt', '--skip_box_thr', type=float, default=0.0001, help="skip box threshold")
-    parser.add_argument('-sig','--sigma', type=float, default=0.1, help="시그마 값")
-    parser.add_argument('-t', '--target_directory', type=str, default=p.joinpath('target'), help="앙상블을 진행할 csv가 있는 directory")
-    parser.add_argument('-o', '--output_directory', type=str, default=p.joinpath('ensemble'), help="앙상블한 csv가 저장될 directory")
-    parser.add_argument('-w', '--width', type=int, default=1024, help="이미지 사이즈 크기")
-    parser.add_argument('-l','--height', type=int, default=1024, help="이미지 사이즈 높이")
-    return parser
-
 def check_prediction_over(boxes):
     if len(boxes) == 0: return 0
     return np.array([boxes[0]>1, boxes[1]>1, boxes[2]>1, boxes[3]>1]).any()
 
 def main():
+    # 
     parser = set_parser()
     args = parser.parse_args()
     ensemble_name = args.name
@@ -137,6 +178,7 @@ def main():
     sigma = args.sigma
     target = args.target_directory
     output = args.output_directory
+    log_file = args.log_file
     image_width = args.width
     image_height = args.height
 
@@ -146,6 +188,18 @@ def main():
     
     submission['PredictionString'] = ''
     submission['image_id'] = image_ids
+    
+    # 파일 이름 글로벌하게 만들기
+    file_name = f'{ensemble_name}_error.csv'
+
+    # 에러 메세지 저장
+    error_msg = None
+
+    # ensemble한 target data 이름 저장
+    try:
+        save_target_data(target_dir=target, log_file_name=log_file)
+    except:
+        print("Error to save target name")
 
     try: 
         for image_idx, image_id in enumerate(tqdm(image_ids)):
@@ -155,7 +209,8 @@ def main():
             # 결측치 제거에 따라 예측 개수가 달라질 수 있다.
             # 모델에 따른 함수는 나중에 만들도록 한다.
 
-            weights = [1] * len(labels)
+            # 모델에 따른 가중치
+            weights = [1] * len(labels) 
             
             # 아예 box들이 예측되지 않는 경우 스킵한다.
             if len(boxes) == 0: continue
@@ -174,17 +229,28 @@ def main():
             predictions = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
             submission.loc[image_idx, 'PredictionString'] = predictions
         
-        file_name = f'{ensemble_name}_result_0.csv'
-    
-    except:
+        file_name = f'{ensemble_name}_result.csv'
+
+    # 통상적인 Exception
+    except Exception as e:
         print(image_idx, "has a problem")
-        file_name = f'{ensemble_name}_error_{image_idx}_0.csv'
+        file_name = f'{ensemble_name}_error_{image_idx}.csv'
+        error_msg = e
+
+    # 강제로 Exception을 발생시킨 경우
+    # else로 검출이 안되는 점을 주의
+    except BaseException as e:
+        print("Force!!!")
+        print(f"Image {image_idx} has a problem")
+        file_name = f'{ensemble_name}_error_{image_idx}.csv'
+        error_msg = 'force exit'
 
     # 예외와 관계없이 실행
     finally:
-        os.makedirs(output, exist_ok=True)
-        submission_file = os.path.join(output, file_name)
-        submission.to_csv(submission_file, index=False)
+        p = Path(output)
+        file_name = p.joinpath(file_name)
+        print(error_msg, file_name)
+        submission_file = save_output_data(submission, file_name, log_file=log_file, error_msg = error_msg) # make submission file and save meta data
         print(f"Submission file saved to {submission_file}")
 
 if __name__ == '__main__': 

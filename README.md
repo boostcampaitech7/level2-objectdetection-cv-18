@@ -67,6 +67,10 @@
 
 ## Leaderboard
 
+![image](https://github.com/user-attachments/assets/a6e460ca-b192-4db5-b9e8-39f0f685b84c)
+
+![image](https://github.com/user-attachments/assets/8d6f47e8-58b6-4a0a-82fd-8d5fe777493c)
+
 
 ## Tools
 - Github ( Issue, Projects )

@@ -48,16 +48,28 @@ def save_target_data(target_dir, output_dir, meta_file_name = 'meta_file.md'):
         target_list = os.listdir(target_dir)
         for target_file in target_list:
             f.write(f'- {target_file}\n')
+    print("Sucess: save to target name")
 
 
-def save_output_data(file_name, output_dir, error_msg = None, meta_file_name = 'meta_file.md'):
+def save_output_data(submission, output_dir, file_name, error_msg = None, meta_file_name = 'meta_file.md'):
     p = Path(output_dir)
-    condition = 'Success'
-    if error_msg:
-        condition = 'Error'        
-    with open(p.joinpath(meta_file_name), 'a') as f:
-        f.write(f"{condition}: Submission file saved to {file_name}\n")
-        if error_msg: f.write(f'{error_msg}\n')
+    try:
+        os.makedirs(output_dir, exist_ok=True)
+        submission_file = os.path.join(output_dir, file_name)
+        submission.to_csv(submission_file, index=False) # csv file로 변환 & 저장
+
+        condition = 'Success'
+        if error_msg:
+            condition = 'Error'        
+        with open(p.joinpath(meta_file_name), 'a') as f:
+            f.write(f"{condition}: Submission file saved to {file_name}\n")
+            if error_msg: f.write(f'{error_msg}\n')
+        print("Sucess: save to status and Ensemble file")
+    except Exception as e:
+        print(f"Error: ")
+        print(e)
+    return submission_file
+
 # def group_csv_with_normalization(predict_list, image_width, image_height):
 
 #     predict_list = np.reshape(predict_list, (-1, 6))
@@ -146,8 +158,6 @@ def prediction_format_per_image(boxes, scores, labels, image_width, image_height
         output += f'{label} {score} {box[0]*image_width} {box[1]*image_height} {box[2]*image_width} {box[3]*image_height} '
     return output[:-1]
 
-
-
 def check_prediction_over(boxes):
     if len(boxes) == 0: return 0
     return np.array([boxes[0]>1, boxes[1]>1, boxes[2]>1, boxes[3]>1]).any()
@@ -171,11 +181,14 @@ def main():
     submission['PredictionString'] = ''
     submission['image_id'] = image_ids
     
+    # 에러 메세지 저장
+    error_msg = None
+
     # ensemble한 target data 이름 저장
     try:
         save_target_data(target_dir=target, output_dir=output)
     except:
-        print("error to save target ensemble name")
+        print("Error to save target name")
 
     try: 
         for image_idx, image_id in enumerate(tqdm(image_ids)):
@@ -206,15 +219,14 @@ def main():
         
         file_name = f'{ensemble_name}_result.csv'
     
-    except:
+    except Exception as e:
         print(image_idx, "has a problem")
         file_name = f'{ensemble_name}_error_{image_idx}.csv'
+        error_msg = e
 
     # 예외와 관계없이 실행
     finally:
-        os.makedirs(output, exist_ok=True)
-        submission_file = os.path.join(output, file_name)
-        submission.to_csv(submission_file, index=False)
+        submission_file = save_output_data(submission, output, file_name, error_msg = error_msg) # make submission file and save meta data
         print(f"Submission file saved to {submission_file}")
 
 if __name__ == '__main__': 

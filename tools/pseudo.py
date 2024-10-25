@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from tqdm import tqdm
 
-def change_pascal_to_coco(test_p):
+def change_pascal_to_coco(test_p,output_p=None):
     """
     pascal_voc 제출 데이터를 coco 제출 데이터로 만든다.
     pascal_voc 제출 데이터는 다음과 같이 구성되어 있다.
@@ -21,8 +21,7 @@ def change_pascal_to_coco(test_p):
         coco_format (dict): coco_format 으로 만들어진 dict
     """
     # data_root = 'D:\AI-BOOSTCAMP-7TH\level2-objectdetection-cv-18\tools\ensemble\non_maximum_weighted_result.csv'
-    p = Path.cwd()
-    test_p = p.joinpath('ensemble/non_maximum_weighted_result.csv')
+    test_p = Path(test_p)
     test_data = pd.read_csv(test_p)
 
     # 저장할 coco_data format 만들기
@@ -80,9 +79,10 @@ def change_pascal_to_coco(test_p):
             })
 
     print("저장 중...")
-    with open(test_p.parent.joinpath('test.json'),'w') as f:
+
+    # 저장해 주는 곳, 필요 없으면 주석처리
+    output_p = test_p.parent.joinpath('test.json') if output_p == None else output_p
+    with open(output_p,'w') as f:
         json.dump(coco_data, f, indent=4)
+
     return coco_data
-
-change_pascal_to_coco('D:\AI-BOOSTCAMP-7TH\level2-objectdetection-cv-18\tools\ensemble\non_maximum_weighted_result.csv')
-

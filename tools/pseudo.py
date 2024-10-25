@@ -27,11 +27,11 @@ def make_pseudo_dataframe(test_p,train_p=None):
         "categories":[]
     }
 
-    for idx, row in test_data.iterrows():
+    for image_idx, image_id in enumerate(list(np.unique(test_data.image_id.values))):
         
         # predict_string 전처리
         # print(row)
-        predict_string = row['PredictionString']
+        predict_string = test_data[test_data['image_id'] == image_id]['PredictionString']
 
         # 예외처리 : PredictionString이 아예 비어있을 경우 이 부분을 넘김
         if len(predict_string) == 0 : continue
@@ -45,8 +45,8 @@ def make_pseudo_dataframe(test_p,train_p=None):
 
         # coco_data["images"] 추가
         coco_data["images"].append({
-            "id":idx,
-            "file_name":row['image_id']
+            "id":image_idx,
+            "file_name":image_id
         })
 
         coco_data['categories'] = train_data['categories']
@@ -64,7 +64,7 @@ def make_pseudo_dataframe(test_p,train_p=None):
 
             coco_data['annotations'].append({
                 'id': anno_id,
-                'image_id': idx,
+                'image_id': image_idx,
                 'category_id': coco_data['categories'][label],
                 'bbox': coco_bbox
             })

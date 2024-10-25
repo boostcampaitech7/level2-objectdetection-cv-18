@@ -5,19 +5,24 @@ import os
 import numpy as np
 import json
 from pathlib import Path
+from tqdm import tqdm
 
-# pascal dataset을 coco dataset으로 변경
-def make_pseudo_dataframe(test_p,train_p=None):
+def change_pascal_to_coco(test_p):
+    """
+    pascal_voc 제출 데이터를 coco 제출 데이터로 만든다.
+    pascal_voc 제출 데이터는 다음과 같이 구성되어 있다.
+    column: image_id, PrecisionString
+    PredictionString = (label, score, xmin, ymin, xmax, ymax)
 
+    Args:
+        test_p (str): pascal_voc로 만들어진 csv 파일 경로
+
+    Returns:
+        coco_format (dict): coco_format 으로 만들어진 dict
+    """
     # data_root = 'D:\AI-BOOSTCAMP-7TH\level2-objectdetection-cv-18\tools\ensemble\non_maximum_weighted_result.csv'
     p = Path.cwd()
-    train_p = p.joinpath('target/train.json')
     test_p = p.joinpath('ensemble/non_maximum_weighted_result.csv')
-
-    # 파일을 열기
-    # Train data의 meta data를 불러와서 test_data에서 달라지지 않는 부분은 mapping 시킬 것이다.
-    with open(train_p,'r') as f:
-        train_data = json.load(f)
     test_data = pd.read_csv(test_p)
 
     # 저장할 coco_data format 만들기
@@ -27,14 +32,13 @@ def make_pseudo_dataframe(test_p,train_p=None):
         "categories":[]
     }
 
-    for image_idx, image_id in enumerate(list(np.unique(test_data.image_id.values))):
+    for image_idx, image_id in enumerate(tqdm(list(np.unique(test_data.image_id.values)))):
         
         # predict_string 전처리
-        # print(row)
-        predict_string = test_data[test_data['image_id'] == image_id]['PredictionString']
-
+        predict_string = test_data[test_data['image_id'] == image_id]['PredictionString'].tolist()
         # 예외처리 : PredictionString이 아예 비어있을 경우 이 부분을 넘김
         if len(predict_string) == 0 : continue
+        else: predict_string = predict_string[0]
 
         # predict_string을 " "으로 split함
         predict_list = str(predict_string).split(" ")
@@ -49,12 +53,18 @@ def make_pseudo_dataframe(test_p,train_p=None):
             "file_name":image_id
         })
 
-        coco_data['categories'] = train_data['categories']
+        # coco_data['categories'] 추가
+        categories =  set(map(int, predict_list[:,0].tolist()))
+        for category_id, category_name in enumerate(categories):
+            coco_data['categories'].append({
+                'id': category_id,
+                'name': category_name
+            })
 
+        # coco_data['annotations'] 추가
         for anno_id, predict in enumerate(predict_list[:, :].tolist()): #xmin, ymin, xmax, ymax
             # Bounding Box (COCO는 [x, y, width(xmax-xmin), height(ymax-ymin)])변환
             label = predict[0]
-            score = predict[1]
             pascal_bbox = predict[2:6]
             coco_bbox = [0]*4
             coco_bbox[0] = float(pascal_bbox[0])
@@ -65,56 +75,14 @@ def make_pseudo_dataframe(test_p,train_p=None):
             coco_data['annotations'].append({
                 'id': anno_id,
                 'image_id': image_idx,
-                'category_id': coco_data['categories'][label],
+                'category_id': label,
                 'bbox': coco_bbox
             })
+
+    print("저장 중...")
+    with open(test_p.parent.joinpath('test.json'),'w') as f:
+        json.dump(coco_data, f, indent=4)
     return coco_data
 
-    # prediction String을 파싱한다.
-    # Bounding Box (COCO는 [x, y, width(xmax-xmin), height(ymax-ymin)])변환
-    
-        # for i in range(0,len(prediction_string),6):
-            # print(i)
-        # label, scores, boxes=test_df.loc[test_df.image_id == image_id,'PredictionString']
-    #     boxes, scores = 
-    #     if boxes.shape[0] == 0:
-    #         result = {
-    #             'image_path': os.path.join(TEST_DIR, image_id+'.jpg'),
-    #             'xmin': None,
-    #             'ymin': None,
-    #             'xmax': None,
-    #             'ymax': None,
-    #             'isbox': False
-    #         }
-    #         results.append(result)
-    #     else:
-    #         for box in boxes:
-    #             result = {
-    #                 'image_path': os.path.join(TEST_DIR, image_id+'.jpg'),
-    #                 'xmin': box[0],
-    #                 'ymin': box[1],
-    #                 'xmax': box[2],
-    #                 'ymax': box[3],
-    #                 'isbox': True
-    #             }
-    #             results.append(result)
-    # pseudo_df = pd.DataFrame(results, columns=['image_path', 'xmin', 'ymin', 'xmax', 'ymax', 'isbox'])
-    
+change_pascal_to_coco('D:\AI-BOOSTCAMP-7TH\level2-objectdetection-cv-18\tools\ensemble\non_maximum_weighted_result.csv')
 
-    # img_paths = []
-    # for image_id in df.image_id.values:
-    #     img_paths.append(os.path.join(TRAIN_DIR, image_id+'.jpg'))
-    # df['image_path'] = np.array(img_paths)
-    # valid_df = df.loc[df['fold'] == PSEUDO_FOLD]
-    # train_df = df.loc[~df.index.isin(valid_df.index)]
-    # valid_df = valid_df.loc[valid_df['isbox']==True]
-    
-    # train_df = train_df[['image_path','xmin','ymin','xmax','ymax','isbox']].reset_index(drop=True)
-    # valid_df = valid_df[['image_path','xmin','ymin','xmax','ymax','isbox']].reset_index(drop=True)
-
-    # train_df = pd.concat([train_df, pseudo_df], ignore_index=True).sample(frac=1).reset_index(drop=True)
-    # train_df.to_csv('train.csv', index=False)
-    # valid_df.to_csv('valid.csv', index=False)
-
-
-make_pseudo_dataframe()

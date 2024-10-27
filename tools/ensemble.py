@@ -77,35 +77,20 @@ def save_output_data(submission, submission_file, log_file = 'meta_file.md', err
         print(e)
     return submission_file
 
-# def group_csv_with_normalization(predict_list, image_width, image_height):
-
-#     predict_list = np.reshape(predict_list, (-1, 6))
-#     box_list = []
-
-#     for box_idx, box in enumerate(predict_list[:, 2:6].tolist()):
-#         # box의 각 좌표를 float형으로 변환한 후 image의 넓이와 높이로 각각 정규화
-
-#         box[0] = float(box[0]) / image_width
-#         box[1] = float(box[1]) / image_height
-#         box[2] = float(box[2]) / image_width
-#         box[3] = float(box[3]) / image_height
-#         box_list.append(box)
-#     score_list = list(map(float, predict_list[:, 1].tolist()))
-#     label_list = list(map(int, predict_list[:, 0].tolist()))
-#     return box_list, score_list, label_list
-
 # ensemble_boxes format 
-def make_ensemble_format_per_image(image_id, output_dir, image_width, image_height):
+# image_id 하나당 파일을 계속 반복적으로 불러오기 때문에 시간이 오래 걸리는 것이다.
+# csv_datas는 한 번만 실행해도 충분한데 왜 이렇게 짰지?
 
+def get_csv_datas(output_dir):
     # output_dir에서 csv 파일 목록을 뽑아서 csv data를 csv_datas에 저장
     csv_datas = []
     output_list = os.listdir(output_dir)
     for output in output_list:
         csv_data = pd.read_csv(os.path.join(output_dir, output))
         csv_datas.append(csv_data)
-    # csv_data에서 label, score, bbox들을 뽑고
-    # 이를 labels, scores, bboxs에 저장한다.
-    
+    return csv_datas
+
+def make_ensemble_format_per_image(image_id, output_dir, image_width, image_height):
     # 각 image id 별로 submission file에서 box좌표 추출
     boxes_list = []
     scores_list = []
@@ -182,13 +167,11 @@ def main():
     image_width = args.width
     image_height = args.height
 
-    # submission format 만들기
-    submission = pd.DataFrame()
     image_ids = return_image_ids(target)
-    
-    submission['PredictionString'] = ''
-    submission['image_id'] = image_ids
-    
+
+    # Prediction 저장하는 list만들기
+    prediction_strings = []
+
     # 파일 이름 글로벌하게 만들기
     file_name = f'{ensemble_name}_error.csv'
 
@@ -226,10 +209,16 @@ def main():
                 results = weighted_boxes_fusion(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
             else: raise "no such ensemble name"
                 
-            predictions = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
-            submission.loc[image_idx, 'PredictionString'] = predictions
+            prediction_string = prediction_format_per_image(*results, image_width = image_width, image_height = image_height)
+            
+            prediction_strings.append(prediction_string)
         
         file_name = f'{ensemble_name}_result.csv'
+
+        # Submission
+        submission = pd.DataFrame()
+        submission['PredictionString'] = prediction_strings
+        submission['image_id'] = image_ids
 
     # 통상적인 Exception
     except Exception as e:

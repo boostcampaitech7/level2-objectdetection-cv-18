@@ -25,7 +25,7 @@ import detectron2.data.transforms as T
 
 # config 불러오기
 cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file('COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml'))
+cfg.merge_from_file(model_zoo.get_config_file('/data/ephemeral/home/euna/level2-objectdetection-cv-18/detectron2/configs/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml'))
 
 # train, test 둘 다 해당하는 내용 수정
 cfg.DATA_DIR = '/data/ephemeral/home/dataset/'
@@ -111,7 +111,7 @@ cfg.DATASETS.TRAIN = ('coco_trash_train',)
 cfg.DATASETS.TEST = ('coco_trash_val',)
 cfg.DATALOADER.NUM_WOREKRS = 2
 
-cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url('COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml')
+cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url('/data/ephemeral/home/euna/level2-objectdetection-cv-18/detectron2/configs/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml')
 
 cfg.SOLVER.IMS_PER_BATCH = 4
 cfg.SOLVER.BASE_LR = 0.001

@@ -81,16 +81,16 @@ def save_output_data(submission, submission_file, log_file = 'meta_file.md', err
 # image_id 하나당 파일을 계속 반복적으로 불러오기 때문에 시간이 오래 걸리는 것이다.
 # csv_datas는 한 번만 실행해도 충분한데 왜 이렇게 짰지?
 
-def get_csv_datas(output_dir):
+def get_csv_datas(target_dir):
     # output_dir에서 csv 파일 목록을 뽑아서 csv data를 csv_datas에 저장
     csv_datas = []
-    output_list = os.listdir(output_dir)
+    output_list = os.listdir(target_dir)
     for output in output_list:
-        csv_data = pd.read_csv(os.path.join(output_dir, output))
+        csv_data = pd.read_csv(os.path.join(target_dir, output))
         csv_datas.append(csv_data)
     return csv_datas
 
-def make_ensemble_format_per_image(image_id, output_dir, image_width, image_height):
+def make_ensemble_format_per_image(image_id, csv_datas, image_width, image_height):
     # 각 image id 별로 submission file에서 box좌표 추출
     boxes_list = []
     scores_list = []
@@ -185,9 +185,10 @@ def main():
         print("Error to save target name")
 
     try: 
+        csv_datas = get_csv_datas(target_dir=target)
         for image_idx, image_id in enumerate(tqdm(image_ids)):
             
-            boxes, scores, labels = make_ensemble_format_per_image(image_id, target, image_width = image_width, image_height = image_height)
+            boxes, scores, labels = make_ensemble_format_per_image(image_id, csv_datas, image_width = image_width, image_height = image_height)
 
             # 결측치 제거에 따라 예측 개수가 달라질 수 있다.
             # 모델에 따른 함수는 나중에 만들도록 한다.

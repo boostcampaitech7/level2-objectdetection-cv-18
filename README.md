@@ -2,29 +2,12 @@
   <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/boostcampaitech7/level2-objectdetection-cv-18&count_bg=%23C6D2FF&title_bg=%23555555&icon=&icon_color=%23FFFFFF&title=hits&edge_flat=false"/></a>
 </div>
 
-| 커밋 유형 | 의미 |
-| :-: | -|
-|feat|	새로운 기능 추가|
-|fix|	버그 수정|
-|docs	|문서 수정|
-|style|	코드 formatting, 세미콜론 누락, 코드 자체의 변경이 없는 경우|
-|refactor	|코드 리팩토링|
-|test|	테스트 코드, 리팩토링 테스트 코드 추가|
-|chore|	패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore|
-|design|	CSS 등 사용자 UI 디자인 변경|
-|comment	|필요한 주석 추가 및 변경|
-|rename|	파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우|
-|remove|	파일을 삭제하는 작업만 수행한 경우|
-|!BREAKING |CHANGE	커다란 API 변경의 경우|
-|!HOTFIX	|급하게 치명적인 버그를 고쳐야 하는 경우|
-
-
 # 딥하조
 ![image](https://github.com/user-attachments/assets/1d61152d-0f72-499f-b70f-88ccdf21870d)
 - 2024.10.02 ~ 2024.10.24
 - 재활용 품목 분류를 위한 Object Detection
 - Naver Connect & Upstage 주관 대회
-- [CSV](https://docs.google.com/spreadsheets/d/1UjokS8UYo729eNL_m7iWYXZjsI_MPKUfhAe2mp3oBJQ/edit?usp=sharing)
+
 ## 💡 팀원 소개
 
 | [![](https://avatars.githubusercontent.com/chan-note)](https://github.com/chan-note) | [![](https://avatars.githubusercontent.com/Donghwan127)](https://github.com/Donghwan127) | [![](https://avatars.githubusercontent.com/batwan01)](https://github.com/batwan01) | [![](https://avatars.githubusercontent.com/taehan79-kim)](https://github.com/taehan79-kim) | [![](https://avatars.githubusercontent.com/nOctaveLay)](https://github.com/nOctaveLay)  | [![](https://avatars.githubusercontent.com/Two-Silver)](https://github.com/Two-Silver)  |
@@ -76,7 +59,7 @@
 - Github ( Issue, Projects )
 - Notion
 - Slack
-- Google Sheets, Presentation
+- [Google Sheets](https://docs.google.com/spreadsheets/d/1UjokS8UYo729eNL_m7iWYXZjsI_MPKUfhAe2mp3oBJQ/edit?usp=sharing), Presentation
 
 ## Project Timeline
 
@@ -88,6 +71,31 @@
 ## Augmentations
 
 
-## Voting
+## Ensemble
 
 
+## Team Convention
+개발 변경 사항 발생시 다음과 같은 사항을 준수했습니다.\
+Pull Request를 여실 때 다음과 같은 사항을 지켜주세요.
+
+### Commit Message Header
+| 커밋 유형 | 의미 |
+| :-: | -|
+|feat|	새로운 기능 추가|
+|fix|	버그 수정|
+|docs	|문서 수정|
+|style|	코드 formatting, 세미콜론 누락, 코드 자체의 변경이 없는 경우|
+|refactor	|코드 리팩토링|
+|test|	테스트 코드, 리팩토링 테스트 코드 추가|
+|chore|	패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore|
+|design|	CSS 등 사용자 UI 디자인 변경|
+|comment	|필요한 주석 추가 및 변경|
+|rename|	파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우|
+|remove|	파일을 삭제하는 작업만 수행한 경우|
+|!BREAKING |CHANGE	커다란 API 변경의 경우|
+|!HOTFIX	|급하게 치명적인 버그를 고쳐야 하는 경우|
+
+### branch name
+
+브랜치 이름은 `닉네임/issue<이슈번호>` 로 작성합니다.\
+누가 작업을 진행했는지 알 수 있으며, 이슈 관리와 코드 변경 사항을 효과적으로 추적합니다.

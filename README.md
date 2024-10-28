@@ -71,7 +71,7 @@
 ## Augmentations
 
 
-## Voting
+## Ensemble
 
 
 ## Team Convention

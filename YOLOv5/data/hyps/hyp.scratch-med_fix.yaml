@@ -1,0 +1,33 @@
+# 학습 하이퍼파라미터 및 증강 설정
+lr0: 0.01  # 초기 학습률 (SGD=1E-2, Adam=1E-3)
+lrf: 0.1  # 최종 학습률 (lr0 * lrf)
+momentum: 0.937  # SGD momentum/Adam beta1
+weight_decay: 0.0005  # 옵티마이저 가중치 감소
+warmup_epochs: 3.0  # 웜업 에포크
+warmup_momentum: 0.8  # 웜업 모멘텀 초기값
+warmup_bias_lr: 0.1  # 웜업 바이어스 학습률 초기값
+
+box: 0.05  # box loss gain
+cls: 0.3  # 클래스 손실 gain
+cls_pw: 1.0  # 클래스 BCELoss 양성 가중치
+obj: 0.7  # 객체 손실 gain (픽셀과 스케일)
+obj_pw: 1.0  # 객체 BCELoss 양성 가중치
+iou_t: 0.20  # IoU 학습 임계값
+anchor_t: 4.0  # 앵커-다중 임계값
+
+# 증강 설정
+hsv_h: 0.015  # 이미지 HSV-Hue 변환 (비율)
+hsv_s: 0.5  # 이미지 HSV-Saturation 변환 (비율) -> 채도를 너무 높게 두지 않음
+hsv_v: 0.3  # 이미지 HSV-Value 변환 (비율) -> 밝기 변화를 적절히 유지
+
+degrees: 90.0  # 이미지 회전 (+/- 5도) -> 회전 변화를 살짝 추가 (쓰레기가 다양한 각도로 놓여있을 가능성 반영)
+translate: 0.2  # 이미지 이동 (+/- 20%) -> 이동을 약간 확대, 다양한 배경과 위치 반영
+scale: 0.5  # 이미지 크기 조정 (+/- 50%) -> 크기 변화는 다소 줄여서 쓰레기의 고정 크기에 맞춤
+shear: 0.0  # 이미지 기울이기 변환
+perspective: 0.0  # 원근 변환 비활성화
+flipud: 0.5  # 상하 반전 비활성화
+fliplr: 0.5  # 좌우 반전 (50%) -> 좌우 반전은 유효할 가능성이 높음
+
+mosaic: 1.0  # 모자이크 활성화 (확률 100%) -> 모자이크 증강은 매우 유용
+mixup: 0.0  # Mixup 비활성화 -> 쓰레기 데이터의 특성상 서로 다른 물체를 섞는 게 효과적이지 않을 수 있음
+copy_paste: 0.0  # Copy-paste 비활성화

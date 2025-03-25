@@ -2,7 +2,7 @@
   <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/boostcampaitech7/level2-objectdetection-cv-18&count_bg=%23C6D2FF&title_bg=%23555555&icon=&icon_color=%23FFFFFF&title=hits&edge_flat=false"/></a>
 </div>
 
-# 딥하조
+# [딥하조](https://watery-monkey-d20.notion.site/Object-Detection-CV_-18-12c1326a1299808ba7ffd5d62111dfc3)
 ![image](https://github.com/user-attachments/assets/1d61152d-0f72-499f-b70f-88ccdf21870d)
 - 2024.10.02 ~ 2024.10.24
 - 재활용 품목 분류를 위한 Object Detection
